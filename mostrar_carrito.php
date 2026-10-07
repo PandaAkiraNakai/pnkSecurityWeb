@@ -44,7 +44,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
               if($datos_restorant['foto']!="")
               {  
                 ?>
-                  <img class="logosintituciones" src="../imagenes/cod<?php echo $key;?>/<?php echo $datos_restorant['foto'];?>" width="170px" alt="">
+                  <img class="logosintituciones" src="imagenes/cod<?php echo $key;?>/<?php echo $datos_restorant['foto'];?>" width="170px" alt="">
               <?php
               }else{
                 ?>
@@ -58,7 +58,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
         <div class="col-lg-4">
           <div class="carro">
             <div class="media float-right">
-              <a class="volver" href="index.php?id=<?php echo $_GET['keyid'];?>">
+              <a class="volver" href="index.php?id=<?php echo $key;?>">
               Volver a la Carta
               </a>&nbsp;&nbsp;
               <a class="limpiar" href="#">
