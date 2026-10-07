@@ -1,8 +1,23 @@
 <?php
 
+// Conexión a la base de datos (T-U2-01, OBS-01/OBS-02/OBS-12).
+// Host, usuario, clave y base se leen del entorno (ver compose.yaml y .env.example);
+// el código no contiene credenciales. Se abre una sola conexión por petición y
+// cualquier error de MySQL se convierte en excepción (no se devuelve false silencioso).
 function conectar()
 {
-    $con=mysqli_connect("localhost","root","","pnk_security");
+    static $con = null;
+    if ($con instanceof mysqli) {
+        return $con;
+    }
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    $con = mysqli_connect(
+        getenv('DB_HOST') ?: 'localhost',
+        getenv('DB_USER') ?: '',
+        getenv('DB_PASSWORD') ?: '',
+        getenv('DB_NAME') ?: 'pnk_security'
+    );
+    mysqli_set_charset($con, 'utf8mb4');
     return $con;
 }
 
