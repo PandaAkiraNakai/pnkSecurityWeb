@@ -3,14 +3,21 @@
 include("setup/setup.php");
 session_start();
 
-mysqli_set_charset(conectar(), 'utf8');
-$key=$_GET['id'];
-$_SESSION['id']=$_GET['id'];
+// H-01: el id se valida en el servidor antes de usarlo. Falta o no cumple la regla → 400.
+$key=id_valido($_GET['id'] ?? null);
+if ($key === null) {
+    responder_error(400, 'Solicitud inválida: el identificador de restaurante falta o no es un número válido.');
+}
 
 $sql_restorant="SELECT direcciones.calle, direcciones.numero, direcciones.comuna, direcciones.region, restautantes.nombre, restautantes.id, restautantes.fono, restautantes.email, restautantes.foto FROM restautantes INNER JOIN direcciones ON restautantes.direcciones_id =
-direcciones.id WHERE restautantes.id = ".$key." AND restautantes.eliminado IS NULL";
-$result_restorant=mysqli_query(conectar(),$sql_restorant);
+direcciones.id WHERE restautantes.id = ? AND restautantes.eliminado IS NULL";
+$result_restorant=consulta($sql_restorant,'i',[$key]);
 $datos_restorant=mysqli_fetch_array($result_restorant);
+// Id con formato válido pero sin restaurante → 404 controlado, no una página vacía con avisos.
+if (!$datos_restorant) {
+    responder_error(404, 'El restaurante solicitado no existe.');
+}
+$_SESSION['id']=$key;
 
 
 
@@ -145,8 +152,8 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
   <!--DESTACADOS-->
   <?php
   $sql="SELECT items.id,items.visible,items.tiempo,items.puntuacion,items.destacado, items.precio, items.descripcion,items.observaciones, items.nombre, items.foto, items.orden, cartas.restautantes_id, categorias.visible FROM categorias INNER JOIN items ON items.categorias_id = categorias.id INNER JOIN cartas ON categorias.cartas_id = cartas.id
-  WHERE items.destacado = 1 AND items.eliminado IS NULL AND items.visible=1 AND cartas.restautantes_id = ".$key." AND cartas.eliminada IS NULL AND categorias.visible = 1 AND categorias.eliminado IS NULL";
-  $result=mysqli_query(conectar(),$sql);
+  WHERE items.destacado = 1 AND items.eliminado IS NULL AND items.visible=1 AND cartas.restautantes_id = ? AND cartas.eliminada IS NULL AND categorias.visible = 1 AND categorias.eliminado IS NULL";
+  $result=consulta($sql,'i',[$key]);
   $cont_destacados=mysqli_num_rows($result);
   if( $cont_destacados!=0)
   {
@@ -225,8 +232,8 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
                   <nav>
                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                         <?php
-                            $sqlcartas="SELECT cartas.id,cartas.restautantes_id,cartas.nombre,cartas.orden,cartas.visible FROM cartas WHERE cartas.restautantes_id = ".$key." and visible=1 AND eliminada IS NULL order by orden asc";
-                            $resultcartas=mysqli_query(conectar(),$sqlcartas);
+                            $sqlcartas="SELECT cartas.id,cartas.restautantes_id,cartas.nombre,cartas.orden,cartas.visible FROM cartas WHERE cartas.restautantes_id = ? and visible=1 AND eliminada IS NULL order by orden asc";
+                            $resultcartas=consulta($sqlcartas,'i',[$key]);
                             $arraycartas=[];
                             while($cartas=mysqli_fetch_array($resultcartas))
                             {
@@ -245,8 +252,8 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
                     ?>
                     <div class="tab-pane fade <?php if($i==0){?>show active<?php } ?>" id="<?php echo quitarespacios($arraycartas[$i]["nombre"]);?>" role="tabpanel" aria-labelledby="nav-<?php echo quitarespacios($arraycartas[$i]["nombre"]);?>-tab">              
                       <?php
-                          $sql_categorias="select id,nombre from categorias where visible=1 and cartas_id='".$arraycartas[$i]["id"]."' AND eliminado IS NULL order by orden asc";
-                          $result_categorias=mysqli_query(conectar(),$sql_categorias);
+                          $sql_categorias="select id,nombre from categorias where visible=1 and cartas_id=? AND eliminado IS NULL order by orden asc";
+                          $result_categorias=consulta($sql_categorias,'i',[$arraycartas[$i]["id"]]);
                           $cont_categorias=mysqli_num_rows($result_categorias);
                           if($cont_categorias==0)
                           {?>
@@ -268,8 +275,8 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
 
                                 <div class="row">
                                   <?php
-                                      $sql_items="SELECT items.visible,items.id, items.nombre, items.descripcion,items.observaciones,items.tiempo,items.puntuacion, items.precio, items.visible, items.foto, items.orden, items.categorias_id FROM items WHERE items.categorias_id = ".$datos_categorias['id']." AND items.visible=1 AND eliminado IS NULL order by orden asc";
-                                      $result_items=mysqli_query(conectar(),$sql_items);
+                                      $sql_items="SELECT items.visible,items.id, items.nombre, items.descripcion,items.observaciones,items.tiempo,items.puntuacion, items.precio, items.visible, items.foto, items.orden, items.categorias_id FROM items WHERE items.categorias_id = ? AND items.visible=1 AND eliminado IS NULL order by orden asc";
+                                      $result_items=consulta($sql_items,'i',[$datos_categorias['id']]);
                                       $count_items=mysqli_num_rows($result_items);
                                       if($count_items!=0)
                                       {
@@ -404,8 +411,8 @@ if(isset($key))
           <br>
           <?php
 
-            $sqlcomentarios="select * from comentarios where id_restaurante=".$key;
-            $resultcomentarios=mysqli_query(conectar(),$sqlcomentarios);
+            $sqlcomentarios="select * from comentarios where id_restaurante=?";
+            $resultcomentarios=consulta($sqlcomentarios,'i',[$key]);
             while($datoscomentarios=mysqli_fetch_array($resultcomentarios))
             {
           ?>

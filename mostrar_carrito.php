@@ -2,12 +2,19 @@
 include("setup/setup.php");
 session_start();
 
-$key=$_GET['id'];
+// H-01: misma regla de validación del id que en index.php.
+$key=id_valido($_GET['id'] ?? null);
+if ($key === null) {
+    responder_error(400, 'Solicitud inválida: el identificador de restaurante falta o no es un número válido.');
+}
 
 $sql_restorant="SELECT direcciones.calle, direcciones.numero, direcciones.comuna, direcciones.region, restautantes.nombre, restautantes.id, restautantes.fono, restautantes.email, restautantes.foto FROM restautantes INNER JOIN direcciones ON restautantes.direcciones_id =
-direcciones.id WHERE restautantes.id = ".$key;
-$result_restorant=mysqli_query(conectar(),$sql_restorant);
+direcciones.id WHERE restautantes.id = ? AND restautantes.eliminado IS NULL";
+$result_restorant=consulta($sql_restorant,'i',[$key]);
 $datos_restorant=mysqli_fetch_array($result_restorant);
+if (!$datos_restorant) {
+    responder_error(404, 'El restaurante solicitado no existe.');
+}
 
 ?>
 <!DOCTYPE html>
