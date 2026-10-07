@@ -41,6 +41,10 @@ $_SESSION['id']=$key;
 <body>
 <nav class="navbar navbar-light bg-light">
    <?php
+    if(isset($_GET['login']) && $_GET['login']==='invalido')
+    {
+      echo '<span class="text-danger mr-3">Usuario o contraseña incorrectos.</span>';
+    }
     if(!isset($_SESSION['nombre']))
     {
     ?>
