@@ -94,7 +94,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
                   <tbody>
                      <?php
                      $total=0;
-                     foreach ($_SESSION["carrito"] as $value) 
+                     foreach ($_SESSION["carrito"] ?? [] as $value) 
                      {
                      ?>
                      <tr>

@@ -240,7 +240,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
                   </nav>
                   <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                     <?php
-                     for($i=0;$i<=sizeof($arraycartas);$i++)
+                     for($i=0;$i<sizeof($arraycartas);$i++)
                      {                             
                     ?>
                     <div class="tab-pane fade <?php if($i==0){?>show active<?php } ?>" id="<?php echo quitarespacios($arraycartas[$i]["nombre"]);?>" role="tabpanel" aria-labelledby="nav-<?php echo quitarespacios($arraycartas[$i]["nombre"]);?>-tab">              
