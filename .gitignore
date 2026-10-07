@@ -1,2 +1,7 @@
 # Configuración local con secretos
 .env
+
+# Artefactos ajenos al código
+.DS_Store
+Thumbs.db
+*.zip
