@@ -3,7 +3,9 @@
 include("setup/setup.php");
 session_start();
 
-switch($_POST['op'])
+// H-03: la operación y los identificadores que llegan por POST se validan antes de usarse.
+// op solo admite 1 (agregar), 2 (quitar una posición) o 3 (vaciar); cualquier otro valor → 400.
+switch($_POST['op'] ?? '')
 {
     case "1": insertar();
         break;
@@ -11,18 +13,27 @@ switch($_POST['op'])
         break;
     case "3": eliminartodo();
         break;
+    default:
+        responder_error(400, 'Operación de carrito no válida.');
 }
 
 function insertar()
 {
+    // iditems: entero entre 1 y 2147483647 (misma regla H-01); inválido → 400, inexistente → 404.
+    $iditems = id_valido($_POST['iditems'] ?? null);
+    if ($iditems === null) {
+        responder_error(400, 'Identificador de producto no válido.');
+    }
+    $result = consulta("select id, nombre, precio from items where id=? and visible=1 and eliminado IS NULL", 'i', [$iditems]);
+    $datos = mysqli_fetch_array($result);
+    if (!$datos) {
+        responder_error(404, 'El producto no existe.');
+    }
+
     // En PHP 8 count(null) es un TypeError: el carrito debe existir como arreglo antes de usarlo.
     if (!isset($_SESSION["carrito"]) || !is_array($_SESSION["carrito"])) {
         $_SESSION["carrito"] = [];
     }
-    $sql="select id, nombre, precio from items where id=".$_POST['iditems'];
-    $result=mysqli_query(conectar(),$sql);
-    $datos=mysqli_fetch_array($result);
-
     $pos=count($_SESSION["carrito"])+1;
     $productos = array("posicion"=>$pos,"id" => $datos['id'], "nombre" =>$datos['nombre'],"precio"=>$datos['precio']);
     $_SESSION["carrito"][$pos] = $productos;
@@ -30,7 +41,12 @@ function insertar()
 
 function eliminaritems()
 {
-    unset($_SESSION["carrito"][$_POST['pos']]);
+    // pos: entero positivo; si no cumple la regla no se toca el carrito.
+    $pos = id_valido($_POST['pos'] ?? null);
+    if ($pos === null) {
+        responder_error(400, 'Posición de carrito no válida.');
+    }
+    unset($_SESSION["carrito"][$pos]);
 }
 
 function eliminartodo()
