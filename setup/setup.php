@@ -44,6 +44,36 @@ function id_valido($valor): ?int
     return $id === false ? null : $id;
 }
 
+// Regla H-02: un comentario es válido solo si es texto UTF-8 correcto, sin caracteres de
+// control (se aceptan saltos de línea y tabulador) y con 1 a 500 caracteres después de
+// recortar los espacios de los extremos. Devuelve el texto normalizado o null.
+function comentario_valido($valor): ?string
+{
+    if (!is_string($valor)) {
+        return null;
+    }
+    $texto = str_replace("\r\n", "\n", trim($valor));
+    if ($texto === '' || !mb_check_encoding($texto, 'UTF-8')) {
+        return null;
+    }
+    if (preg_match('/[^\P{C}\n\t]/u', $texto)) {
+        return null;
+    }
+    if (mb_strlen($texto, 'UTF-8') > 500) {
+        return null;
+    }
+    return $texto;
+}
+
+// Codificación de salida para HTML: todo dato que viene de la base o del usuario pasa
+// por aquí antes de imprimirse (OBS-14; complementa la validación, no la reemplaza).
+// Reemplaza a utf8_encode(), obsoleta desde PHP 8.2 e innecesaria con la conexión en
+// utf8mb4 (OBS-11).
+function e($texto): string
+{
+    return htmlspecialchars((string)$texto, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
 // Respuesta controlada ante una petición inválida o un recurso inexistente:
 // código HTTP y mensaje genérico, sin rutas, consultas ni trazas (P-01).
 function responder_error(int $codigo, string $mensaje): void

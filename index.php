@@ -28,7 +28,7 @@ $_SESSION['id']=$key;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title><?php echo utf8_encode($datos_restorant['nombre']);?></title>
+  <title><?php echo e($datos_restorant['nombre']);?></title>
 	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -58,7 +58,7 @@ $_SESSION['id']=$key;
       </form>
     <?php
     }else{
-      echo "Bienvenido :".$_SESSION['nombre']." - <a href=setup/cerrar_sesion.php>Cerra Sesión</a>";
+      echo "Bienvenido: ".e($_SESSION['nombre'])." - <a href=\"setup/cerrar_sesion.php\">Cerrar sesión</a>";
     }
   ?>
 </nav>
@@ -111,13 +111,13 @@ $_SESSION['id']=$key;
                {
                  ?>
                
-              <h4><?php echo utf8_encode($datos_restorant['nombre']);?></h4>
+              <h4><?php echo e($datos_restorant['nombre']);?></h4>
               <h5>
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
                   <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                 </svg>  
-              <?php echo utf8_encode($datos_restorant['calle'])." #".$datos_restorant['numero'].", ".utf8_encode($datos_restorant['comuna']);?>
+              <?php echo e($datos_restorant['calle'])." #".e($datos_restorant['numero']).", ".e($datos_restorant['comuna']);?>
               </h5>
               <?php
                }
@@ -130,7 +130,7 @@ $_SESSION['id']=$key;
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
                 </svg>  
-                <?php echo $datos_restorant['fono'];?>
+                <?php echo e($datos_restorant['fono']);?>
               <?php
               }
               if(!$datos_restorant['email']=="")
@@ -139,7 +139,7 @@ $_SESSION['id']=$key;
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
                 </svg>
-                <?php echo $datos_restorant['email'];?>
+                <?php echo e($datos_restorant['email']);?>
                 <?php
               }
               ?>
@@ -182,9 +182,9 @@ $_SESSION['id']=$key;
               }
               ?>
           <div class="item-body">
-              <h3><?php echo utf8_encode($destacados['nombre']);?></h3>
-            <p><?php echo utf8_encode($destacados['descripcion']);?><br>
-            <?php echo utf8_encode($destacados['observaciones']);?><br>
+              <h3><?php echo e($destacados['nombre']);?></h3>
+            <p><?php echo e($destacados['descripcion']);?><br>
+            <?php echo e($destacados['observaciones']);?><br>
             <?php
             if($destacados['tiempo']!="")
             {
@@ -237,9 +237,9 @@ $_SESSION['id']=$key;
                             $arraycartas=[];
                             while($cartas=mysqli_fetch_array($resultcartas))
                             {
-                              array_push($arraycartas,['nombre'=>utf8_encode(quitarespacios($cartas['nombre'])),'id'=>$cartas['id']]);
+                              array_push($arraycartas,['nombre'=>e(quitarespacios($cartas['nombre'])),'id'=>$cartas['id']]);
                             ?>
-                              <a class="nav-item nav-link" id="nav-<?php echo quitarespacios(utf8_encode($cartas['nombre']));?>-tab" data-toggle="tab" href="#<?php echo quitarespacios(utf8_encode($cartas['nombre']));?>" role="tab" aria-controls="nav-profile" aria-selected="false"><?php echo utf8_encode($cartas['nombre']);?></a>
+                              <a class="nav-item nav-link" id="nav-<?php echo quitarespacios(e($cartas['nombre']));?>-tab" data-toggle="tab" href="#<?php echo quitarespacios(e($cartas['nombre']));?>" role="tab" aria-controls="nav-profile" aria-selected="false"><?php echo e($cartas['nombre']);?></a>
                             <?php
                             }
                         ?>
@@ -270,7 +270,7 @@ $_SESSION['id']=$key;
                               {
                               ?>
                                 <div class="section-intro mb-20px">
-                                    <h4 class="intro-title"><?php echo utf8_encode($datos_categorias['nombre']);?></h4>
+                                    <h4 class="intro-title"><?php echo e($datos_categorias['nombre']);?></h4>
                                 </div>
 
                                 <div class="row">
@@ -299,11 +299,11 @@ $_SESSION['id']=$key;
                                                 ?>
                                                 <div class="media-body">
                                                   <div class="d-flex justify-content-between food-card-title">
-                                                    <h4><?php echo utf8_encode($datos_items['nombre']);?></h4>
+                                                    <h4><?php echo e($datos_items['nombre']);?></h4>
                                                     <h3 class="price-tag"><?php echo moneda_chilena($datos_items['precio']);?></h3>
                                                   </div>
-                                                  <p><?php echo utf8_encode($datos_items['descripcion']);?></br>
-                                                  <?php echo utf8_encode($datos_items['observaciones']);?></p>
+                                                  <p><?php echo e($datos_items['descripcion']);?></br>
+                                                  <?php echo e($datos_items['observaciones']);?></p>
                                                   <?php
                                                   if($datos_items['tiempo']!="")
                                                   {
@@ -388,19 +388,25 @@ if(isset($key))
       <div class="row">
         <div class="col-lg-12">
           <div class="section-intro">
-            <h4 class="intro-title">Comentarios</h4>
+            <h4 class="intro-title" id="comentarios">Comentarios</h4>
              <?php
+            if(isset($_GET['comentario']) && $_GET['comentario']==='invalido')
+            {
+             ?>
+             <div class="alert alert-warning">El comentario no se guardó: debe tener entre 1 y 500 caracteres de texto.</div>
+             <?php
+            }
             if(isset($_SESSION['nombre']))
             {
              ?>
              <form action="grcomentarios.php" method="post">
               <div class="form-group">
-                <label for="usr">Nombre:</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $_SESSION['nombre'];?>">
+                <label>Nombre: <b><?php echo e($_SESSION['nombre']);?></b></label>
               </div>
               <div class="form-group">
-                <label for="comment">Comentario:</label>
-                <textarea class="form-control" rows="5" id="comentario" name="comentario"></textarea>
+                <label for="comentario">Comentario:</label>
+                <!-- maxlength y required solo complementan: la regla se aplica en grcomentarios.php -->
+                <textarea class="form-control" rows="5" id="comentario" name="comentario" maxlength="500" required></textarea>
               </div>
               <button type="submit" class="btn btn-success fa-align-right">Comentar</button>
            </form>
@@ -418,9 +424,9 @@ if(isset($key))
           ?>
           <div class="card bg-light">
             <div class="card-body">
-              <b><?php echo $datoscomentarios['usuario'];?></b>
+              <b><?php echo e($datoscomentarios['usuario']);?></b>
               <br>
-              <?php echo $datoscomentarios['comentario'];?>
+              <?php echo nl2br(e($datoscomentarios['comentario']));?>
             </div>
           </div>
           <br>
