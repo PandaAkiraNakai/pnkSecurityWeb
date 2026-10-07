@@ -15,7 +15,10 @@ switch($_POST['op'])
 
 function insertar()
 {
-    $_SESSION["carrito"];
+    // En PHP 8 count(null) es un TypeError: el carrito debe existir como arreglo antes de usarlo.
+    if (!isset($_SESSION["carrito"]) || !is_array($_SESSION["carrito"])) {
+        $_SESSION["carrito"] = [];
+    }
     $sql="select id, nombre, precio from items where id=".$_POST['iditems'];
     $result=mysqli_query(conectar(),$sql);
     $datos=mysqli_fetch_array($result);
