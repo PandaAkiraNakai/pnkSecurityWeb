@@ -1,8 +1,10 @@
-﻿# Host: localhost  (Version 8.0.17)
+# Host: localhost  (Version 8.0.17)
 # Date: 2020-11-05 00:16:07
 # Generator: MySQL-Front 6.0  (Build 2.20)
 
-CREATE DATABASE `pnk_security` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci;
+SET NAMES utf8mb4;
+CREATE DATABASE IF NOT EXISTS `pnk_security` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci;
+USE `pnk_security`;
 
 #
 # Structure for table "cartas"
