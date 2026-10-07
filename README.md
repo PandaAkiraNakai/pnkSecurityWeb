@@ -109,3 +109,24 @@ Las pruebas de seguridad deberán realizarse únicamente sobre los ambientes ind
 **Caso de estudio: PNKSecurity**
 
 > La meta no es solamente hacer que el software funcione, sino comprender cómo desarrollarlo, probarlo y mejorarlo de forma segura.
+
+---
+
+## Ejecución local (entorno del equipo, Unidad 2)
+
+Requisitos: Docker y Docker Compose. No hace falta instalar PHP ni MySQL en la máquina.
+
+```bash
+cp .env.example .env        # y reemplazar las claves de ejemplo
+docker compose up -d --build
+```
+
+| Servicio | URL | Nota |
+| --- | --- | --- |
+| Aplicación | http://127.0.0.1:8080/?id=1 | PHP 8.3 + Apache (`Dockerfile`) |
+| Base de datos | `db:3306` (solo red interna) | MySQL 8.0; importa `Script_BD/pnk_security.sql` al primer arranque |
+| phpMyAdmin | http://127.0.0.1:8081 | Solo local; pide usuario y clave (los de `.env`) |
+
+La aplicación lee la conexión a la base desde las variables `DB_HOST`, `DB_NAME`, `DB_USER` y
+`DB_PASSWORD` que define `compose.yaml` a partir de `.env`. Para reiniciar la base desde cero:
+`docker compose down -v`.

@@ -1,0 +1,46 @@
+# Entorno local reproducible de PNKSecurity (T-U2-02).
+# Uso: cp .env.example .env ; editar .env ; docker compose up -d --build
+# App: http://127.0.0.1:8080/?id=1 · phpMyAdmin: http://127.0.0.1:8081 (pide usuario y clave)
+name: pnksecurity
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./Script_BD:/docker-entrypoint-initdb.d:ro
+      - dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${DB_USER}", "-p${DB_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  phpmyadmin:
+    image: phpmyadmin:5
+    # Solo accesible desde la máquina local y con autenticación por cookie (usuario y clave de la BD).
+    ports:
+      - "127.0.0.1:8081:80"
+    environment:
+      PMA_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  dbdata:
