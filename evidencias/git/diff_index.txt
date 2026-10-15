@@ -1,0 +1,247 @@
+diff --git a/index.php b/index.php
+index 4eb9c4c..ea517f2 100644
+--- a/index.php
++++ b/index.php
+@@ -3,14 +3,21 @@
+ include("setup/setup.php");
+ session_start();
+ 
+-mysqli_set_charset(conectar(), 'utf8');
+-$key=$_GET['id'];
+-$_SESSION['id']=$_GET['id'];
++// H-01: el id se valida en el servidor antes de usarlo. Falta o no cumple la regla → 400.
++$key=id_valido($_GET['id'] ?? null);
++if ($key === null) {
++    responder_error(400, 'Solicitud inválida: el identificador de restaurante falta o no es un número válido.');
++}
+ 
+ $sql_restorant="SELECT direcciones.calle, direcciones.numero, direcciones.comuna, direcciones.region, restautantes.nombre, restautantes.id, restautantes.fono, restautantes.email, restautantes.foto FROM restautantes INNER JOIN direcciones ON restautantes.direcciones_id =
+-direcciones.id WHERE restautantes.id = ".$key." AND restautantes.eliminado IS NULL";
+-$result_restorant=mysqli_query(conectar(),$sql_restorant);
++direcciones.id WHERE restautantes.id = ? AND restautantes.eliminado IS NULL";
++$result_restorant=consulta($sql_restorant,'i',[$key]);
+ $datos_restorant=mysqli_fetch_array($result_restorant);
++// Id con formato válido pero sin restaurante → 404 controlado, no una página vacía con avisos.
++if (!$datos_restorant) {
++    responder_error(404, 'El restaurante solicitado no existe.');
++}
++$_SESSION['id']=$key;
+ 
+ 
+ 
+@@ -21,7 +28,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+-  <title><?php echo utf8_encode($datos_restorant['nombre']);?></title>
++  <title><?php echo e($datos_restorant['nombre']);?></title>
+ 	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
+ 
+   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+@@ -34,6 +41,10 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+ <body>
+ <nav class="navbar navbar-light bg-light">
+    <?php
++    if(isset($_GET['login']) && $_GET['login']==='invalido')
++    {
++      echo '<span class="text-danger mr-3">Usuario o contraseña incorrectos.</span>';
++    }
+     if(!isset($_SESSION['nombre']))
+     {
+     ?>
+@@ -51,7 +62,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+       </form>
+     <?php
+     }else{
+-      echo "Bienvenido :".$_SESSION['nombre']." - <a href=setup/cerrar_sesion.php>Cerra Sesión</a>";
++      echo "Bienvenido: ".e($_SESSION['nombre'])." - <a href=\"setup/cerrar_sesion.php\">Cerrar sesión</a>";
+     }
+   ?>
+ </nav>
+@@ -86,7 +97,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+         <div class="col-lg-4">
+           <div class="carro">
+             <div class="media float-right">
+-              <a class="button_carrito" href="mostrar_carrito.php?keyid=<?php echo $_GET['id'];?>">
++              <a class="button_carrito" href="mostrar_carrito.php?id=<?php echo $key;?>">
+               <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+               </svg>
+@@ -104,13 +115,13 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                {
+                  ?>
+                
+-              <h4><?php echo utf8_encode($datos_restorant['nombre']);?></h4>
++              <h4><?php echo e($datos_restorant['nombre']);?></h4>
+               <h5>
+                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                   <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                   <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                 </svg>  
+-              <?php echo utf8_encode($datos_restorant['calle'])." #".$datos_restorant['numero'].", ".utf8_encode($datos_restorant['comuna']);?>
++              <?php echo e($datos_restorant['calle'])." #".e($datos_restorant['numero']).", ".e($datos_restorant['comuna']);?>
+               </h5>
+               <?php
+                }
+@@ -123,7 +134,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                   <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
+                 </svg>  
+-                <?php echo $datos_restorant['fono'];?>
++                <?php echo e($datos_restorant['fono']);?>
+               <?php
+               }
+               if(!$datos_restorant['email']=="")
+@@ -132,7 +143,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                   <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                 </svg>
+-                <?php echo $datos_restorant['email'];?>
++                <?php echo e($datos_restorant['email']);?>
+                 <?php
+               }
+               ?>
+@@ -145,8 +156,8 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+   <!--DESTACADOS-->
+   <?php
+   $sql="SELECT items.id,items.visible,items.tiempo,items.puntuacion,items.destacado, items.precio, items.descripcion,items.observaciones, items.nombre, items.foto, items.orden, cartas.restautantes_id, categorias.visible FROM categorias INNER JOIN items ON items.categorias_id = categorias.id INNER JOIN cartas ON categorias.cartas_id = cartas.id
+-  WHERE items.destacado = 1 AND items.eliminado IS NULL AND items.visible=1 AND cartas.restautantes_id = ".$key." AND cartas.eliminada IS NULL AND categorias.visible = 1 AND categorias.eliminado IS NULL";
+-  $result=mysqli_query(conectar(),$sql);
++  WHERE items.destacado = 1 AND items.eliminado IS NULL AND items.visible=1 AND cartas.restautantes_id = ? AND cartas.eliminada IS NULL AND categorias.visible = 1 AND categorias.eliminado IS NULL";
++  $result=consulta($sql,'i',[$key]);
+   $cont_destacados=mysqli_num_rows($result);
+   if( $cont_destacados!=0)
+   {
+@@ -175,9 +186,9 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+               }
+               ?>
+           <div class="item-body">
+-              <h3><?php echo utf8_encode($destacados['nombre']);?></h3>
+-            <p><?php echo utf8_encode($destacados['descripcion']);?><br>
+-            <?php echo utf8_encode($destacados['observaciones']);?><br>
++              <h3><?php echo e($destacados['nombre']);?></h3>
++            <p><?php echo e($destacados['descripcion']);?><br>
++            <?php echo e($destacados['observaciones']);?><br>
+             <?php
+             if($destacados['tiempo']!="")
+             {
+@@ -225,14 +236,14 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                   <nav>
+                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                         <?php
+-                            $sqlcartas="SELECT cartas.id,cartas.restautantes_id,cartas.nombre,cartas.orden,cartas.visible FROM cartas WHERE cartas.restautantes_id = ".$key." and visible=1 AND eliminada IS NULL order by orden asc";
+-                            $resultcartas=mysqli_query(conectar(),$sqlcartas);
++                            $sqlcartas="SELECT cartas.id,cartas.restautantes_id,cartas.nombre,cartas.orden,cartas.visible FROM cartas WHERE cartas.restautantes_id = ? and visible=1 AND eliminada IS NULL order by orden asc";
++                            $resultcartas=consulta($sqlcartas,'i',[$key]);
+                             $arraycartas=[];
+                             while($cartas=mysqli_fetch_array($resultcartas))
+                             {
+-                              array_push($arraycartas,['nombre'=>utf8_encode(quitarespacios($cartas['nombre'])),'id'=>$cartas['id']]);
++                              array_push($arraycartas,['nombre'=>e(quitarespacios($cartas['nombre'])),'id'=>$cartas['id']]);
+                             ?>
+-                              <a class="nav-item nav-link" id="nav-<?php echo quitarespacios(utf8_encode($cartas['nombre']));?>-tab" data-toggle="tab" href="#<?php echo quitarespacios(utf8_encode($cartas['nombre']));?>" role="tab" aria-controls="nav-profile" aria-selected="false"><?php echo utf8_encode($cartas['nombre']);?></a>
++                              <a class="nav-item nav-link" id="nav-<?php echo quitarespacios(e($cartas['nombre']));?>-tab" data-toggle="tab" href="#<?php echo quitarespacios(e($cartas['nombre']));?>" role="tab" aria-controls="nav-profile" aria-selected="false"><?php echo e($cartas['nombre']);?></a>
+                             <?php
+                             }
+                         ?>
+@@ -240,13 +251,13 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                   </nav>
+                   <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                     <?php
+-                     for($i=0;$i<=sizeof($arraycartas);$i++)
++                     for($i=0;$i<sizeof($arraycartas);$i++)
+                      {                             
+                     ?>
+                     <div class="tab-pane fade <?php if($i==0){?>show active<?php } ?>" id="<?php echo quitarespacios($arraycartas[$i]["nombre"]);?>" role="tabpanel" aria-labelledby="nav-<?php echo quitarespacios($arraycartas[$i]["nombre"]);?>-tab">              
+                       <?php
+-                          $sql_categorias="select id,nombre from categorias where visible=1 and cartas_id='".$arraycartas[$i]["id"]."' AND eliminado IS NULL order by orden asc";
+-                          $result_categorias=mysqli_query(conectar(),$sql_categorias);
++                          $sql_categorias="select id,nombre from categorias where visible=1 and cartas_id=? AND eliminado IS NULL order by orden asc";
++                          $result_categorias=consulta($sql_categorias,'i',[$arraycartas[$i]["id"]]);
+                           $cont_categorias=mysqli_num_rows($result_categorias);
+                           if($cont_categorias==0)
+                           {?>
+@@ -263,13 +274,13 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                               {
+                               ?>
+                                 <div class="section-intro mb-20px">
+-                                    <h4 class="intro-title"><?php echo utf8_encode($datos_categorias['nombre']);?></h4>
++                                    <h4 class="intro-title"><?php echo e($datos_categorias['nombre']);?></h4>
+                                 </div>
+ 
+                                 <div class="row">
+                                   <?php
+-                                      $sql_items="SELECT items.visible,items.id, items.nombre, items.descripcion,items.observaciones,items.tiempo,items.puntuacion, items.precio, items.visible, items.foto, items.orden, items.categorias_id FROM items WHERE items.categorias_id = ".$datos_categorias['id']." AND items.visible=1 AND eliminado IS NULL order by orden asc";
+-                                      $result_items=mysqli_query(conectar(),$sql_items);
++                                      $sql_items="SELECT items.visible,items.id, items.nombre, items.descripcion,items.observaciones,items.tiempo,items.puntuacion, items.precio, items.visible, items.foto, items.orden, items.categorias_id FROM items WHERE items.categorias_id = ? AND items.visible=1 AND eliminado IS NULL order by orden asc";
++                                      $result_items=consulta($sql_items,'i',[$datos_categorias['id']]);
+                                       $count_items=mysqli_num_rows($result_items);
+                                       if($count_items!=0)
+                                       {
+@@ -292,11 +303,11 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                                                 ?>
+                                                 <div class="media-body">
+                                                   <div class="d-flex justify-content-between food-card-title">
+-                                                    <h4><?php echo utf8_encode($datos_items['nombre']);?></h4>
++                                                    <h4><?php echo e($datos_items['nombre']);?></h4>
+                                                     <h3 class="price-tag"><?php echo moneda_chilena($datos_items['precio']);?></h3>
+                                                   </div>
+-                                                  <p><?php echo utf8_encode($datos_items['descripcion']);?></br>
+-                                                  <?php echo utf8_encode($datos_items['observaciones']);?></p>
++                                                  <p><?php echo e($datos_items['descripcion']);?></br>
++                                                  <?php echo e($datos_items['observaciones']);?></p>
+                                                   <?php
+                                                   if($datos_items['tiempo']!="")
+                                                   {
+@@ -381,19 +392,25 @@ if(isset($key))
+       <div class="row">
+         <div class="col-lg-12">
+           <div class="section-intro">
+-            <h4 class="intro-title">Comentarios</h4>
++            <h4 class="intro-title" id="comentarios">Comentarios</h4>
+              <?php
++            if(isset($_GET['comentario']) && $_GET['comentario']==='invalido')
++            {
++             ?>
++             <div class="alert alert-warning">El comentario no se guardó: debe tener entre 1 y 500 caracteres de texto.</div>
++             <?php
++            }
+             if(isset($_SESSION['nombre']))
+             {
+              ?>
+              <form action="grcomentarios.php" method="post">
+               <div class="form-group">
+-                <label for="usr">Nombre:</label>
+-                <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $_SESSION['nombre'];?>">
++                <label>Nombre: <b><?php echo e($_SESSION['nombre']);?></b></label>
+               </div>
+               <div class="form-group">
+-                <label for="comment">Comentario:</label>
+-                <textarea class="form-control" rows="5" id="comentario" name="comentario"></textarea>
++                <label for="comentario">Comentario:</label>
++                <!-- maxlength y required solo complementan: la regla se aplica en grcomentarios.php -->
++                <textarea class="form-control" rows="5" id="comentario" name="comentario" maxlength="500" required></textarea>
+               </div>
+               <button type="submit" class="btn btn-success fa-align-right">Comentar</button>
+            </form>
+@@ -404,16 +421,16 @@ if(isset($key))
+           <br>
+           <?php
+ 
+-            $sqlcomentarios="select * from comentarios where id_restaurante=".$key;
+-            $resultcomentarios=mysqli_query(conectar(),$sqlcomentarios);
++            $sqlcomentarios="select * from comentarios where id_restaurante=?";
++            $resultcomentarios=consulta($sqlcomentarios,'i',[$key]);
+             while($datoscomentarios=mysqli_fetch_array($resultcomentarios))
+             {
+           ?>
+           <div class="card bg-light">
+             <div class="card-body">
+-              <b><?php echo $datoscomentarios['usuario'];?></b>
++              <b><?php echo e($datoscomentarios['usuario']);?></b>
+               <br>
+-              <?php echo $datoscomentarios['comentario'];?>
++              <?php echo nl2br(e($datoscomentarios['comentario']));?>
+             </div>
+           </div>
+           <br>

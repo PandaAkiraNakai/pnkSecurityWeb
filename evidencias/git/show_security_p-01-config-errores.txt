@@ -1,0 +1,20 @@
+$ git show --stat security/p-01-config-errores
+commit 994835e6cec70779175f723ff368b35e1e0ca7fa
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 20:04:53 2026 -0300
+
+    security: oculta errores y versiones al cliente y protege la cookie de sesion (P-01 / T-01)
+    
+    - docker/php.ini sobre php.ini-production: display_errors=Off, log_errors=On
+      (los errores quedan en el log del contenedor), expose_php=Off (OBS-08).
+    - Cookie PHPSESSID con HttpOnly, SameSite=Lax y use_strict_mode (OBS-15);
+      Secure queda pendiente hasta servir por HTTPS (P-02).
+    - Apache con ServerTokens Prod y ServerSignature Off.
+    - Se elimina info.php, que exponia phpinfo() (OBS-13).
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ Dockerfile     |  5 +++++
+ docker/php.ini | 12 ++++++++++++
+ info.php       |  1 -
+ 3 files changed, 17 insertions(+), 1 deletion(-)

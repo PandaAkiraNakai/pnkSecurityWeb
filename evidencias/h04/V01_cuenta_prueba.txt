@@ -1,0 +1,13 @@
+$ curl -s -i -X POST --data-urlencode '...' 'http://127.0.0.1:8080/setup/procesalogin.php'
+HTTP/1.1 302 Found
+Date: Wed, 07 Oct 2026 23:08:31 GMT
+Server: Apache
+Set-Cookie: PHPSESSID=difa0eau43b17albekohar342b; path=/; HttpOnly; SameSite=Lax
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Set-Cookie: PHPSESSID=n5qlkh1b51fopgnf7shghvnj7v; path=/; HttpOnly; SameSite=Lax
+Location: ../index.php?id=1
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+

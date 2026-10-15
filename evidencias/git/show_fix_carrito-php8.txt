@@ -1,0 +1,18 @@
+$ git show --stat fix/carrito-php8
+commit 92bea87753159d20ddeb8d96759724e5f9bcfe20
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 19:59:08 2026 -0300
+
+    fix: inicializa el carrito en sesion antes de contarlo (T-U2-03)
+    
+    - carrito.php: en PHP 8 count(null) es TypeError; el carrito se crea como
+      arreglo vacio la primera vez (OBS-07, F-02).
+    - mostrar_carrito.php: recorrer un carrito inexistente no genera avisos.
+    - index.php: el bucle de cartas usaba <= y leia una posicion de mas (OBS-10).
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ carrito.php         | 5 ++++-
+ index.php           | 2 +-
+ mostrar_carrito.php | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)

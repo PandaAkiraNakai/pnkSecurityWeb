@@ -1,0 +1,9 @@
+== 07/10/2026 20:08 ==
+V01_cuenta_prueba      HTTP 302  ../index.php?id=1                      sesión: Bienvenido: Alondra -  [esperado 302, sesión Alondra]
+I01_clave_erronea      HTTP 303  ../index.php?id=1&login=invalido       sesión: sin sesión            [esperado 303 invalido, sin sesión]
+I02_usuario_no_email   HTTP 303  ../index.php?id=1&login=invalido       sesión: sin sesión            [esperado 303 invalido, sin sesión]
+I03_usuario_vacio      HTTP 303  ../index.php?id=1&login=invalido       sesión: sin sesión            [esperado 303 invalido, sin sesión]
+I04_clave_vacia        HTTP 303  ../index.php?id=1&login=invalido       sesión: sin sesión            [esperado 303 invalido, sin sesión]
+I05_usuario_con_espacios HTTP 303  ../index.php?id=1&login=invalido       sesión: sin sesión            [esperado 303 invalido, sin sesión]
+I06_usuario_largo      HTTP 303  ../index.php?id=1&login=invalido       sesión: sin sesión            [esperado 303 invalido, sin sesión]
+Trazas/avisos en las respuestas: 0

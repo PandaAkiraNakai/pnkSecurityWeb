@@ -1,0 +1,8 @@
+$ curl -s -i -X POST --data-urlencode '...' 'http://127.0.0.1:8080/setup/procesalogin.php'
+HTTP/1.1 303 See Other
+Date: Wed, 07 Oct 2026 23:08:31 GMT
+Server: Apache
+Location: ../index.php?id=1&login=invalido
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+

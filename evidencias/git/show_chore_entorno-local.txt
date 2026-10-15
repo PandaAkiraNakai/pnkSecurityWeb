@@ -1,0 +1,23 @@
+$ git show --stat chore/entorno-local
+commit fa2da694ad4f542fe405e21b0d72a603565e8547
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 19:58:29 2026 -0300
+
+    chore: entorno local reproducible con Docker Compose (T-U2-02)
+    
+    - Dockerfile (php:8.3-apache + mysqli) y compose.yaml con web, db (MySQL 8.0)
+      y phpMyAdmin solo en 127.0.0.1 con autenticacion por cookie.
+    - Script_BD/pnk_security.sql importable tal cual: sin BOM, CREATE DATABASE
+      IF NOT EXISTS + USE, y SET NAMES utf8mb4 (OBS-03, OBS-04).
+    - .env.example sin valores reales; .env ignorado por Git.
+    - README con los pasos de ejecucion.
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ .env.example               |  5 +++++
+ .gitignore                 |  2 ++
+ Dockerfile                 |  3 +++
+ README.md                  | 21 +++++++++++++++++++++
+ Script_BD/pnk_security.sql |  6 ++++--
+ compose.yaml               | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 81 insertions(+), 2 deletions(-)

@@ -1,0 +1,54 @@
+diff --git a/mostrar_carrito.php b/mostrar_carrito.php
+index b6cc303..ab49717 100644
+--- a/mostrar_carrito.php
++++ b/mostrar_carrito.php
+@@ -2,12 +2,19 @@
+ include("setup/setup.php");
+ session_start();
+ 
+-$key=$_GET['id'];
++// H-01: misma regla de validación del id que en index.php.
++$key=id_valido($_GET['id'] ?? null);
++if ($key === null) {
++    responder_error(400, 'Solicitud inválida: el identificador de restaurante falta o no es un número válido.');
++}
+ 
+ $sql_restorant="SELECT direcciones.calle, direcciones.numero, direcciones.comuna, direcciones.region, restautantes.nombre, restautantes.id, restautantes.fono, restautantes.email, restautantes.foto FROM restautantes INNER JOIN direcciones ON restautantes.direcciones_id =
+-direcciones.id WHERE restautantes.id = ".$key;
+-$result_restorant=mysqli_query(conectar(),$sql_restorant);
++direcciones.id WHERE restautantes.id = ? AND restautantes.eliminado IS NULL";
++$result_restorant=consulta($sql_restorant,'i',[$key]);
+ $datos_restorant=mysqli_fetch_array($result_restorant);
++if (!$datos_restorant) {
++    responder_error(404, 'El restaurante solicitado no existe.');
++}
+ 
+ ?>
+ <!DOCTYPE html>
+@@ -44,7 +51,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+               if($datos_restorant['foto']!="")
+               {  
+                 ?>
+-                  <img class="logosintituciones" src="../imagenes/cod<?php echo $key;?>/<?php echo $datos_restorant['foto'];?>" width="170px" alt="">
++                  <img class="logosintituciones" src="imagenes/cod<?php echo $key;?>/<?php echo $datos_restorant['foto'];?>" width="170px" alt="">
+               <?php
+               }else{
+                 ?>
+@@ -58,7 +65,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+         <div class="col-lg-4">
+           <div class="carro">
+             <div class="media float-right">
+-              <a class="volver" href="index.php?id=<?php echo $_GET['keyid'];?>">
++              <a class="volver" href="index.php?id=<?php echo $key;?>">
+               Volver a la Carta
+               </a>&nbsp;&nbsp;
+               <a class="limpiar" href="#">
+@@ -94,7 +101,7 @@ $datos_restorant=mysqli_fetch_array($result_restorant);
+                   <tbody>
+                      <?php
+                      $total=0;
+-                     foreach ($_SESSION["carrito"] as $value) 
++                     foreach ($_SESSION["carrito"] ?? [] as $value) 
+                      {
+                      ?>
+                      <tr>

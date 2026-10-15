@@ -1,0 +1,11 @@
+$ curl -s -i -X POST --data 'usuario=Alondra&comentario=' 'http://127.0.0.1:8080/grcomentarios.php'
+HTTP/1.1 303 See Other
+Date: Wed, 07 Oct 2026 23:05:56 GMT
+Server: Apache
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: index.php?id=1&comentario=invalido#comentarios
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+

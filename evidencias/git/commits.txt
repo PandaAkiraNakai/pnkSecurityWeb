@@ -1,0 +1,22 @@
+$ git log --format='%h %ad %s' --date=format:'%d/%m/%Y %H:%M' --no-merges --reverse
+b94a01c 22/09/2026 14:00 proyecto pnkSecurity
+b315b8f 22/09/2026 14:02 archivos faltantes
+3b001ff 22/09/2026 14:03 vendor
+533806d 22/09/2026 14:05 vendor
+47a72fa 22/09/2026 14:06 themify-icons
+fd65768 22/09/2026 14:09 svg
+b6f63cb 22/09/2026 14:14 svg
+09002e4 22/09/2026 14:15 svg
+14f60fe 22/09/2026 14:18 svg
+b635a93 22/09/2026 14:19 Update README to remove deprecated mysql functions
+cc3bd2f 22/09/2026 14:30 Revise README with project details and security guidelines
+fa2da69 07/10/2026 19:58 chore: entorno local reproducible con Docker Compose (T-U2-02)
+98d2436 07/10/2026 19:58 fix: lee la configuracion de la base desde el entorno (T-U2-01)
+92bea87 07/10/2026 19:59 fix: inicializa el carrito en sesion antes de contarlo (T-U2-03)
+d5c3961 07/10/2026 20:00 fix: alinea el parametro del enlace al carrito (T-U2-04)
+a360e3b 07/10/2026 20:01 security: valida el parametro id en el servidor y usa consultas preparadas (H-01)
+0067630 07/10/2026 20:02 security: valida el comentario en el servidor y codifica la salida HTML (H-02)
+ccab186 07/10/2026 20:03 security: valida op, iditems y pos del carrito en el servidor (H-03)
+994835e 07/10/2026 20:04 security: oculta errores y versiones al cliente y protege la cookie de sesion (P-01 / T-01)
+8618155 07/10/2026 20:04 chore: retira artefactos ajenos al codigo del repositorio
+80ef4c0 07/10/2026 20:08 security: valida las credenciales del formulario de acceso y usa consulta preparada (H-04)

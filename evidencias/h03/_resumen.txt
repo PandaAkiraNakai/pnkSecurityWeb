@@ -1,0 +1,14 @@
+== 07/10/2026 20:05 ==
+V01_agregar_1        op=1&iditems=1       HTTP 200  carrito=1  [esperado 200, carrito=1]
+V02_agregar_2        op=1&iditems=2       HTTP 200  carrito=2  [esperado 200, carrito=2]
+I00_item_borrado     op=1&iditems=3       HTTP 404  carrito=2  [esperado 404 (eliminado), carrito=2]
+I01_iditems_abc      op=1&iditems=abc     HTTP 400  carrito=2  [esperado 400, carrito=2]
+I02_iditems_0        op=1&iditems=0       HTTP 400  carrito=2  [esperado 400, carrito=2]
+I03_iditems_999      op=1&iditems=999     HTTP 404  carrito=2  [esperado 404, carrito=2]
+I04_sin_iditems      op=1                 HTTP 400  carrito=2  [esperado 400, carrito=2]
+I05_op_9             op=9                 HTTP 400  carrito=2  [esperado 400, carrito=2]
+I06_sin_op                                HTTP 400  carrito=2  [esperado 400, carrito=2]
+I07_pos_abc          op=2&pos=abc         HTTP 400  carrito=2  [esperado 400, carrito=2]
+V03_quitar_pos_1     op=2&pos=1           HTTP 200  carrito=1  [esperado 200, carrito=1]
+V04_vaciar           op=3                 HTTP 200  carrito=0  [esperado 200, carrito=0]
+Trazas/avisos en las respuestas: 0

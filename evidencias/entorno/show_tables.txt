@@ -1,0 +1,9 @@
+$ docker compose exec db mysql -u$DB_USER -p... pnk_security -e 'SHOW TABLES'
+Tables_in_pnk_security
+cartas
+categorias
+comentarios
+direcciones
+items
+restautantes
+usuarios

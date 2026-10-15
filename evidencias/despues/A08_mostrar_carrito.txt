@@ -1,0 +1,12 @@
+$ curl -s -i -X GET 'http://127.0.0.1:8080/mostrar_carrito.php?keyid=1'
+HTTP/1.1 400 Bad Request
+Date: Wed, 07 Oct 2026 23:05:56 GMT
+Server: Apache
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Content-Length: 408
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>PNKSecurity</title><link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css"></head><body><div class="container mt-5"><div class="alert alert-warning"><h4>Error 400</h4><p>Solicitud inválida: el identificador de restaurante falta o no es un número válido.</p><a href="index.php?id=1">Volver a la carta</a></div></div></body></html>

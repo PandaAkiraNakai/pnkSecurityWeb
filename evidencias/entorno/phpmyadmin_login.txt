@@ -1,0 +1,4 @@
+$ curl -s -i http://127.0.0.1:8081/ | grep -E 'HTTP|pma_username|pma_password'
+HTTP/1.1 200 OK
+<input type="password" name="pma_password" id="input_password" value="" class="form-control" autocomplete="current-password" spellcheck="false">
+<input type="text" name="pma_username" id="input_username" value="" class="form-control" autocomplete="username" spellcheck="false">
