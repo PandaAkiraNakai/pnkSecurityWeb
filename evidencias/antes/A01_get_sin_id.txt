@@ -1,0 +1,23 @@
+$ curl -s -i -X GET 'http://127.0.0.1:8090/'
+HTTP/1.1 200 OK
+Date: Wed, 07 Oct 2026 22:54:04 GMT
+Server: Apache/2.4.68 (Debian)
+X-Powered-By: PHP/8.3.35
+Set-Cookie: PHPSESSID=8a164a8ef68e64033fe2f71f3335dcd3; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 655
+Content-Type: text/html; charset=UTF-8
+
+<br />
+<b>Warning</b>:  Undefined array key "id" in <b>/var/www/html/index.php</b> on line <b>7</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "id" in <b>/var/www/html/index.php</b> on line <b>8</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND restautantes.eliminado IS NULL' at line 2 in /var/www/html/index.php:12
+Stack trace:
+#0 /var/www/html/index.php(12): mysqli_query(Object(mysqli), 'SELECT direccio...')
+#1 {main}
+  thrown in <b>/var/www/html/index.php</b> on line <b>12</b><br />

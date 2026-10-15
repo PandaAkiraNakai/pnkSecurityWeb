@@ -1,0 +1,106 @@
+diff --git a/setup/setup.php b/setup/setup.php
+index b9cbcc8..1f21099 100644
+--- a/setup/setup.php
++++ b/setup/setup.php
+@@ -1,11 +1,93 @@
+ <?php
+ 
++// Conexión a la base de datos (T-U2-01, OBS-01/OBS-02/OBS-12).
++// Host, usuario, clave y base se leen del entorno (ver compose.yaml y .env.example);
++// el código no contiene credenciales. Se abre una sola conexión por petición y
++// cualquier error de MySQL se convierte en excepción (no se devuelve false silencioso).
+ function conectar()
+ {
+-    $con=mysqli_connect("localhost","root","","pnk_security");
++    static $con = null;
++    if ($con instanceof mysqli) {
++        return $con;
++    }
++    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
++    $con = mysqli_connect(
++        getenv('DB_HOST') ?: 'localhost',
++        getenv('DB_USER') ?: '',
++        getenv('DB_PASSWORD') ?: '',
++        getenv('DB_NAME') ?: 'pnk_security'
++    );
++    mysqli_set_charset($con, 'utf8mb4');
+     return $con;
+ }
+ 
++// Ejecuta una consulta preparada. $tipos sigue el formato de mysqli_stmt_bind_param
++// ("i" entero, "s" texto): los valores viajan como parámetros y nunca se concatenan al SQL.
++function consulta(string $sql, string $tipos = '', array $valores = [])
++{
++    $stmt = mysqli_prepare(conectar(), $sql);
++    if ($tipos !== '') {
++        mysqli_stmt_bind_param($stmt, $tipos, ...$valores);
++    }
++    mysqli_stmt_execute($stmt);
++    return mysqli_stmt_get_result($stmt);
++}
++
++// Regla H-01: un identificador es válido solo si es un entero entre 1 y 2147483647
++// (rango de INT en MySQL). Devuelve el entero, o null si falta o no cumple la regla.
++function id_valido($valor): ?int
++{
++    if (!is_string($valor) && !is_int($valor)) {
++        return null;
++    }
++    $id = filter_var($valor, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 2147483647]]);
++    return $id === false ? null : $id;
++}
++
++// Regla H-02: un comentario es válido solo si es texto UTF-8 correcto, sin caracteres de
++// control (se aceptan saltos de línea y tabulador) y con 1 a 500 caracteres después de
++// recortar los espacios de los extremos. Devuelve el texto normalizado o null.
++function comentario_valido($valor): ?string
++{
++    if (!is_string($valor)) {
++        return null;
++    }
++    $texto = str_replace("\r\n", "\n", trim($valor));
++    if ($texto === '' || !mb_check_encoding($texto, 'UTF-8')) {
++        return null;
++    }
++    if (preg_match('/[^\P{C}\n\t]/u', $texto)) {
++        return null;
++    }
++    if (mb_strlen($texto, 'UTF-8') > 500) {
++        return null;
++    }
++    return $texto;
++}
++
++// Codificación de salida para HTML: todo dato que viene de la base o del usuario pasa
++// por aquí antes de imprimirse (OBS-14; complementa la validación, no la reemplaza).
++// Reemplaza a utf8_encode(), obsoleta desde PHP 8.2 e innecesaria con la conexión en
++// utf8mb4 (OBS-11).
++function e($texto): string
++{
++    return htmlspecialchars((string)$texto, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
++}
++
++// Respuesta controlada ante una petición inválida o un recurso inexistente:
++// código HTTP y mensaje genérico, sin rutas, consultas ni trazas (P-01).
++function responder_error(int $codigo, string $mensaje): void
++{
++    http_response_code($codigo);
++    header('Content-Type: text/html; charset=UTF-8');
++    echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>PNKSecurity</title>'
++       . '<link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css"></head><body>'
++       . '<div class="container mt-5"><div class="alert alert-warning"><h4>Error ' . $codigo . '</h4><p>'
++       . htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8')
++       . '</p><a href="index.php?id=1">Volver a la carta</a></div></div></body></html>';
++    exit;
++}
++
+ function quitarespacios($titulo)
+ {
+     $titulo =str_replace(" ", "", $titulo);
+@@ -29,4 +111,4 @@ function moneda_chilena($numero){
+     return $formateado;
+     }
+ 
+-?>
+\ No newline at end of file
++?>

@@ -1,0 +1,2 @@
+web-1  | [Wed Oct 07 23:04:05.142162 2026] [php:warn] [pid 20:tid 20] [client 172.21.0.1:42108] PHP Warning:  mysqli_connect(): php_network_getaddresses: getaddrinfo for db failed: Name or service not known in /var/www/h
+web-1  | [Wed Oct 07 23:04:05.142243 2026] [php:error] [pid 20:tid 20] [client 172.21.0.1:42108] PHP Fatal error:  Uncaught mysqli_sql_exception: php_network_getaddresses: getaddrinfo for db failed: Name or service not k

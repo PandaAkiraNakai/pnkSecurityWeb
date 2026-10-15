@@ -1,0 +1,22 @@
+$ git show --stat security/h-02-validacion-comentario
+commit 00676302315506ca7b250dbeeb00ac122f637444
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 20:02:13 2026 -0300
+
+    security: valida el comentario en el servidor y codifica la salida HTML (H-02)
+    
+    - grcomentarios.php: exige sesion iniciada y metodo POST (403 si no); el
+      nombre se toma de la sesion, no del formulario; regla comentario_valido():
+      UTF-8 valido, sin caracteres de control, 1 a 500 caracteres tras trim;
+      invalido -> vuelve a la carta con aviso y no escribe en la base.
+    - INSERT con consulta preparada (OBS-06).
+    - index.php: todo dato de la base o del usuario se imprime con e()
+      (htmlspecialchars), OBS-14; reemplaza utf8_encode() obsoleta (OBS-11);
+      maxlength/required en el textarea solo como complemento.
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ grcomentarios.php | 28 ++++++++++++++++++++++++----
+ index.php         | 50 ++++++++++++++++++++++++++++----------------------
+ setup/setup.php   | 30 ++++++++++++++++++++++++++++++
+ 3 files changed, 82 insertions(+), 26 deletions(-)

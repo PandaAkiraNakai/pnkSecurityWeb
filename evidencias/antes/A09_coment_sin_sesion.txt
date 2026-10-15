@@ -1,0 +1,12 @@
+$ curl -s -i -X POST --data 'usuario=anon&comentario=hola' 'http://127.0.0.1:8090/grcomentarios.php'
+HTTP/1.1 302 Found
+Date: Wed, 07 Oct 2026 22:54:04 GMT
+Server: Apache/2.4.68 (Debian)
+X-Powered-By: PHP/8.3.35
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: index.php?id=1 or 1=1
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+

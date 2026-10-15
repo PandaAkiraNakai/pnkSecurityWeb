@@ -1,0 +1,2 @@
+$ docker compose logs db | grep pnk_security.sql
+db-1  | 2026-10-07 22:57:45+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/pnk_security.sql

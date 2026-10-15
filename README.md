@@ -130,3 +130,8 @@ docker compose up -d --build
 La aplicación lee la conexión a la base desde las variables `DB_HOST`, `DB_NAME`, `DB_USER` y
 `DB_PASSWORD` que define `compose.yaml` a partir de `.env`. Para reiniciar la base desde cero:
 `docker compose down -v`.
+
+## Evidencias de la Sumativa 2
+
+Las evidencias E-01 a E-25 del informe (capturas, salidas de terminal, trazabilidad Git) y los
+scripts que las generan están en [`evidencias/`](evidencias/README.md).

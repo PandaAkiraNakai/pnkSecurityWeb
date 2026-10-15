@@ -1,0 +1,24 @@
+$ git show --stat chore/higiene-repositorio
+commit 86181553fe4c4ff0f3e000afbfc5a28aeb13930c
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 20:04:53 2026 -0300
+
+    chore: retira artefactos ajenos al codigo del repositorio
+    
+    Se eliminan pnkSecurity.zip (copia duplicada del codigo, 6,7 MB), .DS_Store
+    y la carpeta vacia 'New folder'; .gitignore evita que vuelvan (OBS-16).
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ .gitignore                                       |   5 +
+ pnkSecurity.zip                                  | Bin 6963980 -> 0 bytes
+ vendors/flat-icon/New folder/font/Flaticon.eot   | Bin 2286 -> 0 bytes
+ vendors/flat-icon/New folder/font/Flaticon.svg   |  55 ---
+ vendors/flat-icon/New folder/font/Flaticon.ttf   | Bin 2108 -> 0 bytes
+ vendors/flat-icon/New folder/font/Flaticon.woff  | Bin 1568 -> 0 bytes
+ vendors/flat-icon/New folder/font/Flaticon.woff2 | Bin 1116 -> 0 bytes
+ vendors/flat-icon/New folder/font/_flaticon.scss |  46 ---
+ vendors/flat-icon/New folder/font/flaticon.css   |  35 --
+ vendors/flat-icon/New folder/font/flaticon.html  | 463 -----------------------
+ vendors/flat-icon/New folder/license/license.pdf | Bin 36473 -> 0 bytes
+ 11 files changed, 5 insertions(+), 599 deletions(-)

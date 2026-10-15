@@ -1,0 +1,11 @@
+$ curl -s -i 'http://127.0.0.1:8080/?id=1' | head
+HTTP/1.1 200 OK
+Date: Wed, 07 Oct 2026 23:04:53 GMT
+Server: Apache
+Set-Cookie: PHPSESSID=6p3a2hckq39c80ehtapt326ss9; path=/; HttpOnly; SameSite=Lax
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8

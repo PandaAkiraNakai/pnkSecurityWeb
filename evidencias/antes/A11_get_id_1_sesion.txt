@@ -1,0 +1,690 @@
+$ curl -s -i -X GET 'http://127.0.0.1:8090/?id=1'
+HTTP/1.1 200 OK
+Date: Wed, 07 Oct 2026 22:54:04 GMT
+Server: Apache/2.4.68 (Debian)
+X-Powered-By: PHP/8.3.35
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>24</b><br />
+AfrÃÂ­ca Restobar</title>
+	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
+
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+   Bienvenido :Alondra - <a href=setup/cerrar_sesion.php>Cerra Sesión</a></nav>
+  <section>
+    <div class="container contendor">
+      <div class="row">
+        <div class="col-lg-4">
+          <div style="text-align: center;">
+            <div class="media">
+              <img class="logosintituciones" src="img/logo.png" width="190px" alt="">
+            </div>
+          </div>  
+        </div>
+        <div class="col-lg-4">
+          <div style="text-align: center;">
+            <div class="media">
+                                <img class="logosintituciones" src="imagenes/cod1/resto1.jpg" width="170px" alt="">
+                          </div>
+          </div>  
+        </div>
+        <div class="col-lg-4">
+          <div class="carro">
+            <div class="media float-right">
+              <a class="button_carrito" href="mostrar_carrito.php?keyid=1">
+              <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+              </svg>
+              Productos Seleccionados
+              </a>
+            </div>
+          </div>  
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center">
+                           
+              <h4><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>107</b><br />
+AfrÃÂ­ca Restobar</h4>
+              <h5>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                  <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>  
+              <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>113</b><br />
+<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>113</b><br />
+Avenida Argentina #951, La Serena              </h5>
+                            <h5>
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
+                </svg>  
+                22334455                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                </svg>
+                mail@correo.cl                            </h5>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--DESTACADOS-->
+    <section class="destacados">
+    <div class="container contendor">
+      <div class="section-intro">
+        <h4 class="intro-title">Menús Destacados</h4>
+      </div>
+      <div class="owl-carousel owl-theme featured-carousel">
+              <div class="featured-item">
+                          <img class="card-img rounded-0" width="350px" height="235px" src="imagenes/cod1/item2.jpg" alt="">
+                        <div class="item-body">
+              <h3><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>178</b><br />
+Crema de espinacas</h3>
+            <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>179</b><br />
+Crema a base de espinacas y finas hierbas<br>
+            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>180</b><br />
+<br>
+            
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                </svg>
+                 20 minutos                        </p>
+            <div class="d-flex justify-content-between">
+              <ul class="rating-star">
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                              </ul>
+              <h3 class="price-tag">$ 2.000</h3>
+            </div>
+            <a class="button" href="#" id="2" style="margin:0%">Seleccionar</a>
+          </div>
+        </div>
+              <div class="featured-item">
+                          <img class="card-img rounded-0" width="350px" height="235px" src="imagenes/cod1/item5.jpg" alt="">
+                        <div class="item-body">
+              <h3><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>178</b><br />
+Lomo a lo Pobre</h3>
+            <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>179</b><br />
+Lomo con papas fritas, huevo y cebolla<br>
+            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>180</b><br />
+Muy sabroso<br>
+            
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                </svg>
+                 30 minutos                        </p>
+            <div class="d-flex justify-content-between">
+              <ul class="rating-star">
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                              </ul>
+              <h3 class="price-tag">$ 12.500</h3>
+            </div>
+            <a class="button" href="#" id="5" style="margin:0%">Seleccionar</a>
+          </div>
+        </div>
+              <div class="featured-item">
+                          <img class="card-img rounded-0" width="350px" height="235px" src="imagenes/cod1/item3.jpg" alt="">
+                        <div class="item-body">
+              <h3><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>178</b><br />
+Lomo a lo Pobre</h3>
+            <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>179</b><br />
+Lomo a lo Pobre<br>
+            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>180</b><br />
+Rico Lomo a lo Pobre<br>
+            
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                </svg>
+                 20 minutos                        </p>
+            <div class="d-flex justify-content-between">
+              <ul class="rating-star">
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                                    <li><i class="ti-star"></i></li>
+                              </ul>
+              <h3 class="price-tag">$ 9.900</h3>
+            </div>
+            <a class="button" href="#" id="7" style="margin:0%">Seleccionar</a>
+          </div>
+        </div>
+            </div>
+    </div>
+  </section>
+<section>
+    <div class="container contendor">
+       <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Vinos-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Vinos" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Vinos</a>
+                            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Bebidas-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Bebidas" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Bebidas</a>
+                            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Entradas-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Entradas" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Entradas</a>
+                            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Principales-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Principales" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Principales</a>
+                            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Postres-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Postres" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Postres</a>
+                            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Pizzas-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Pizzas" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Pizzas</a>
+                            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Dulces-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Dulces" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Dulces</a>
+                            <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>233</b><br />
+                              <a class="nav-item nav-link" id="nav-<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Helados-tab" data-toggle="tab" href="#<br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Helados" role="tab" aria-controls="nav-profile" aria-selected="false"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>235</b><br />
+Helados</a>
+                                                </div>
+                  </nav>
+                  <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="Vinos" role="tabpanel" aria-labelledby="nav-Vinos-tab">              
+                                                      <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Blancos</h4>
+                                </div>
+
+                                <div class="row">
+                                                                          <div class="col-lg-12 ">
+                                          <div class="text-center">
+                                                <h4>No Información para Mostrar</h4>
+                                          </div>
+                                        </div>
+                                                                      </div>
+                                                                <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Tintos</h4>
+                                </div>
+
+                                <div class="row">
+                                                                          <div class="col-lg-12 ">
+                                          <div class="text-center">
+                                                <h4>No Información para Mostrar</h4>
+                                          </div>
+                                        </div>
+                                                                      </div>
+                                                    </div>
+                                        <div class="tab-pane fade " id="Bebidas" role="tabpanel" aria-labelledby="nav-Bebidas-tab">              
+                                                      <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Con Alcohol</h4>
+                                </div>
+
+                                <div class="row">
+                                                                              <div class="col-lg-12">
+                                              <div class="media align-items-center food-card">
+                                                                                                <img class="mr-3 mr-sm-4" src="imagenes/cod1/item4.jpg" alt="" width="120px">
+                                                                                                  <div class="media-body">
+                                                  <div class="d-flex justify-content-between food-card-title">
+                                                    <h4><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>295</b><br />
+Pisco Sour</h4>
+                                                    <h3 class="price-tag">$ 3.500</h3>
+                                                  </div>
+                                                  <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>298</b><br />
+Pisco sour casero</br>
+                                                  <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>299</b><br />
+<br />
+<b>Deprecated</b>:  utf8_encode(): Passing null to parameter #1 ($string) of type string is deprecated in <b>/var/www/html/index.php</b> on line <b>299</b><br />
+</p>
+                                                                                                    <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                                                      </svg>
+                                                       15 minutos</p>
+                                                                                                        <p>
+                                                        <ul class="rating-star">
+                                                                                                                  </u>
+                                                      </p>
+                                                  <a class="button float-right" href="#" id="4">Seleccionar</a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                                                      </div>
+                                                                <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Sin Alcohol</h4>
+                                </div>
+
+                                <div class="row">
+                                                                          <div class="col-lg-12 ">
+                                          <div class="text-center">
+                                                <h4>No Información para Mostrar</h4>
+                                          </div>
+                                        </div>
+                                                                      </div>
+                                                    </div>
+                                        <div class="tab-pane fade " id="Entradas" role="tabpanel" aria-labelledby="nav-Entradas-tab">              
+                                                      <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+FrÃÂ­as</h4>
+                                </div>
+
+                                <div class="row">
+                                                                              <div class="col-lg-12">
+                                              <div class="media align-items-center food-card">
+                                                                                                <img class="mr-3 mr-sm-4" src="imagenes/cod1/item1.jpg" alt="" width="120px">
+                                                                                                  <div class="media-body">
+                                                  <div class="d-flex justify-content-between food-card-title">
+                                                    <h4><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>295</b><br />
+Ensalada Cesar</h4>
+                                                    <h3 class="price-tag">$ 3.500</h3>
+                                                  </div>
+                                                  <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>298</b><br />
+Ensalada con queso</br>
+                                                  <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>299</b><br />
+<br />
+<b>Deprecated</b>:  utf8_encode(): Passing null to parameter #1 ($string) of type string is deprecated in <b>/var/www/html/index.php</b> on line <b>299</b><br />
+</p>
+                                                                                                    <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                                                      </svg>
+                                                       15 minutos</p>
+                                                                                                        <p>
+                                                        <ul class="rating-star">
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                  </u>
+                                                      </p>
+                                                  <a class="button float-right" href="#" id="1">Seleccionar</a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                                                      </div>
+                                                                <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Calientes</h4>
+                                </div>
+
+                                <div class="row">
+                                                                              <div class="col-lg-12">
+                                              <div class="media align-items-center food-card">
+                                                                                                <img class="mr-3 mr-sm-4" src="imagenes/cod1/item2.jpg" alt="" width="120px">
+                                                                                                  <div class="media-body">
+                                                  <div class="d-flex justify-content-between food-card-title">
+                                                    <h4><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>295</b><br />
+Crema de espinacas</h4>
+                                                    <h3 class="price-tag">$ 2.000</h3>
+                                                  </div>
+                                                  <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>298</b><br />
+Crema a base de espinacas y finas hierbas</br>
+                                                  <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>299</b><br />
+</p>
+                                                                                                    <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                                                      </svg>
+                                                       20 minutos</p>
+                                                                                                        <p>
+                                                        <ul class="rating-star">
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                  </u>
+                                                      </p>
+                                                  <a class="button float-right" href="#" id="2">Seleccionar</a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                                                      </div>
+                                                    </div>
+                                        <div class="tab-pane fade " id="Principales" role="tabpanel" aria-labelledby="nav-Principales-tab">              
+                                                      <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Carnes</h4>
+                                </div>
+
+                                <div class="row">
+                                                                              <div class="col-lg-6 ">
+                                              <div class="media align-items-center food-card">
+                                                                                                <img class="mr-3 mr-sm-4" src="imagenes/cod1/item5.jpg" alt="" width="120px">
+                                                                                                  <div class="media-body">
+                                                  <div class="d-flex justify-content-between food-card-title">
+                                                    <h4><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>295</b><br />
+Lomo a lo Pobre</h4>
+                                                    <h3 class="price-tag">$ 12.500</h3>
+                                                  </div>
+                                                  <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>298</b><br />
+Lomo con papas fritas, huevo y cebolla</br>
+                                                  <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>299</b><br />
+Muy sabroso</p>
+                                                                                                    <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                                                      </svg>
+                                                       30 minutos</p>
+                                                                                                        <p>
+                                                        <ul class="rating-star">
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                  </u>
+                                                      </p>
+                                                  <a class="button float-right" href="#" id="5">Seleccionar</a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                                                                  <div class="col-lg-6 ">
+                                              <div class="media align-items-center food-card">
+                                                                                                <img class="mr-3 mr-sm-4" src="imagenes/cod1/item3.jpg" alt="" width="120px">
+                                                                                                  <div class="media-body">
+                                                  <div class="d-flex justify-content-between food-card-title">
+                                                    <h4><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>295</b><br />
+Lomo a lo Pobre</h4>
+                                                    <h3 class="price-tag">$ 9.900</h3>
+                                                  </div>
+                                                  <p><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>298</b><br />
+Lomo a lo Pobre</br>
+                                                  <br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>299</b><br />
+Rico Lomo a lo Pobre</p>
+                                                                                                    <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                                                      </svg>
+                                                       20 minutos</p>
+                                                                                                        <p>
+                                                        <ul class="rating-star">
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                        <li><i class="ti-star"></i></li>
+                                                                                                                  </u>
+                                                      </p>
+                                                  <a class="button float-right" href="#" id="7">Seleccionar</a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                                                      </div>
+                                                                <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Pescados</h4>
+                                </div>
+
+                                <div class="row">
+                                                                          <div class="col-lg-12 ">
+                                          <div class="text-center">
+                                                <h4>No Información para Mostrar</h4>
+                                          </div>
+                                        </div>
+                                                                      </div>
+                                                                <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Mariscos</h4>
+                                </div>
+
+                                <div class="row">
+                                                                          <div class="col-lg-12 ">
+                                          <div class="text-center">
+                                                <h4>No Información para Mostrar</h4>
+                                          </div>
+                                        </div>
+                                                                      </div>
+                                                                <div class="section-intro mb-20px">
+                                    <h4 class="intro-title"><br />
+<b>Deprecated</b>:  Function utf8_encode() is deprecated in <b>/var/www/html/index.php</b> on line <b>266</b><br />
+Pastas</h4>
+                                </div>
+
+                                <div class="row">
+                                                                          <div class="col-lg-12 ">
+                                          <div class="text-center">
+                                                <h4>No Información para Mostrar</h4>
+                                          </div>
+                                        </div>
+                                                                      </div>
+                                                    </div>
+                                        <div class="tab-pane fade " id="Postres" role="tabpanel" aria-labelledby="nav-Postres-tab">              
+                                                    <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="text-center">
+                                    <h4>No hay información para Mostrar</h4>
+                                  </div>
+                                </div>
+                              </div>
+                                              </div>
+                                        <div class="tab-pane fade " id="Pizzas" role="tabpanel" aria-labelledby="nav-Pizzas-tab">              
+                                                    <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="text-center">
+                                    <h4>No hay información para Mostrar</h4>
+                                  </div>
+                                </div>
+                              </div>
+                                              </div>
+                                        <div class="tab-pane fade " id="Dulces" role="tabpanel" aria-labelledby="nav-Dulces-tab">              
+                                                    <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="text-center">
+                                    <h4>No hay información para Mostrar</h4>
+                                  </div>
+                                </div>
+                              </div>
+                                              </div>
+                                        <div class="tab-pane fade " id="Helados" role="tabpanel" aria-labelledby="nav-Helados-tab">              
+                                                    <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="text-center">
+                                    <h4>No hay información para Mostrar</h4>
+                                  </div>
+                                </div>
+                              </div>
+                                              </div>
+                                        <div class="tab-pane fade " id="<br />
+<b>Warning</b>:  Undefined array key 8 in <b>/var/www/html/index.php</b> on line <b>246</b><br />
+<br />
+<b>Warning</b>:  Trying to access array offset on null in <b>/var/www/html/index.php</b> on line <b>246</b><br />
+<br />
+<b>Deprecated</b>:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in <b>/var/www/html/setup/setup.php</b> on line <b>11</b><br />
+" role="tabpanel" aria-labelledby="nav-<br />
+<b>Warning</b>:  Undefined array key 8 in <b>/var/www/html/index.php</b> on line <b>246</b><br />
+<br />
+<b>Warning</b>:  Trying to access array offset on null in <b>/var/www/html/index.php</b> on line <b>246</b><br />
+<br />
+<b>Deprecated</b>:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in <b>/var/www/html/setup/setup.php</b> on line <b>11</b><br />
+-tab">              
+                      <br />
+<b>Warning</b>:  Undefined array key 8 in <b>/var/www/html/index.php</b> on line <b>248</b><br />
+<br />
+<b>Warning</b>:  Trying to access array offset on null in <b>/var/www/html/index.php</b> on line <b>248</b><br />
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="text-center">
+                                    <h4>No hay información para Mostrar</h4>
+                                  </div>
+                                </div>
+                              </div>
+                                              </div>
+                                      </div>     
+                </div>
+              </div>
+        </div>
+    </div>
+</section>
+<div id="myModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-lg-center" id="exampleModalLabel">Selección de Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        El producto seleccionado, ha sido agregado sin problemas!!!
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section>
+  <div class="container contendor">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-intro">
+            <h4 class="intro-title">Comentarios</h4>
+                          <form action="grcomentarios.php" method="post">
+              <div class="form-group">
+                <label for="usr">Nombre:</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" value="Alondra">
+              </div>
+              <div class="form-group">
+                <label for="comment">Comentario:</label>
+                <textarea class="form-control" rows="5" id="comentario" name="comentario"></textarea>
+              </div>
+              <button type="submit" class="btn btn-success fa-align-right">Comentar</button>
+           </form>
+                     </div>
+          <br>
+                    <div class="card bg-light">
+            <div class="card-body">
+              <b>anon</b>
+              <br>
+              hola            </div>
+          </div>
+          <br>
+                    <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <footer class="footer-area section-gap"><br>
+		<div class="container">
+			<div class="footer-bottom row align-items-center text-center">
+				<p class="footer-text m-0 col-md-12">
+            Copyright 2020, Todos los Derechos reservados PNK, <br>
+            Sitio desarrollado para la Explotación de Vulnerabilidades Web, Laboratorio de Programación Segura I<br><b>Área Tecnologías de Información y Ciberseguridad - Inacap Sede La Serena</b></br></br>
+        </p>
+			</div>
+		</div>
+	</footer>
+
+
+  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
+  <script src="vendors/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="js/jquery.ajaxchimp.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/controladorajax.js"></script>
+</body>
+</html>

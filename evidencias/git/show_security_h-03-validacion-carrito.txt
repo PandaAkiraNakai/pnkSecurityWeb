@@ -1,0 +1,16 @@
+$ git show --stat security/h-03-validacion-carrito
+commit ccab186156442eb3b20bbe52098438d9dddb8a61
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 20:03:12 2026 -0300
+
+    security: valida op, iditems y pos del carrito en el servidor (H-03)
+    
+    - op solo admite 1, 2 o 3; otro valor -> 400.
+    - iditems y pos con la misma regla de entero valido que H-01: invalido -> 400;
+      producto inexistente o no visible -> 404.
+    - Consulta del producto con parametros (OBS-06).
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ carrito.php | 30 +++++++++++++++++++++++-------
+ 1 file changed, 23 insertions(+), 7 deletions(-)

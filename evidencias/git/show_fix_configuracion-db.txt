@@ -1,0 +1,15 @@
+$ git show --stat fix/configuracion-db
+commit 98d24362b1a7ac72151d03b36edd14aead019e37
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 19:58:39 2026 -0300
+
+    fix: lee la configuracion de la base desde el entorno (T-U2-01)
+    
+    setup.php ya no contiene host ni credenciales: usa DB_HOST, DB_NAME, DB_USER
+    y DB_PASSWORD (OBS-01, OBS-02). Una sola conexion por peticion con charset
+    utf8mb4 y errores de MySQL como excepciones (OBS-12).
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ setup/setup.php | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)

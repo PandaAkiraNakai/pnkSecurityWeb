@@ -1,0 +1,16 @@
+Petición                          HTTP   Traza/aviso Resultado observado
+/?id=1                             200    0         carta: Afríca Restobar  [esperado 200]
+/?id=7                             200    0         carta: La Pica de Carolina  [esperado 200]
+/mostrar_carrito.php?id=2          200    0         carta: Restaurant la Bahía  [esperado 200]
+/                                  400    0         página controlada 400  [esperado 400]
+/?id=                              400    0         página controlada 400  [esperado 400]
+/?id=abc                           400    0         página controlada 400  [esperado 400]
+/?id=0                             400    0         página controlada 400  [esperado 400]
+/?id=-1                            400    0         página controlada 400  [esperado 400]
+/?id=1.5                           400    0         página controlada 400  [esperado 400]
+/?id=1%20or%201%3D1                400    0         página controlada 400  [esperado 400]
+/?id=99999999999                   400    0         página controlada 400  [esperado 400]
+/?id=999                           404    0         página controlada 404  [esperado 404]
+/mostrar_carrito.php?id=abc        400    0         página controlada 400  [esperado 400]
+/mostrar_carrito.php               400    0         página controlada 400  [esperado 400]
+Columna Traza/aviso: cantidad de líneas con 'Fatal error', 'Warning', '/var/www', 'Stack trace' o 'mysqli_sql_exception' en la respuesta.

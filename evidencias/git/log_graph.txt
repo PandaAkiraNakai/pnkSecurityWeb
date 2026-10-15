@@ -1,0 +1,52 @@
+$ git log --graph --oneline --decorate --date-order
+*   16075ff (HEAD -> main) Merge security/h-04-login-validacion: validacion del acceso (H-04)
+|\  
+| * 80ef4c0 (security/h-04-login-validacion) security: valida las credenciales del formulario de acceso y usa consulta preparada (H-04)
+|/  
+*   7ad1d36 Merge chore/higiene-repositorio: limpieza del repositorio (OBS-16)
+|\  
+| * 8618155 (chore/higiene-repositorio) chore: retira artefactos ajenos al codigo del repositorio
+|/  
+*   7090dff Merge security/p-01-config-errores: errores, banners y cookie de sesion (P-01)
+|\  
+| * 994835e (security/p-01-config-errores) security: oculta errores y versiones al cliente y protege la cookie de sesion (P-01 / T-01)
+|/  
+*   fa51a4e Merge security/h-03-validacion-carrito: validacion de las entradas del carrito (H-03)
+|\  
+| * ccab186 (security/h-03-validacion-carrito) security: valida op, iditems y pos del carrito en el servidor (H-03)
+|/  
+*   c40156f Merge security/h-02-validacion-comentario: validacion del comentario y codificacion de salida (H-02)
+|\  
+| * 0067630 (security/h-02-validacion-comentario) security: valida el comentario en el servidor y codifica la salida HTML (H-02)
+|/  
+*   83ba3ea Merge security/h-01-validacion-id: validacion del id y consultas preparadas (H-01)
+|\  
+| * a360e3b (security/h-01-validacion-id) security: valida el parametro id en el servidor y usa consultas preparadas (H-01)
+|/  
+*   874c15a Merge fix/enlace-carrito: parametro id del carrito (T-U2-04)
+|\  
+| * d5c3961 (fix/enlace-carrito) fix: alinea el parametro del enlace al carrito (T-U2-04)
+|/  
+*   64a8048 Merge fix/carrito-php8: carrito compatible con PHP 8 (T-U2-03)
+|\  
+| * 92bea87 (fix/carrito-php8) fix: inicializa el carrito en sesion antes de contarlo (T-U2-03)
+|/  
+*   e48fcce Merge fix/configuracion-db: configuracion de BD por entorno (T-U2-01)
+|\  
+| * 98d2436 (fix/configuracion-db) fix: lee la configuracion de la base desde el entorno (T-U2-01)
+|/  
+*   cbbaf4e Merge chore/entorno-local: entorno Docker reproducible (T-U2-02)
+|\  
+| * fa2da69 (chore/entorno-local) chore: entorno local reproducible con Docker Compose (T-U2-02)
+|/  
+* cc3bd2f (origin/main, origin/HEAD) Revise README with project details and security guidelines
+* b635a93 Update README to remove deprecated mysql functions
+* 14f60fe svg
+* 09002e4 svg
+* b6f63cb svg
+* fd65768 svg
+* 47a72fa themify-icons
+* 533806d vendor
+* 3b001ff vendor
+* b315b8f archivos faltantes
+* b94a01c proyecto pnkSecurity

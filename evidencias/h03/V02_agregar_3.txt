@@ -1,0 +1,12 @@
+$ curl -s -i -b sesion -X POST --data 'op=1&iditems=3' 'http://127.0.0.1:8080/carrito.php'
+HTTP/1.1 404 Not Found
+Date: Wed, 07 Oct 2026 23:03:12 GMT
+Server: Apache/2.4.68 (Debian)
+X-Powered-By: PHP/8.3.35
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Content-Length: 344
+Content-Type: text/html; charset=UTF-8
+
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>PNKSecurity</title><link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css"></head><body><div class="container mt-5"><div class="alert alert-warning"><h4>Error 404</h4><p>El producto no existe.</p><a href="index.php?id=1">Volver a la carta</a></div></div></body></html>

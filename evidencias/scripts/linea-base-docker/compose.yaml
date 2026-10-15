@@ -1,0 +1,27 @@
+name: pnk-baseline
+services:
+  db:
+    image: mysql:8.0-oracle
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: pnk_security
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d:ro
+      - dbsock:/var/run/mysqld
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:8090:80"
+    volumes:
+      - ${PNK_CODIGO_RECIBIDO:?ruta al código recibido, sin modificar}:/var/www/html:ro
+      - dbsock:/var/run/mysqld
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  dbsock:

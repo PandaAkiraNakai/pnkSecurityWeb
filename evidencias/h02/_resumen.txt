@@ -1,0 +1,17 @@
+Caso                       HTTP  Location                                     Filas  Último registro (usuario | texto | largo)
+== 07/10/2026 20:05 · filas iniciales: 0 ==
+I01_sin_sesion             403   -                                            0->0   sin cambios  [esperado: 403, no inserta]
+I02_get_con_sesion         403   -                                            0->0   sin cambios  [esperado: 403 (GET), no inserta]
+V01_texto_normal           303   index.php?id=1#comentarios                   0->1   Alondra | Muy buena atención, volveré. | 28  [esperado: 303 e inserta]
+V02_con_saltos             303   index.php?id=1#comentarios                   1->2   Alondra | Primera línea\\nSegunda línea | 27  [esperado: 303 e inserta con \n]
+V03_limite_500             303   index.php?id=1#comentarios                   2->3   Alondra | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | 500  [esperado: 303 e inserta 500]
+V04_html_como_texto        303   index.php?id=1#comentarios                   3->4   Alondra | <b>negrita</b><script>alert(1)</script> | 39  [esperado: 303 e inserta literal]
+V05_usuario_falso          303   index.php?id=1#comentarios                   4->5   Alondra | Intento de cambiar el nombre | 28  [esperado: 303; usuario = sesión]
+I03_vacio                  303   index.php?id=1&comentario=invalido#comentarios 5->5   sin cambios  [esperado: 303 invalido, no inserta]
+I04_solo_espacios          303   index.php?id=1&comentario=invalido#comentarios 5->5   sin cambios  [esperado: 303 invalido, no inserta]
+I05_501_caracteres         303   index.php?id=1&comentario=invalido#comentarios 5->5   sin cambios  [esperado: 303 invalido, no inserta]
+I06_control_char           303   index.php?id=1&comentario=invalido#comentarios 5->5   sin cambios  [esperado: 303 invalido, no inserta]
+I07_utf8_invalido          303   index.php?id=1&comentario=invalido#comentarios 5->5   sin cambios  [esperado: 303 invalido, no inserta]
+I08_sin_campo              303   index.php?id=1&comentario=invalido#comentarios 5->5   sin cambios  [esperado: 303 invalido, no inserta]
+-- cómo se muestra V04 en la carta (codificación de salida) --
+&lt;b&gt;negrita&lt;/b&gt;&lt;script&gt;alert(1)&lt;/script&gt;            

@@ -1,0 +1,20 @@
+$ git show --stat security/h-01-validacion-id
+commit a360e3b8020fdf50a919da0bdb86187045f5ae15
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 20:01:20 2026 -0300
+
+    security: valida el parametro id en el servidor y usa consultas preparadas (H-01)
+    
+    - Regla: entero entre 1 y 2147483647; falta o invalido -> 400 controlado;
+      valido pero inexistente -> 404 controlado (sin trazas ni avisos).
+    - index.php y mostrar_carrito.php validan con id_valido() antes de usar el valor.
+    - Todas las consultas que recibian $key o ids concatenados pasan a
+      consulta() con parametros (mysqli prepare/bind), OBS-06.
+    - Respuesta de error generica responder_error() (relacion con P-01/OBS-08).
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ index.php           | 37 ++++++++++++++++++++++---------------
+ mostrar_carrito.php | 13 ++++++++++---
+ setup/setup.php     | 37 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 69 insertions(+), 18 deletions(-)

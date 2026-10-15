@@ -1,0 +1,15 @@
+$ git show --stat fix/enlace-carrito
+commit d5c396177b38c0a798596475c69e46673792a73b
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 20:00:03 2026 -0300
+
+    fix: alinea el parametro del enlace al carrito (T-U2-04)
+    
+    index.php enviaba ?keyid= y mostrar_carrito.php leia ?id= (OBS-09, F-03).
+    Ambos usan id; se corrige ademas la ruta relativa de la foto del restaurante.
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ index.php           | 2 +-
+ mostrar_carrito.php | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)

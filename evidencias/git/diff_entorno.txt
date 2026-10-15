@@ -1,0 +1,108 @@
+diff --git a/.env.example b/.env.example
+new file mode 100644
+index 0000000..a112fe7
+--- /dev/null
++++ b/.env.example
+@@ -0,0 +1,5 @@
++# Copiar a .env y reemplazar los valores. El archivo .env NO se versiona.
++DB_NAME=pnk_security
++DB_USER=pnk_app
++DB_PASSWORD=cambiar-esta-clave
++DB_ROOT_PASSWORD=cambiar-esta-clave-root
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..95580b5
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,7 @@
++# Configuración local con secretos
++.env
++
++# Artefactos ajenos al código
++.DS_Store
++Thumbs.db
++*.zip
+diff --git a/Dockerfile b/Dockerfile
+new file mode 100644
+index 0000000..2ec02df
+--- /dev/null
++++ b/Dockerfile
+@@ -0,0 +1,8 @@
++# Imagen de la aplicación PNKSecurity: PHP 8.3 con Apache y la extensión mysqli.
++FROM php:8.3-apache
++RUN docker-php-ext-install mysqli
++# Configuración de producción de PHP más los ajustes del proyecto (P-01).
++RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
++COPY docker/php.ini "$PHP_INI_DIR/conf.d/zz-pnksecurity.ini"
++# Apache sin versión en el encabezado Server ni firma en las páginas de error.
++RUN sed -ri 's/^ServerTokens .*/ServerTokens Prod/; s/^ServerSignature .*/ServerSignature Off/' /etc/apache2/conf-available/security.conf
+diff --git a/compose.yaml b/compose.yaml
+new file mode 100644
+index 0000000..7b28ebb
+--- /dev/null
++++ b/compose.yaml
+@@ -0,0 +1,46 @@
++# Entorno local reproducible de PNKSecurity (T-U2-02).
++# Uso: cp .env.example .env ; editar .env ; docker compose up -d --build
++# App: http://127.0.0.1:8080/?id=1 · phpMyAdmin: http://127.0.0.1:8081 (pide usuario y clave)
++name: pnksecurity
++services:
++  web:
++    build: .
++    ports:
++      - "127.0.0.1:8080:80"
++    environment:
++      DB_HOST: db
++      DB_NAME: ${DB_NAME}
++      DB_USER: ${DB_USER}
++      DB_PASSWORD: ${DB_PASSWORD}
++    volumes:
++      - .:/var/www/html
++    depends_on:
++      db:
++        condition: service_healthy
++  db:
++    image: mysql:8.0
++    environment:
++      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
++      MYSQL_DATABASE: ${DB_NAME}
++      MYSQL_USER: ${DB_USER}
++      MYSQL_PASSWORD: ${DB_PASSWORD}
++    volumes:
++      - ./Script_BD:/docker-entrypoint-initdb.d:ro
++      - dbdata:/var/lib/mysql
++    healthcheck:
++      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${DB_USER}", "-p${DB_PASSWORD}"]
++      interval: 5s
++      timeout: 3s
++      retries: 30
++  phpmyadmin:
++    image: phpmyadmin:5
++    # Solo accesible desde la máquina local y con autenticación por cookie (usuario y clave de la BD).
++    ports:
++      - "127.0.0.1:8081:80"
++    environment:
++      PMA_HOST: db
++    depends_on:
++      db:
++        condition: service_healthy
++volumes:
++  dbdata:
+diff --git a/docker/php.ini b/docker/php.ini
+new file mode 100644
+index 0000000..232454d
+--- /dev/null
++++ b/docker/php.ini
+@@ -0,0 +1,12 @@
++; Ajustes de ejecución de PNKSecurity sobre php.ini-production (P-01 / T-01, OBS-08, OBS-13, OBS-15).
++; Los errores se registran en el servidor (docker compose logs web) y nunca se muestran al cliente.
++display_errors = Off
++display_startup_errors = Off
++log_errors = On
++error_reporting = E_ALL
++expose_php = Off
++; Cookie de sesión: sin acceso desde JavaScript y sin envío entre sitios.
++session.cookie_httponly = 1
++session.cookie_samesite = Lax
++session.use_strict_mode = 1
++; session.cookie_secure = 1 requiere servir la app por HTTPS (P-02, pendiente para la Evaluación 3).

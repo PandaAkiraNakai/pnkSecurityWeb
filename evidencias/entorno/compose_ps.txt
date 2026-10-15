@@ -1,0 +1,5 @@
+$ docker compose ps
+NAME                       IMAGE             COMMAND                  SERVICE      CREATED              STATUS                        PORTS
+pnksecurity-db-1           mysql:8.0         "docker-entrypoint.s…"   db           8 minutes ago        Up About a minute (healthy)   3306/tcp, 33060/tcp
+pnksecurity-phpmyadmin-1   phpmyadmin:5      "/docker-entrypoint.…"   phpmyadmin   8 minutes ago        Up 8 minutes                  127.0.0.1:8081->80/tcp
+pnksecurity-web-1          pnksecurity-web   "docker-php-entrypoi…"   web          About a minute ago   Up About a minute             127.0.0.1:8080->80/tcp

@@ -1,0 +1,12 @@
+$ git branch -v
+  chore/entorno-local                 fa2da69 chore: entorno local reproducible con Docker Compose (T-U2-02)
+  chore/higiene-repositorio           8618155 chore: retira artefactos ajenos al codigo del repositorio
+  fix/carrito-php8                    92bea87 fix: inicializa el carrito en sesion antes de contarlo (T-U2-03)
+  fix/configuracion-db                98d2436 fix: lee la configuracion de la base desde el entorno (T-U2-01)
+  fix/enlace-carrito                  d5c3961 fix: alinea el parametro del enlace al carrito (T-U2-04)
+* main                                16075ff [adelante 20] Merge security/h-04-login-validacion: validacion del acceso (H-04)
+  security/h-01-validacion-id         a360e3b security: valida el parametro id en el servidor y usa consultas preparadas (H-01)
+  security/h-02-validacion-comentario 0067630 security: valida el comentario en el servidor y codifica la salida HTML (H-02)
+  security/h-03-validacion-carrito    ccab186 security: valida op, iditems y pos del carrito en el servidor (H-03)
+  security/h-04-login-validacion      80ef4c0 security: valida las credenciales del formulario de acceso y usa consulta preparada (H-04)
+  security/p-01-config-errores        994835e security: oculta errores y versiones al cliente y protege la cookie de sesion (P-01 / T-01)

@@ -1,0 +1,22 @@
+$ curl -s -i -X POST --data 'op=1&iditems=1' 'http://127.0.0.1:8090/carrito.php'
+HTTP/1.1 200 OK
+Date: Wed, 07 Oct 2026 22:54:04 GMT
+Server: Apache/2.4.68 (Debian)
+X-Powered-By: PHP/8.3.35
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 518
+Content-Type: text/html; charset=UTF-8
+
+<br />
+<b>Warning</b>:  Undefined array key "carrito" in <b>/var/www/html/carrito.php</b> on line <b>18</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "carrito" in <b>/var/www/html/carrito.php</b> on line <b>23</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /var/www/html/carrito.php:23
+Stack trace:
+#0 /var/www/html/carrito.php(8): insertar()
+#1 {main}
+  thrown in <b>/var/www/html/carrito.php</b> on line <b>23</b><br />

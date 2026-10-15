@@ -1,0 +1,18 @@
+$ git show --stat security/h-04-login-validacion
+commit 80ef4c0afefe491c8e85d2bbb7de46570c4accea
+Author: PandaAkiraNakai <168790740+PandaAkiraNakai@users.noreply.github.com>
+Date:   Wed Oct 7 20:08:53 2026 -0300
+
+    security: valida las credenciales del formulario de acceso y usa consulta preparada (H-04)
+    
+    - frmusuario debe ser un correo valido (<=255) y frmpassword un texto no vacio
+      (<=255); si no cumple, vuelve a la carta con aviso y no consulta la base.
+    - Consulta de login con parametros (OBS-06) y regeneracion del id de sesion
+      al autenticar.
+    - Las contraseñas en texto plano (OBS-05) quedan pendientes para la Evaluacion 3.
+    
+    Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+ index.php              |  4 ++++
+ setup/procesalogin.php | 37 ++++++++++++++++++++++++-------------
+ 2 files changed, 28 insertions(+), 13 deletions(-)
