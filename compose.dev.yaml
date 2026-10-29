@@ -1,0 +1,7 @@
+# Solo desarrollo local: monta public/ y app/ en solo lectura para ver los cambios sin reconstruir.
+# Nunca montar el repositorio completo: expondría .env, .git y Script_BD (ES3, punto 1).
+services:
+  web:
+    volumes:
+      - ./public:/var/www/public:ro
+      - ./app:/var/www/app:ro

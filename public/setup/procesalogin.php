@@ -1,6 +1,6 @@
 <?php
 
-include("setup.php");
+require __DIR__ . "/../../app/setup.php";
 
 // H-04: las credenciales del formulario se validan antes de consultar la base y la
 // consulta usa parámetros. Regla: frmusuario debe ser un correo válido de hasta 255

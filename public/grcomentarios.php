@@ -1,6 +1,6 @@
 <?php
 
-include("setup/setup.php");
+require __DIR__ . "/../app/setup.php";
 session_start();
 
 // H-02: solo un usuario con sesión iniciada puede comentar, y el nombre que se guarda
