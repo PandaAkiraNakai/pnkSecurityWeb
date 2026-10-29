@@ -18,7 +18,7 @@ caso() { # nombre esperado datos... (usa --data-urlencode)
 echo "== $(date '+%d/%m/%Y %H:%M') · filas iniciales: $(filas) =="
 caso I01_sin_sesion     "403, no inserta" "comentario=Hola sin sesión"
 # Inicio de sesión con la cuenta de prueba del script SQL (dato ficticio de laboratorio)
-curl -s -o /dev/null -b "$J" -c "$J" -X POST --data 'frmusuario=alondra@gmail.com&frmpassword=${PNK_CLAVE_PRUEBA:?defina la clave de la cuenta de prueba}' "$B/setup/procesalogin.php"
+curl -s -o /dev/null -b "$J" -c "$J" -X POST --data-urlencode 'frmusuario=alondra@gmail.com' --data-urlencode "frmpassword=${PNK_CLAVE_PRUEBA:?defina la clave de la cuenta de prueba}" "$B/setup/procesalogin.php"
 curl -s -o /dev/null -b "$J" -c "$J" "$B/?id=1"
 { echo "\$ curl -s -i -b sesion '$B/grcomentarios.php'"; curl -s -i -b "$J" -c "$J" "$B/grcomentarios.php" | sed 's/\r$//'; } > "$OUT/I02_get_con_sesion.txt"
 printf '%-26s %-5s %-44s %s->%-3s %s  [esperado: %s]\n' I02_get_con_sesion "$(grep -m1 '^HTTP/' "$OUT/I02_get_con_sesion.txt" | awk '{print $2}')" - "$(filas)" "$(filas)" "sin cambios" "403 (GET), no inserta"
