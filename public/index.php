@@ -1,6 +1,6 @@
 <?php
 
-include("setup/setup.php");
+require __DIR__ . "/../app/setup.php";
 session_start();
 
 // H-01: el id se valida en el servidor antes de usarlo. Falta o no cumple la regla → 400.

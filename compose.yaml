@@ -1,5 +1,7 @@
 # Entorno local reproducible de PNKSecurity (T-U2-02).
 # Uso: cp .env.example .env ; editar .env ; docker compose up -d --build
+# El código va dentro de la imagen (sin montar el repositorio): tras editar, volver a --build.
+# Para desarrollo con recarga en caliente: docker compose -f compose.yaml -f compose.dev.yaml up -d
 # App: http://127.0.0.1:8080/?id=1 · phpMyAdmin: http://127.0.0.1:8081 (pide usuario y clave)
 name: pnksecurity
 services:
@@ -12,8 +14,6 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - .:/var/www/html
     depends_on:
       db:
         condition: service_healthy

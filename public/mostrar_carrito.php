@@ -1,5 +1,5 @@
 <?php
-include("setup/setup.php");
+require __DIR__ . "/../app/setup.php";
 session_start();
 
 // H-01: misma regla de validación del id que en index.php.
