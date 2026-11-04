@@ -45,6 +45,10 @@ $_SESSION['id']=$key;
     {
       echo '<span class="text-danger mr-3">Usuario o contraseña incorrectos.</span>';
     }
+    if(isset($_GET['login']) && $_GET['login']==='bloqueado')
+    {
+      echo '<span class="text-danger mr-3">Demasiados intentos fallidos. Espere ' . VENTANA_MINUTOS . ' minutos e intente de nuevo.</span>';
+    }
     if(!isset($_SESSION['nombre']))
     {
     ?>
