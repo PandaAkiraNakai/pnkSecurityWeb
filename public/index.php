@@ -29,6 +29,8 @@ $_SESSION['id']=$key;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title><?php echo e($datos_restorant['nombre']);?></title>
+  <!-- ES3: token CSRF para las peticiones AJAX del carrito (js/controladorajax.js). -->
+  <meta name="csrf-token" content="<?php echo e(csrf_token());?>">
 	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -53,6 +55,7 @@ $_SESSION['id']=$key;
     {
     ?>
       <form class="form-inline" role="search" action="setup/procesalogin.php" method="post">
+        <?php echo csrf_campo();?>
         <div class="form-group">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">@</span>
@@ -66,7 +69,10 @@ $_SESSION['id']=$key;
       </form>
     <?php
     }else{
-      echo "Bienvenido: ".e($_SESSION['nombre'])." - <a href=\"setup/cerrar_sesion.php\">Cerrar sesión</a>";
+      // ES3: cerrar sesión es un formulario POST con token, ya no un enlace GET.
+      echo '<span>Bienvenido: '.e($_SESSION['nombre']).' - </span>'
+         . '<form class="form-inline" action="setup/cerrar_sesion.php" method="post">'.csrf_campo()
+         . '<button type="submit" class="btn btn-link p-0">Cerrar sesión</button></form>';
     }
   ?>
 </nav>
@@ -87,7 +93,7 @@ $_SESSION['id']=$key;
               if($datos_restorant['foto']!="")
               {  
                 ?>
-                  <img class="logosintituciones" src="imagenes/cod<?php echo $key;?>/<?php echo $datos_restorant['foto'];?>" width="170px" alt="">
+                  <img class="logosintituciones" src="imagenes/cod<?php echo $key;?>/<?php echo e($datos_restorant['foto']);?>" width="170px" alt="">
               <?php
               }else{
                 ?>
@@ -181,7 +187,7 @@ $_SESSION['id']=$key;
               if($destacados['foto']!="")
               {  
                 ?>
-                  <img class="card-img rounded-0" width="350px" height="235px" src="imagenes/cod<?php echo $key;?>/<?php echo $destacados['foto'];?>" alt="">
+                  <img class="card-img rounded-0" width="350px" height="235px" src="imagenes/cod<?php echo $key;?>/<?php echo e($destacados['foto']);?>" alt="">
               <?php
               }else{
                 ?>
@@ -201,7 +207,7 @@ $_SESSION['id']=$key;
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
                 </svg>
-                <?php echo " ".$destacados['tiempo'];?>
+                <?php echo " ".e($destacados['tiempo']);?>
             <?php
             }
             ?>
@@ -220,7 +226,7 @@ $_SESSION['id']=$key;
               <h3 class="price-tag"><?php             
               echo moneda_chilena($destacados['precio']);?></h3>
             </div>
-            <a class="button" href="#" id="<?php echo $destacados['id'];?>" style="margin:0%">Seleccionar</a>
+            <a class="button" href="#" id="<?php echo e($destacados['id']);?>" style="margin:0%">Seleccionar</a>
           </div>
         </div>
       <?php
@@ -301,7 +307,7 @@ $_SESSION['id']=$key;
                                                 <?php
                                                 }else{
                                                   ?>
-                                                <img class="mr-3 mr-sm-4" src="imagenes/cod<?php echo $key;?>/<?php echo $datos_items['foto'];?>" alt="" width="120px">
+                                                <img class="mr-3 mr-sm-4" src="imagenes/cod<?php echo $key;?>/<?php echo e($datos_items['foto']);?>" alt="" width="120px">
                                                   <?php
                                                 }
                                                 ?>
@@ -319,7 +325,7 @@ $_SESSION['id']=$key;
                                                   <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                       <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
                                                       </svg>
-                                                      <?php echo " ".$datos_items['tiempo'];?></p>
+                                                      <?php echo " ".e($datos_items['tiempo']);?></p>
                                                   <?php
                                                   }
                                                   ?>
@@ -335,7 +341,7 @@ $_SESSION['id']=$key;
                                                           ?>
                                                         </u>
                                                       </p>
-                                                  <a class="button float-right" href="#" id="<?php echo $datos_items['id'];?>">Seleccionar</a>
+                                                  <a class="button float-right" href="#" id="<?php echo e($datos_items['id']);?>">Seleccionar</a>
                                                 </div>
                                               </div>
                                             </div>
@@ -408,6 +414,7 @@ if(isset($key))
             {
              ?>
              <form action="grcomentarios.php" method="post">
+              <?php echo csrf_campo();?>
               <div class="form-group">
                 <label>Nombre: <b><?php echo e($_SESSION['nombre']);?></b></label>
               </div>

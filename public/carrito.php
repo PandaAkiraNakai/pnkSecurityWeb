@@ -2,6 +2,8 @@
 
 require __DIR__ . "/../app/setup.php";
 session_start();
+// ES3: las operaciones del carrito exigen el token CSRF (la página lo envía en X-CSRF-Token).
+csrf_verificar();
 
 // H-03: la operación y los identificadores que llegan por POST se validan antes de usarse.
 // op solo admite 1 (agregar), 2 (quitar una posición) o 3 (vaciar); cualquier otro valor → 400.
@@ -51,6 +53,8 @@ function eliminaritems()
 
 function eliminartodo()
 {
-    session_destroy();
+    // ES3: vaciar el carrito solo borra el carrito. Antes llamaba a session_destroy(), que
+    // además cerraba la sesión del usuario sin que lo pidiera.
+    unset($_SESSION["carrito"]);
 }
 ?>

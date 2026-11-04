@@ -2,6 +2,8 @@
 
 require __DIR__ . "/../app/setup.php";
 session_start();
+// ES3: sin el token CSRF de la sesión, el comentario se rechaza con 403.
+csrf_verificar();
 
 // H-02: solo un usuario con sesión iniciada puede comentar, y el nombre que se guarda
 // es el de la sesión, no el que envíe el formulario.
