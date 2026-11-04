@@ -18,7 +18,9 @@ services:
       db:
         condition: service_healthy
   db:
-    image: mysql:8.0
+    # ES3: MySQL 8.0 llegó al fin de su vida útil en abril de 2026 (mysql.com/support/eol-notice.html).
+    # 8.4 es la versión LTS vigente; la base de datos existente se actualiza sola al arrancar.
+    image: mysql:8.4.13
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       # ES3: root solo desde dentro del contenedor; ni la app ni phpMyAdmin pueden usarlo.
@@ -38,7 +40,8 @@ services:
       timeout: 3s
       retries: 30
   phpmyadmin:
-    image: phpmyadmin:5
+    # ES3: versión fijada (antes "5", que cambia sin aviso). 5.2.3 es la estable vigente (phpmyadmin.net).
+    image: phpmyadmin:5.2.3-apache
     # Solo accesible desde la máquina local y con autenticación por cookie. Se entra con la
     # cuenta DB_ADMIN_USER (root no puede entrar desde fuera del contenedor de la BD).
     ports:

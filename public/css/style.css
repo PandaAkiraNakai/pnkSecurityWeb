@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
-@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:400,600,700");
+/* ES3: las fuentes se cargan desde css/fuentes.css (alojadas localmente, sin Google Fonts). */
 body {
 	color: #336699;
 	font-family: "Open Sans", sans-serif;
@@ -3043,3 +3042,12 @@ button.button {
 .footer-area .footer-bottom .footer-social a span {
 	font-size: 14px
 }
+
+/* ES3: estilos que antes estaban en atributos style="" del HTML. La CSP solo permite hojas
+   de estilo propias (style-src 'self'), sin estilos en línea. */
+.centrado { text-align: center; }
+.sin-margen { margin: 0; }
+/* Bootstrap 5 subraya los enlaces por defecto; la plantilla original no lo hacía. */
+a { text-decoration: none; }
+/* Estrellas de puntuación (antes, fuente themify-icons). */
+.rating-star li svg { width: 11px; height: 11px; color: #ffbe0f; vertical-align: baseline; }

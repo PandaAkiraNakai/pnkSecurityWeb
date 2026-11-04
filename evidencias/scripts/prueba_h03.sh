@@ -3,13 +3,16 @@
 # Uso: prueba_h03.sh <baseURL> <dirSalida>
 B=$1; OUT=$2; mkdir -p "$OUT"
 J=$(mktemp)
+# ES3: la app exige token CSRF; se toma de la página, igual que lo hace el navegador.
+tok() { curl -s -b "$J" -c "$J" "$B/?id=1" | grep -o 'name="csrf-token" content="[^"]*"' | sed 's/.*content="//;s/"$//'; }
 caso() { # nombre datos esperado
   local n=$1 d=$2 esp=$3 f="$OUT/$1.txt"
-  { echo "\$ curl -s -i -b sesion -X POST --data '$d' '$B/carrito.php'"; curl -s -i -b "$J" -c "$J" -X POST --data "$d" "$B/carrito.php" | sed 's/\r$//'; } > "$f"
+  { echo "\$ curl -s -i -b sesion -X POST --data '$d' '$B/carrito.php'"; curl -s -i -b "$J" -c "$J" -H "X-CSRF-Token: $T" -X POST --data "$d" "$B/carrito.php" | sed 's/\r$//'; } > "$f"
   local items; items=$(curl -s -b "$J" "$B/mostrar_carrito.php?id=1" | grep -c 'scope="row"')
   printf '%-20s %-20s HTTP %-4s carrito=%s  [esperado %s]\n' "$n" "$d" "$(grep -m1 '^HTTP/' "$f" | awk '{print $2}')" "$items" "$esp"
 }
 echo "== $(date '+%d/%m/%Y %H:%M') =="
+T=$(tok)
 caso V01_agregar_1    'op=1&iditems=1'   '200, carrito=1'
 caso V02_agregar_2    'op=1&iditems=2'   '200, carrito=2'
 caso I00_item_borrado 'op=1&iditems=3'   '404 (eliminado), carrito=2'
