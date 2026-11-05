@@ -1,4 +1,4 @@
-== 05/11/2026 00:13:47 UTC · entorno: AWS ==
+== 05/11/2026 00:27:34 UTC · entorno: AWS ==
 
 ## S01 Formato de las contraseñas guardadas (usuarios.password)
 +-------------------+----------------------------------+
@@ -29,11 +29,11 @@
 +-----------+-----------+
 
 ## S04 Contenedores y puertos publicados
-SERVICE      IMAGE                                                                     STATUS                   PORTS
-caddy        caddy:2.11.8                                                              Up 7 minutes             0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp, 443/udp, 2019/tcp
-db           mysql:8.4.13                                                              Up 7 minutes (healthy)   3306/tcp, 33060/tcp
-phpmyadmin   phpmyadmin:5.2.3-apache                                                   Up 7 minutes             127.0.0.1:8081->80/tcp
-web          sha256:69b5531e9cec09dde87ea5d9764130191be36bb34606a30a56f1495f67fde6f3   Up 7 minutes             80/tcp
+SERVICE      IMAGE                     STATUS                    PORTS
+caddy        caddy:2.11.8              Up 21 minutes             0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp, 443/udp, 2019/tcp
+db           mysql:8.4.13              Up 21 minutes (healthy)   3306/tcp, 33060/tcp
+phpmyadmin   phpmyadmin:5.2.3-apache   Up 21 minutes             127.0.0.1:8081->80/tcp
+web          pnksecurity-web           Up 7 minutes              80/tcp
 
 ## S05 Puertos del proyecto en escucha en el host (22, 80, 443, 3306, 8080, 8081, 33060)
 0.0.0.0:22
@@ -71,6 +71,11 @@ Archivos escribibles por www-data: 0; con permisos 777: 0
 -rw------- .env · dueño: root
 
 ## S09 Intentos fallidos de login registrados (si la tabla existe)
++-----------------+----------+---------------------+
+| email           | intentos | ultimo              |
++-----------------+----------+---------------------+
+| admin@gmail.com |        5 | 2026-11-05 00:14:54 |
++-----------------+----------+---------------------+
 
 ## S10 Rechazos esperados: lo que la cuenta de la app y root por red ya no pueden hacer
 pnk_app> DROP TABLE tabla_inexistente_es3
