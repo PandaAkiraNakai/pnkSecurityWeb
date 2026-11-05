@@ -65,6 +65,49 @@ function comentario_valido($valor): ?string
     return $texto;
 }
 
+// Contraseñas (ES3, OBS-05): se guardan con password_hash() (bcrypt, el algoritmo por
+// defecto de PHP) y se comprueban con password_verify(), que compara en tiempo constante.
+// El costo 12 hace que cada intento tome del orden de 200 ms: invisible para un usuario,
+// pero muy caro para quien quiera probar millones de claves con una copia de la tabla.
+const OPCIONES_HASH = ['cost' => 12];
+
+function hash_clave(string $clave): string
+{
+    return password_hash($clave, PASSWORD_DEFAULT, OPCIONES_HASH);
+}
+
+function es_hash_de_clave(string $valor): bool
+{
+    return password_get_info($valor)['algo'] !== null;
+}
+
+// Hash de una clave aleatoria que nadie conoce. Se verifica contra él cuando el correo no
+// existe, para que el tiempo de respuesta no revele qué cuentas están registradas.
+const HASH_FICTICIO = '$2y$12$3XHSj6iOgjxG9TV5q41cBuwVfXNKqCb2qBeNPT8zX23N2eufviyl.';
+
+// Límite de intentos de login (ES3): MAX_INTENTOS fallos para un mismo correo dentro de
+// VENTANA_MINUTOS bloquean ese correo durante la ventana, aunque luego se envíe la clave
+// correcta. Se cuenta por correo (exista o no), así el bloqueo tampoco revela cuentas.
+const MAX_INTENTOS = 5;
+const VENTANA_MINUTOS = 15;
+
+function login_bloqueado(string $email): bool
+{
+    $r = consulta(
+        "SELECT COUNT(*) AS n FROM intentos_login WHERE email=? AND momento > (NOW() - INTERVAL " . VENTANA_MINUTOS . " MINUTE)",
+        's',
+        [$email]
+    );
+    return (int)mysqli_fetch_assoc($r)['n'] >= MAX_INTENTOS;
+}
+
+function registrar_intento_fallido(string $email): void
+{
+    consulta("INSERT INTO intentos_login (email, ip) VALUES (?, ?)", 'ss', [$email, $_SERVER['REMOTE_ADDR'] ?? '']);
+    // Limpieza: los intentos de más de un día ya no sirven para el bloqueo.
+    consulta("DELETE FROM intentos_login WHERE momento < (NOW() - INTERVAL 1 DAY)");
+}
+
 // Codificación de salida para HTML: todo dato que viene de la base o del usuario pasa
 // por aquí antes de imprimirse (OBS-14; complementa la validación, no la reemplaza).
 // Reemplaza a utf8_encode(), obsoleta desde PHP 8.2 e innecesaria con la conexión en

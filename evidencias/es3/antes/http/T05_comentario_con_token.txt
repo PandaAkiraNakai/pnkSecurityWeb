@@ -1,0 +1,10 @@
+HTTP/1.1 303 See Other
+Date: Wed, 04 Nov 2026 21:59:41 GMT
+Server: Apache
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: index.php?id=1#comentarios
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+

@@ -1,0 +1,4 @@
+# src/href absolutos en la página:
+# @import/url() absolutos en css/style.css:
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:400,600,700

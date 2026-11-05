@@ -169,4 +169,7 @@ CREATE TABLE `usuarios` (
 # Data for table "usuarios"
 #
 
-INSERT INTO `usuarios` VALUES (1,'Administrador','admin@gmail.com','admin01','1'),(2,'Alondra','alondra@gmail.com','alondra01','1');
+# ES3 (OBS-05): las claves se guardan como hash bcrypt (password_hash, costo 12), nunca en
+# texto plano. Son las mismas cuentas ficticias de prueba de la Sumativa 2. Una base creada antes
+# de este cambio se migra con: docker compose exec web php /var/www/app/migrar_claves.php
+INSERT INTO `usuarios` VALUES (1,'Administrador','admin@gmail.com','$2y$12$gcnU1iOjPKmwsBgsVoAMteWjgCClzuAIcx/Sks8a53ohWkyQn1ase','1'),(2,'Alondra','alondra@gmail.com','$2y$12$SrIszJm4/Tztin4oEmNKT.ukPJCSPv55SduxgwP.XxhppBkUjuvES','1');
