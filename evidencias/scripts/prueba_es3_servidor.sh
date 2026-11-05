@@ -46,4 +46,15 @@ echo "$(stat -c '%A %n' .env) · dueño: $([ "$(stat -c %u .env)" = 0 ] && echo 
 
 seccion "S09 Intentos fallidos de login registrados (si la tabla existe)"
 root_sql "SELECT email, COUNT(*) AS intentos, MAX(momento) AS ultimo FROM pnk_security.intentos_login GROUP BY email" 2>&1 | head -10
+
+seccion "S10 Rechazos esperados: lo que la cuenta de la app y root por red ya no pueden hacer"
+app_sql() { "${DC[@]}" exec -T db sh -c 'MYSQL_PWD="$MYSQL_PASSWORD" mysql -h127.0.0.1 -u"$MYSQL_USER" pnk_security -e "$0"' "$1" 2>&1 | grep -v 'Using a password'; }
+for q in "DROP TABLE comentarios" "UPDATE usuarios SET nombre='x' WHERE Id=1" "DELETE FROM comentarios" "SELECT LOAD_FILE('/etc/passwd') IS NULL AS sin_lectura_de_archivos" "CREATE TABLE prueba (id INT)"; do
+  echo "pnk_app> $q"; echo "   $(app_sql "$q" | tail -1)"; done
+echo "root por red (desde la red de Docker, como lo haría phpMyAdmin):"
+# Cliente MySQL temporal en la misma red de Docker que phpMyAdmin y la app, con la clave real de root.
+CID="$("${DC[@]}" ps -q db)"; IMG="$(docker inspect -f '{{.Config.Image}}' "$CID")"
+RED="$(docker inspect -f '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}' "$CID")"
+RP="$("${DC[@]}" exec -T db printenv MYSQL_ROOT_PASSWORD | tr -d '\r')"
+echo "   $(docker run --rm --network "$RED" -e MYSQL_PWD="$RP" "$IMG" mysql -h db -uroot -e 'SELECT CURRENT_USER()' 2>&1 | grep -v 'Using a password' | tail -1)"
 } | tee "$O/servidor.txt"
