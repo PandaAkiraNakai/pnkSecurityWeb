@@ -9,7 +9,9 @@ test -f /var/lib/pnk-listo || { echo "El primer arranque (servidor_inicial.sh) a
 if [ ! -d "$DIR/.git" ]; then git clone --quiet "$REPO" "$DIR"; fi
 cd "$DIR"
 git fetch --quiet --all --prune
-git checkout --quiet --detach "origin/$REF" 2>/dev/null || git checkout --quiet --detach "$REF"
+# Se resuelve primero a un commit: "deploy/aws" es a la vez una rama y una carpeta del repo.
+COMMIT="$(git rev-parse --verify --quiet "origin/$REF^{commit}" || git rev-parse --verify "$REF^{commit}")"
+git checkout --quiet --detach "$COMMIT" --
 
 # Secretos: se generan aquí, en el servidor, una sola vez. Nunca salen de la EC2 ni van a Git.
 if [ ! -f .env ]; then
