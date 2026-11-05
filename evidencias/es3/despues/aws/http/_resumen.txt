@@ -1,0 +1,15 @@
+== 04/11/2026 21:14:09 -03 · https://44-206-17-182.sslip.io ==
+#    Prueba                                         Resultado                Detalle
+T01  Login con la clave correcta                    303 con sesión          ../index.php?id=1
+T02  Login con clave incorrecta                     303 sin sesión          ../index.php?id=1&login=invalido
+T03  Login sin token CSRF                           403 sin sesión          
+T04  Comentario con sesión y SIN token CSRF        403 no se guardó        
+T05  Comentario con sesión y token                 303 se guardó           
+T06  Carrito op=1 SIN token CSRF                    403                      
+T07  Carrito op=1 con token                         200                      
+T08  Vaciar carrito (op=3) con sesión iniciada     200 con sesión          
+T09  Cerrar sesión por GET                         405 con sesión          
+T10  Cerrar sesión por POST con token              303 sin sesión          
+T11  Cabeceras de seguridad presentes               6/6                      Strict-Transport-Security Content-Security-Policy X-Content-Type-Options X-Frame-Options Referrer-Policy Permissions-Policy 
+T12  Recursos cargados desde terceros (CDN)         0                        
+T13  6 claves erróneas y luego la correcta         sin sesión              ../index.php?id=1&login=bloqueado | ../index.php?id=1&login=bloqueado

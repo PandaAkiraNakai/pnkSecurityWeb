@@ -8,6 +8,7 @@ B="${1:?baseURL}"; O="${2:?dirSalida}"; mkdir -p "$O"
 U="alondra@gmail.com"; C="${PNK_CLAVE_PRUEBA:?definir PNK_CLAVE_PRUEBA}"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 CURL=(curl -s -k --max-time 20)
+exec > >(tee "$O/_resumen.txt")   # la tabla queda también en _resumen.txt
 echo "== $(date '+%d/%m/%Y %H:%M:%S %Z') · $B =="
 
 # Guarda la respuesta (encabezados + primeros 3 KB del cuerpo) sin la cookie de sesión.
