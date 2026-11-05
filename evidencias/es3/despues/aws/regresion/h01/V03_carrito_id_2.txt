@@ -10,7 +10,7 @@ expires: Thu, 19 Nov 1981 08:52:00 GMT
 permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
 pragma: no-cache
 referrer-policy: strict-origin-when-cross-origin
-set-cookie: PHPSESSID=bb0121d23fbdb7d2395b8ebf4c0a7c85; path=/; secure; HttpOnly; SameSite=Lax
+set-cookie: PHPSESSID=[oculta]; path=/; secure; HttpOnly; SameSite=Lax
 strict-transport-security: max-age=31536000
 vary: Accept-Encoding
 x-content-type-options: nosniff
@@ -24,7 +24,7 @@ x-frame-options: DENY
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Restaurant la Bahía</title>
   <!-- ES3: token CSRF para las peticiones AJAX del carrito (js/controladorajax.js). -->
-  <meta name="csrf-token" content="1e6ef0e1d43d1d82b8582cffc8dca5acdf852bca9c5ba290855ab1a2a104db4f">
+  <meta name="csrf-token" content="[token oculto]">
 	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
 
   <!-- ES3: Bootstrap 5.3.8 y fuentes locales; sin themify-icons, Owl Carousel ni recursos de terceros. -->

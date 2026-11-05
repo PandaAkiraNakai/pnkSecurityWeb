@@ -10,7 +10,7 @@ expires: Thu, 19 Nov 1981 08:52:00 GMT
 permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
 pragma: no-cache
 referrer-policy: strict-origin-when-cross-origin
-set-cookie: PHPSESSID=7344f1aaf93c8e6012ad6fb6cf44ccca; path=/; secure; HttpOnly; SameSite=Lax
+set-cookie: PHPSESSID=[oculta]; path=/; secure; HttpOnly; SameSite=Lax
 strict-transport-security: max-age=31536000
 vary: Accept-Encoding
 x-content-type-options: nosniff
@@ -24,7 +24,7 @@ x-frame-options: DENY
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Afríca Restobar</title>
   <!-- ES3: token CSRF para las peticiones AJAX del carrito (js/controladorajax.js). -->
-  <meta name="csrf-token" content="9400a24bf37dd64519c8090f4f5c718bc80f66cec3fbde1fce527f4de134322e">
+  <meta name="csrf-token" content="[token oculto]">
 	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
 
   <!-- ES3: Bootstrap 5.3.8 y fuentes locales; sin themify-icons, Owl Carousel ni recursos de terceros. -->
@@ -36,7 +36,7 @@ x-frame-options: DENY
 <body>
 <nav class="navbar navbar-light bg-light px-3">
          <form class="d-flex flex-wrap align-items-center gap-2" action="setup/procesalogin.php" method="post">
-        <input type="hidden" name="csrf" value="9400a24bf37dd64519c8090f4f5c718bc80f66cec3fbde1fce527f4de134322e">        <div class="input-group w-auto">
+        <input type="hidden" name="csrf" value="[token oculto]">        <div class="input-group w-auto">
           <span class="input-group-text" id="basic-addon1">@</span>
           <input type="text" class="form-control" name="frmusuario" placeholder="Usuario" autocomplete="username">
         </div>

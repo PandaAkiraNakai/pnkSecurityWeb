@@ -11,7 +11,7 @@ location: ../index.php?id=1
 permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
 pragma: no-cache
 referrer-policy: strict-origin-when-cross-origin
-set-cookie: PHPSESSID=41f1957ed297e15ea05757668d6e411e; path=/; secure; HttpOnly; SameSite=Lax
+set-cookie: PHPSESSID=[oculta]; path=/; secure; HttpOnly; SameSite=Lax
 strict-transport-security: max-age=31536000
 x-content-type-options: nosniff
 x-frame-options: DENY

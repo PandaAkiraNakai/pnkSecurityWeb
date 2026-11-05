@@ -10,7 +10,7 @@ expires: Thu, 19 Nov 1981 08:52:00 GMT
 permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
 pragma: no-cache
 referrer-policy: strict-origin-when-cross-origin
-set-cookie: PHPSESSID=8b3b0cff05becfef4798db9731799d55; path=/; secure; HttpOnly; SameSite=Lax
+set-cookie: PHPSESSID=[oculta]; path=/; secure; HttpOnly; SameSite=Lax
 strict-transport-security: max-age=31536000
 x-content-type-options: nosniff
 x-frame-options: DENY
