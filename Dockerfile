@@ -12,7 +12,7 @@ RUN sed -ri 's/^ServerTokens .*/ServerTokens Prod/; s/^ServerSignature .*/Server
 # Carpeta pública (ES3, punto 1): Apache solo publica public/. El código con la conexión
 # (app/) queda fuera de la raíz web; .env, Script_BD/, evidencias/ y .git no entran a la imagen.
 COPY docker/apache-pnksecurity.conf /etc/apache2/conf-available/pnksecurity.conf
-RUN a2enmod headers && a2enconf pnksecurity \
+RUN a2enmod headers remoteip && a2enconf pnksecurity \
  && sed -ri 's#DocumentRoot /var/www/html#DocumentRoot /var/www/public#' /etc/apache2/sites-available/000-default.conf
 COPY app/ /var/www/app/
 COPY public/ /var/www/public/

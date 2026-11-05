@@ -1,0 +1,53 @@
+HTTP/1.1 200 OK
+Date: Thu, 05 Nov 2026 00:26:06 GMT
+Server: Apache
+Set-Cookie: PHPSESSID=[oculta]; path=/; HttpOnly; SameSite=Lax
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Afríca Restobar</title>
+	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
+
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+         <form class="form-inline" role="search" action="setup/procesalogin.php" method="post">
+        <div class="form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@</span>
+          </div>
+            <input type="text" class="form-control" name="frmusuario" placeholder="Usuario">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="frmpassword" placeholder="Contraseña">
+        </div>
+        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">Ingresar</button>
+      </form>
+    </nav>
+  <section>
+    <div class="container contendor">
+      <div class="row">
+        <div class="col-lg-4">
+          <div style="text-align: center;">
+            <div class="media">
+              <img class="logosintituciones" src="img/logo.png" width="190px" alt="">
+            </div>
+          </div>  
+        </div>
+  

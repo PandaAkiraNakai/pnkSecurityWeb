@@ -1,7 +1,7 @@
 HTTP/1.1 200 OK
 Date: Wed, 04 Nov 2026 21:59:42 GMT
 Server: Apache
-Set-Cookie: PHPSESSID=r3h8c0lk2k0g1vaoneept6gt2p; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: PHPSESSID=[oculta]; path=/; HttpOnly; SameSite=Lax
 Expires: Thu, 19 Nov 1981 08:52:00 GMT
 Cache-Control: no-store, no-cache, must-revalidate
 Pragma: no-cache

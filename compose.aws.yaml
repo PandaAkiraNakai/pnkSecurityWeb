@@ -1,0 +1,32 @@
+# ES3: ajustes de producción para la EC2 de AWS. Se combina con compose.yaml:
+#   COMPOSE_FILE=compose.yaml:compose.aws.yaml   (va en el .env del servidor)
+# - Solo Caddy publica puertos (80 y 443). La app ya no escucha en el host y la BD nunca lo hizo.
+# - phpMyAdmin sigue en 127.0.0.1:8081 del servidor: se entra solo por túnel SSH.
+# - La cookie de sesión lleva Secure (PNK_COOKIE_SECURE=1) porque todo va por HTTPS.
+services:
+  caddy:
+    image: caddy:2.11.8
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      PNK_DOMINIO: ${PNK_DOMINIO:?definir PNK_DOMINIO en .env}
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+  web:
+    restart: unless-stopped
+    ports: !reset []
+    environment:
+      PNK_COOKIE_SECURE: "1"
+  db:
+    restart: unless-stopped
+  phpmyadmin:
+    restart: unless-stopped
+volumes:
+  caddy_data:
+  caddy_config:

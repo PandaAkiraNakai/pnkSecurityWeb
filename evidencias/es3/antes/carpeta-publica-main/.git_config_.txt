@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Date: Thu, 05 Nov 2026 00:26:06 GMT
+Server: Apache
+Last-Modified: Thu, 05 Nov 2026 00:25:23 GMT
+ETag: "109-65f7c88076783"
+Accept-Ranges: bytes
+Content-Length: 265
+
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = /run/media/sergioc/HDD/GitHub/pnkSecurityWeb
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main

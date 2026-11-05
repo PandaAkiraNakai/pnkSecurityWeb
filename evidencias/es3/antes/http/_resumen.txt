@@ -1,0 +1,15 @@
+== 04/11/2026 18:59:40 -03 · http://127.0.0.1:8080 ==
+#    Prueba                                         Resultado                Detalle
+T01  Login con la clave correcta                    302 con sesión          ../index.php?id=1
+T02  Login con clave incorrecta                     303 sin sesión          ../index.php?id=1&login=invalido
+T03  Login sin token CSRF                           302 con sesión          ../index.php?id=1
+T04  Comentario con sesión y SIN token CSRF        303 se guardó           
+T05  Comentario con sesión y token                 303 se guardó           
+T06  Carrito op=1 SIN token CSRF                    200                      
+T07  Carrito op=1 con token                         200                      
+T08  Vaciar carrito (op=3) con sesión iniciada     200 sin sesión          
+T09  Cerrar sesión por GET                         302 sin sesión          
+T10  Cerrar sesión por POST con token              302 sin sesión          
+T11  Cabeceras de seguridad presentes               0/6                      ninguna
+T12  Recursos cargados desde terceros (CDN)         2                        fonts.googleapis.com 
+T13  6 claves erróneas y luego la correcta         con sesión              ../index.php?id=1&login=invalido | ../index.php?id=1

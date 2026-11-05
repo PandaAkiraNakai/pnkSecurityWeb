@@ -1,0 +1,17 @@
+# ES3: proxy inverso con TLS delante de la app (canal cifrado, P-02).
+# Caddy obtiene y renueva solo el certificado de Let's Encrypt para PNK_DOMINIO y redirige
+# todo el tráfico HTTP (puerto 80) a HTTPS. Es el único contenedor que publica puertos.
+{$PNK_DOMINIO} {
+	encode zstd gzip
+	header {
+		# El navegador recordará durante un año que este sitio solo se usa por HTTPS.
+		Strict-Transport-Security "max-age=31536000"
+		-Server
+		-Via
+	}
+	reverse_proxy web:80
+	log {
+		output stdout
+		format console
+	}
+}

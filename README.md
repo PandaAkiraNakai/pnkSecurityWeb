@@ -123,9 +123,9 @@ docker compose up -d --build
 
 | Servicio | URL | Nota |
 | --- | --- | --- |
-| Aplicación | http://127.0.0.1:8080/?id=1 | PHP 8.3 + Apache (`Dockerfile`) |
-| Base de datos | `db:3306` (solo red interna) | MySQL 8.0; importa `Script_BD/pnk_security.sql` al primer arranque |
-| phpMyAdmin | http://127.0.0.1:8081 | Solo local; pide usuario y clave (los de `.env`) |
+| Aplicación | http://127.0.0.1:8080/?id=1 | PHP 8.5 + Apache (`Dockerfile`) |
+| Base de datos | `db:3306` (solo red interna) | MySQL 8.4 LTS; importa `Script_BD/` al primer arranque |
+| phpMyAdmin | http://127.0.0.1:8081 | Solo local; se entra con `DB_ADMIN_USER` (root no puede entrar por red) |
 
 La aplicación lee la conexión a la base desde las variables `DB_HOST`, `DB_NAME`, `DB_USER` y
 `DB_PASSWORD` que define `compose.yaml` a partir de `.env`. Para reiniciar la base desde cero:
@@ -135,3 +135,31 @@ La aplicación lee la conexión a la base desde las variables `DB_HOST`, `DB_NAM
 
 Las evidencias E-01 a E-25 del informe (capturas, salidas de terminal, trazabilidad Git) y los
 scripts que las generan están en [`evidencias/`](evidencias/README.md).
+
+## Sumativa 3: protección y despliegue en AWS
+
+| Mejora | Dónde |
+| --- | --- |
+| Solo `public/` es la raíz web; código, secretos y volcados fuera de ella | `public/`, `app/`, `Dockerfile`, `docker/apache-pnksecurity.conf` |
+| Contraseñas con `password_hash`/`password_verify` y límite de 5 intentos en 15 min | `public/setup/procesalogin.php`, `app/setup.php`, `app/migrar_claves.php` |
+| Token CSRF en todos los formularios y en el carrito; cierre de sesión solo por POST | `app/setup.php`, `public/*.php`, `public/js/controladorajax.js` |
+| Cabeceras de seguridad (CSP, HSTS, nosniff, X-Frame-Options…) y cookie `Secure` | `docker/apache-pnksecurity.conf`, `docker/Caddyfile`, `docker/php.ini` |
+| Usuario de BD con privilegios mínimos; root solo local; cuenta aparte para phpMyAdmin | `Script_BD/zz_es3_permisos.sh`, `compose.yaml` |
+| PHP 8.5, MySQL 8.4 LTS, phpMyAdmin 5.2.3, Bootstrap 5.3.8; sin jQuery ni CDN | `Dockerfile`, `compose.yaml`, `public/vendors/` |
+| Despliegue en EC2 con TLS (Caddy + Let's Encrypt) y hardening | `compose.aws.yaml`, `deploy/aws/` |
+
+Una base creada antes de la ES3 se migra con
+`docker compose exec web php /var/www/app/migrar_claves.php` y
+`Script_BD/zz_es3_intentos_login.sql` (ver los comentarios de cada archivo).
+
+**Pruebas** (las mismas en local y en AWS; las claves de prueba van por variable de entorno):
+
+```bash
+PNK_CLAVE_PRUEBA=... PNK_CLAVE_ADMIN=... evidencias/scripts/prueba_es3.sh https://<dominio> salida/
+evidencias/scripts/prueba_es3_servidor.sh salida/   # en el servidor, desde la raíz del repo
+evidencias/scripts/prueba_es3_aws.sh salida/        # desde afuera: TLS, puertos, SSH, phpMyAdmin
+```
+
+**AWS**: `deploy/aws/crear_infra.sh` (grupo de seguridad, EC2 con hardening, IP elástica) y luego
+`deploy/aws/desplegar.sh [rama]`. phpMyAdmin no tiene puerto público: se entra por túnel SSH
+(`ssh -N -L 8081:127.0.0.1:8081 ubuntu@<ip>` y luego http://127.0.0.1:8081).

@@ -1,0 +1,22 @@
+== 04/11/2026 21:26 · http://127.0.0.1:8080 ==
+Ruta                               HTTP   Esperado
+/.env                              200    403/404
+/.env.example                      200    403/404
+/.git/config                       200    403/404
+/.git/HEAD                         200    403/404
+/Script_BD/pnk_security.sql        200    403/404
+/compose.yaml                      200    403/404
+/Dockerfile                        200    403/404
+/docker/php.ini                    200    403/404
+/README.md                         200    403/404
+/evidencias/README.md              200    403/404
+/setup/setup.php                   200    403/404
+/app/setup.php                     404    403/404
+/css/                              403    403/404
+/vendors/                          403    403/404
+/?id=1                             200    200
+/mostrar_carrito.php?id=1          200    200
+/css/style.css                     200    200
+/img/logo.png                      200    200
+/vendors/bootstrap/bootstrap.min.css 200    200
+Respuestas completas (primeros 2 KB) en este directorio · código de main (ES2), clon completo

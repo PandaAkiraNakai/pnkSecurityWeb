@@ -1,0 +1,6 @@
+HTTP/1.1 308 Permanent Redirect
+Connection: close
+Location: https://44-206-17-182.sslip.io/?id=1
+Server: Caddy
+Date: Thu, 05 Nov 2026 00:14:58 GMT
+

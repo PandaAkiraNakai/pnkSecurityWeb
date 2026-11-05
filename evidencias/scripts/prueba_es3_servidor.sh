@@ -49,7 +49,11 @@ root_sql "SELECT email, COUNT(*) AS intentos, MAX(momento) AS ultimo FROM pnk_se
 
 seccion "S10 Rechazos esperados: lo que la cuenta de la app y root por red ya no pueden hacer"
 app_sql() { "${DC[@]}" exec -T db sh -c 'MYSQL_PWD="$MYSQL_PASSWORD" mysql -h127.0.0.1 -u"$MYSQL_USER" pnk_security -e "$0"' "$1" 2>&1 | grep -v 'Using a password'; }
-for q in "DROP TABLE comentarios" "UPDATE usuarios SET nombre='x' WHERE Id=1" "DELETE FROM comentarios" "SELECT LOAD_FILE('/etc/passwd') IS NULL AS sin_lectura_de_archivos" "CREATE TABLE prueba (id INT)"; do
+# Sentencias inofensivas aunque la cuenta tuviera todos los privilegios: tabla inexistente,
+# WHERE 1=0 (no afecta filas) y CREATE de una tabla que ya existe. MySQL revisa el privilegio
+# antes que todo lo demás, así que sin privilegio responde "command denied" (1142/1143) y con
+# privilegio responde otro error (1050/1051) o "0 filas", sin cambiar nada.
+for q in "DROP TABLE tabla_inexistente_es3" "UPDATE usuarios SET nombre=nombre WHERE 1=0" "DELETE FROM comentarios WHERE 1=0" "SELECT LOAD_FILE('/etc/passwd') IS NULL AS sin_lectura_de_archivos" "CREATE TABLE usuarios (id INT)"; do
   echo "pnk_app> $q"; echo "   $(app_sql "$q" | tail -1)"; done
 echo "root por red (desde la red de Docker, como lo haría phpMyAdmin):"
 # Cliente MySQL temporal en la misma red de Docker que phpMyAdmin y la app, con la clave real de root.

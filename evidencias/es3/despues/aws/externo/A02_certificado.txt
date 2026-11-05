@@ -1,0 +1,9 @@
+subject=CN=44-206-17-182.sslip.io
+issuer=C=US, O=Let's Encrypt, CN=YE2
+notBefore=Nov  4 23:07:52 2026 GMT
+notAfter=Feb  2 23:07:51 2027 GMT
+    Protocol  : TLSv1.3
+New, TLSv1.3, Cipher is TLS_AES_128_GCM_SHA256
+Protocol: TLSv1.3
+tls1: rechazado
+tls1_1: rechazado

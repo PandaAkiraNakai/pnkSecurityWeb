@@ -1,0 +1,80 @@
+== 04/11/2026 21:10:45 -03 · entorno: local · base de la ES2 abierta con MySQL 8.4, antes de migrar ==
+
+## S01 Formato de las contraseñas guardadas (usuarios.password)
++-------------------+----------------------------+
+| email             | formato                    |
++-------------------+----------------------------+
+| admin@gmail.com   | TEXTO PLANO (7 caracteres) |
+| alondra@gmail.com | TEXTO PLANO (9 caracteres) |
++-------------------+----------------------------+
+
+## S02 Privilegios del usuario de la aplicación
++------------------------------------------------------------+
+| Grants for pnk_app@%                                       |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `pnk_app`@`%`                        |
+| GRANT ALL PRIVILEGES ON `pnk\_security`.* TO `pnk_app`@`%` |
++------------------------------------------------------------+
+
+## S03 Cuentas de MySQL y desde dónde pueden entrar
++---------+-----------+
+| user    | host      |
++---------+-----------+
+| pnk_app | %         |
+| root    | %         |
+| root    | localhost |
++---------+-----------+
+
+## S04 Contenedores y puertos publicados
+SERVICE      IMAGE                     STATUS                        PORTS
+db           mysql:8.4.13              Up About a minute (healthy)   3306/tcp, 33060/tcp
+phpmyadmin   phpmyadmin:5.2.3-apache   Up 45 seconds                 127.0.0.1:8081->80/tcp
+web          pnkmig-web                Up 45 seconds                 127.0.0.1:8080->80/tcp
+
+## S05 Puertos del proyecto en escucha en el host (22, 80, 443, 3306, 8080, 8081, 33060)
+0.0.0.0:22
+127.0.0.1:8080
+127.0.0.1:8081
+[::]:22
+
+## S06 Versiones de los componentes
+PHP:        8.5.12
+Apache:     Apache/2.4.69 (Debian)
+MySQL:      8.4.13 for Linux on x86_64 (MySQL Community Server - GPL)
+phpMyAdmin: 5.2.3
+Bibliotecas JS/CSS de public/vendors:
+bootstrap
+fuentes
+
+## S07 Permisos de los archivos de la aplicación (dentro del contenedor web)
+drwxr-xr-x root:root /var/www/app
+-rw-r--r-- root:root /var/www/app/migrar_claves.php
+-rw-r--r-- root:root /var/www/app/setup.php
+drwxr-xr-x root:root /var/www/public
+-rw-r--r-- root:root /var/www/public/carrito.php
+-rw-r--r-- root:root /var/www/public/grcomentarios.php
+-rw-r--r-- root:root /var/www/public/index.php
+-rw-r--r-- root:root /var/www/public/mostrar_carrito.php
+-rw-r--r-- root:root /var/www/public/setup/cerrar_sesion.php
+-rw-r--r-- root:root /var/www/public/setup/procesalogin.php
+Archivos escribibles por www-data: 0; con permisos 777: 0
+
+## S08 Permisos del archivo de secretos en el host
+-rw------- .env · dueño: usuario sin privilegios (no root)
+
+## S09 Intentos fallidos de login registrados (si la tabla existe)
+ERROR 1146 (42S02) at line 1: Table 'pnk_security.intentos_login' doesn't exist
+
+## S10 Rechazos esperados: lo que la cuenta de la app y root por red ya no pueden hacer
+pnk_app> DROP TABLE tabla_inexistente_es3
+   ERROR 1051 (42S02) at line 1: Unknown table 'pnk_security.tabla_inexistente_es3'
+pnk_app> UPDATE usuarios SET nombre=nombre WHERE 1=0
+   
+pnk_app> DELETE FROM comentarios WHERE 1=0
+   
+pnk_app> SELECT LOAD_FILE('/etc/passwd') IS NULL AS sin_lectura_de_archivos
+   1
+pnk_app> CREATE TABLE usuarios (id INT)
+   ERROR 1050 (42S01) at line 1: Table 'usuarios' already exists
+root por red (desde la red de Docker, como lo haría phpMyAdmin):
+   root@%

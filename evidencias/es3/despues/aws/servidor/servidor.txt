@@ -1,0 +1,92 @@
+== 05/11/2026 00:27:34 UTC · entorno: AWS ==
+
+## S01 Formato de las contraseñas guardadas (usuarios.password)
++-------------------+----------------------------------+
+| email             | formato                          |
++-------------------+----------------------------------+
+| admin@gmail.com   | $2y$12$… (hash, 60 caracteres) |
+| alondra@gmail.com | $2y$12$… (hash, 60 caracteres) |
++-------------------+----------------------------------+
+
+## S02 Privilegios del usuario de la aplicación
++--------------------------------------------------------------------------+
+| Grants for pnk_app@%                                                     |
++--------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `pnk_app`@`%`                                      |
+| GRANT SELECT ON `pnk_security`.* TO `pnk_app`@`%`                        |
+| GRANT INSERT ON `pnk_security`.`comentarios` TO `pnk_app`@`%`            |
+| GRANT INSERT, DELETE ON `pnk_security`.`intentos_login` TO `pnk_app`@`%` |
+| GRANT UPDATE (`password`) ON `pnk_security`.`usuarios` TO `pnk_app`@`%`  |
++--------------------------------------------------------------------------+
+
+## S03 Cuentas de MySQL y desde dónde pueden entrar
++-----------+-----------+
+| user      | host      |
++-----------+-----------+
+| pnk_admin | %         |
+| pnk_app   | %         |
+| root      | localhost |
++-----------+-----------+
+
+## S04 Contenedores y puertos publicados
+SERVICE      IMAGE                     STATUS                    PORTS
+caddy        caddy:2.11.8              Up 21 minutes             0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp, 443/udp, 2019/tcp
+db           mysql:8.4.13              Up 21 minutes (healthy)   3306/tcp, 33060/tcp
+phpmyadmin   phpmyadmin:5.2.3-apache   Up 21 minutes             127.0.0.1:8081->80/tcp
+web          pnksecurity-web           Up 7 minutes              80/tcp
+
+## S05 Puertos del proyecto en escucha en el host (22, 80, 443, 3306, 8080, 8081, 33060)
+0.0.0.0:22
+0.0.0.0:443
+0.0.0.0:80
+127.0.0.1:8081
+[::]:22
+[::]:443
+[::]:80
+
+## S06 Versiones de los componentes
+PHP:        8.5.12
+Apache:     Apache/2.4.69 (Debian)
+MySQL:      8.4.13 for Linux on x86_64 (MySQL Community Server - GPL)
+phpMyAdmin: 5.2.3
+Caddy:      v2.11.8
+Bibliotecas JS/CSS de public/vendors:
+bootstrap
+fuentes
+
+## S07 Permisos de los archivos de la aplicación (dentro del contenedor web)
+drwxr-xr-x root:root /var/www/app
+-rw-r--r-- root:root /var/www/app/migrar_claves.php
+-rw-r--r-- root:root /var/www/app/setup.php
+drwxr-xr-x root:root /var/www/public
+-rw-r--r-- root:root /var/www/public/carrito.php
+-rw-r--r-- root:root /var/www/public/grcomentarios.php
+-rw-r--r-- root:root /var/www/public/index.php
+-rw-r--r-- root:root /var/www/public/mostrar_carrito.php
+-rw-r--r-- root:root /var/www/public/setup/cerrar_sesion.php
+-rw-r--r-- root:root /var/www/public/setup/procesalogin.php
+Archivos escribibles por www-data: 0; con permisos 777: 0
+
+## S08 Permisos del archivo de secretos en el host
+-rw------- .env · dueño: root
+
+## S09 Intentos fallidos de login registrados (si la tabla existe)
++-----------------+----------+---------------------+
+| email           | intentos | ultimo              |
++-----------------+----------+---------------------+
+| admin@gmail.com |        5 | 2026-11-05 00:14:54 |
++-----------------+----------+---------------------+
+
+## S10 Rechazos esperados: lo que la cuenta de la app y root por red ya no pueden hacer
+pnk_app> DROP TABLE tabla_inexistente_es3
+   ERROR 1142 (42000) at line 1: DROP command denied to user 'pnk_app'@'127.0.0.1' for table 'tabla_inexistente_es3'
+pnk_app> UPDATE usuarios SET nombre=nombre WHERE 1=0
+   ERROR 1143 (42000) at line 1: UPDATE command denied to user 'pnk_app'@'127.0.0.1' for column 'nombre' in table 'usuarios'
+pnk_app> DELETE FROM comentarios WHERE 1=0
+   ERROR 1142 (42000) at line 1: DELETE command denied to user 'pnk_app'@'127.0.0.1' for table 'comentarios'
+pnk_app> SELECT LOAD_FILE('/etc/passwd') IS NULL AS sin_lectura_de_archivos
+   1
+pnk_app> CREATE TABLE usuarios (id INT)
+   ERROR 1142 (42000) at line 1: CREATE command denied to user 'pnk_app'@'127.0.0.1' for table 'usuarios'
+root por red (desde la red de Docker, como lo haría phpMyAdmin):
+   ERROR 1045 (28000): Access denied for user 'root'@'172.18.0.6' (using password: YES)

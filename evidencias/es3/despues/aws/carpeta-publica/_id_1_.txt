@@ -1,0 +1,40 @@
+HTTP/2 200 
+alt-svc: h3=":443"; ma=2592000
+cache-control: no-store, no-cache, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+content-type: text/html; charset=UTF-8
+cross-origin-opener-policy: same-origin
+date: Thu, 05 Nov 2026 00:26:16 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+set-cookie: PHPSESSID=[oculta]; path=/; secure; HttpOnly; SameSite=Lax
+strict-transport-security: max-age=31536000
+vary: Accept-Encoding
+x-content-type-options: nosniff
+x-frame-options: DENY
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Afríca Restobar</title>
+  <!-- ES3: token CSRF para las peticiones AJAX del carrito (js/controladorajax.js). -->
+  <meta name="csrf-token" content="[token oculto]">
+	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
+
+  <!-- ES3: Bootstrap 5.3.8 y fuentes locales; sin themify-icons, Owl Carousel ni recursos de terceros. -->
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fuentes.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light px-3">
+         <form class="d-flex flex-wrap align-items-center gap-2" action="setup/procesalogin.php" method="post">
+        <input type="hidden" name="csrf" value="[token oculto]">        <div class="input-group w-auto">
+          <span class="input-group-text" id="basic-addon1">@</span>
+          <input ty

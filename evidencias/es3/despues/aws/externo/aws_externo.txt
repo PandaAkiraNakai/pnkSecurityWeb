@@ -1,0 +1,12 @@
+== 04/11/2026 21:14:58 -03 · https://44-206-17-182.sslip.io (44.206.17.182) · desde el equipo de pruebas ==
+A01  http:// redirige a https://                          308 → https://44-206-17-182.sslip.io/?id=1
+A02  Certificado aceptado por curl (verificación 0)      200 0 · issuer=C=US
+A02b TLS 1.0 y 1.1 (obsoletos)                            tls1: rechazado tls1_1: rechazado 
+A03  HSTS                                                 max-age=31536000
+A03b Cookie de sesión                                    path=/; secure; HttpOnly; SameSite=Lax
+A04  Puertos desde internet                               22/tcp abierto · 80/tcp abierto · 443/tcp abierto · 3306/tcp cerrado/filtrado · 8080/tcp cerrado/filtrado · 8081/tcp cerrado/filtrado · 33060/tcp cerrado/filtrado
+A05  SSH con contraseña                                  ubuntu@44.206.17.182: Permission denied (publickey).
+A05b SSH como root con la clave válida                   root@44.206.17.182: Permission denied (publickey).
+A05c SSH como ubuntu con la clave (permitido)             acceso con clave: ubuntu@ip-172-31-26-39
+A06  phpMyAdmin directo (http://IP:8081)                  código 000 (000 = sin conexión)
+A06b phpMyAdmin por túnel SSH                            <title>phpMyAdmin name="pma_username" name="pma_password" 
