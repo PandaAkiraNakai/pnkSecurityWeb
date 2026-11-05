@@ -1,0 +1,8 @@
+# Nada de esto debe llegar a la imagen (ES3, punto 1).
+.git
+.env
+.env.*
+Script_BD
+evidencias
+*.md
+compose*.yaml

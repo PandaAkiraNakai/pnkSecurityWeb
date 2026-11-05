@@ -1,6 +1,6 @@
 <?php
 
-include("setup/setup.php");
+require __DIR__ . "/../app/setup.php";
 session_start();
 
 // H-03: la operación y los identificadores que llegan por POST se validan antes de usarse.
