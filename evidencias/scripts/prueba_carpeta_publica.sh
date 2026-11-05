@@ -16,7 +16,7 @@ for r in .env .env.example .git/config .git/HEAD Script_BD/pnk_security.sql comp
   caso "$r" "403/404"
 done
 # Sí deben servirse.
-for r in "?id=1" "mostrar_carrito.php?id=1" css/style.css img/logo.png vendors/jquery/jquery-3.2.1.min.js; do
+for r in "?id=1" "mostrar_carrito.php?id=1" css/style.css img/logo.png vendors/bootstrap/bootstrap.min.css; do
   caso "$r" "200"
 done
 echo "Respuestas completas (primeros 2 KB) en $O"

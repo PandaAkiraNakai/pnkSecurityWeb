@@ -1,0 +1,100 @@
+HTTP/1.1 200 OK
+Date: Thu, 05 Nov 2026 00:26:06 GMT
+Server: Apache
+Last-Modified: Thu, 05 Nov 2026 00:25:23 GMT
+ETag: "c7f8-65f7c88076b56"
+Accept-Ranges: bytes
+Content-Length: 51192
+Vary: Accept-Encoding
+Content-Type: text/css
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:400,600,700");
+body {
+	color: #336699;
+	font-family: "Open Sans", sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 1.8;
+	background-image: url("../img/bg_cd.png");
+}
+
+#formlogin{
+	background-color: #e3ecf5;
+	border: 1px solid #4da9ff;
+	padding: 20px;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	-webkit-box-shadow: 10px 10px 5px -5px rgba(112,131,255,1);
+	-moz-box-shadow: 10px 10px 5px -5px rgba(112,131,255,1);
+	box-shadow: 10px 10px 5px -5px rgba(112,131,255,1);
+}
+
+nav > .nav.nav-tabs{
+
+  border: none;
+    color:#fff;
+    background:#272e38;
+    border-radius:0;
+
+}
+nav > div a.nav-item.nav-link,
+nav > div a.nav-item.nav-link.active
+{
+  border: none;
+    padding: 18px 25px;
+    color:#fff;
+    background:#272e38;
+    border-radius:0;
+}
+
+.carro{
+	margin-top: 10px;
+}
+nav > div a.nav-item.nav-link.active:after
+ {
+  content: "";
+  position: relative;
+  bottom: -60px;
+  left: -10%;
+  border: 15px solid transparent;
+  border-top-color: #e74c3c ;
+}
+.tab-content{
+  background: #fdfdfd;
+    line-height: 25px;
+    border: 1px solid #ddd;
+    border-top:5px solid #0a0252;
+    border-bottom:5px solid #0a0252;
+    padding:30px 25px;
+}
+
+hr{
+	border: 2px solid #0a0252;
+  }
+
+nav > div a.nav-item.nav-link:hover,
+nav > div a.nav-item.nav-link:focus
+{
+  border: none;
+    background: #e74c3c;
+    color:#fff;
+    border-radius:0;
+    transition:background 0.20s linear;
+ }
+
+.cabecera{
+	padding-top: 10px;
+	background:#1f1f14;
+}
+.destacados{
+	margin-top: 100px;
+	margin-bottom: 20px;
+	margin: auto;
+}
+
+.logosintituciones
+{
+	margin: auto;
+	

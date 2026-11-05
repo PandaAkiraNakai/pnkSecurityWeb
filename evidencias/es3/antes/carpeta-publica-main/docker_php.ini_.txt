@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Thu, 05 Nov 2026 00:26:06 GMT
+Server: Apache
+Last-Modified: Thu, 05 Nov 2026 00:25:23 GMT
+ETag: "23e-65f7c88076b56"
+Accept-Ranges: bytes
+Content-Length: 574
+
+; Ajustes de ejecución de PNKSecurity sobre php.ini-production (P-01 / T-01, OBS-08, OBS-13, OBS-15).
+; Los errores se registran en el servidor (docker compose logs web) y nunca se muestran al cliente.
+display_errors = Off
+display_startup_errors = Off
+log_errors = On
+error_reporting = E_ALL
+expose_php = Off
+; Cookie de sesión: sin acceso desde JavaScript y sin envío entre sitios.
+session.cookie_httponly = 1
+session.cookie_samesite = Lax
+session.use_strict_mode = 1
+; session.cookie_secure = 1 requiere servir la app por HTTPS (P-02, pendiente para la Evaluación 3).

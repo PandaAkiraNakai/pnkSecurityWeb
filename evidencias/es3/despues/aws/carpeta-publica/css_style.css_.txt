@@ -1,0 +1,75 @@
+HTTP/2 200 
+accept-ranges: bytes
+alt-svc: h3=":443"; ma=2592000
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+content-type: text/css
+cross-origin-opener-policy: same-origin
+date: Thu, 05 Nov 2026 00:26:17 GMT
+etag: "c9a9-65f7c3e4bc380-gzip"
+last-modified: Thu, 05 Nov 2026 00:04:46 GMT
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+referrer-policy: strict-origin-when-cross-origin
+strict-transport-security: max-age=31536000
+vary: Accept-Encoding
+x-content-type-options: nosniff
+x-frame-options: DENY
+
+/* ES3: las fuentes se cargan desde css/fuentes.css (alojadas localmente, sin Google Fonts). */
+body {
+	color: #336699;
+	font-family: "Open Sans", sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 1.8;
+	background-image: url("../img/bg_cd.png");
+}
+
+#formlogin{
+	background-color: #e3ecf5;
+	border: 1px solid #4da9ff;
+	padding: 20px;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	-webkit-box-shadow: 10px 10px 5px -5px rgba(112,131,255,1);
+	-moz-box-shadow: 10px 10px 5px -5px rgba(112,131,255,1);
+	box-shadow: 10px 10px 5px -5px rgba(112,131,255,1);
+}
+
+nav > .nav.nav-tabs{
+
+  border: none;
+    color:#fff;
+    background:#272e38;
+    border-radius:0;
+
+}
+nav > div a.nav-item.nav-link,
+nav > div a.nav-item.nav-link.active
+{
+  border: none;
+    padding: 18px 25px;
+    color:#fff;
+    background:#272e38;
+    border-radius:0;
+}
+
+.carro{
+	margin-top: 10px;
+}
+nav > div a.nav-item.nav-link.active:after
+ {
+  content: "";
+  position: relative;
+  bottom: -60px;
+  left: -10%;
+  border: 15px solid transparent;
+  border-top-color: #e74c3c ;
+}
+.tab-content{
+  background: #fdfdfd;
+    line-height: 25px;
+    border: 1px solid #ddd;
+    border-top:5px solid #0a0252;
+    border-bottom:5px solid #0a0252;
+    padd

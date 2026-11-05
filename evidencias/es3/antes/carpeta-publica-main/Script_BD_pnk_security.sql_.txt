@@ -1,0 +1,40 @@
+HTTP/1.1 200 OK
+Date: Thu, 05 Nov 2026 00:26:06 GMT
+Server: Apache
+Last-Modified: Thu, 05 Nov 2026 00:25:23 GMT
+ETag: "2f5c-65f7c8807689d"
+Accept-Ranges: bytes
+Content-Length: 12124
+Content-Type: application/sql
+
+# Host: localhost  (Version 8.0.17)
+# Date: 2020-11-05 00:16:07
+# Generator: MySQL-Front 6.0  (Build 2.20)
+
+SET NAMES utf8mb4;
+CREATE DATABASE IF NOT EXISTS `pnk_security` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci;
+USE `pnk_security`;
+
+#
+# Structure for table "cartas"
+#
+
+DROP TABLE IF EXISTS `cartas`;
+CREATE TABLE `cartas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'nombre de fantasia para la carta',
+  `orden` int(11) DEFAULT NULL COMMENT 'numero de orden en que aparecera la carta a modo de lista en el menu',
+  `visible` bit(1) DEFAULT b'1' COMMENT 'indica si esta visible o no en el sistema',
+  `foto` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'fotografia representativa de la carta',
+  `creada` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'fecha en la que se creo el registro en el sistema',
+  `actualizada` datetime DEFAULT NULL COMMENT 'fecha de la ultima actualizaci?n del registro en el sistema',
+  `eliminada` datetime DEFAULT NULL COMMENT 'fecha en la que se elimino el registro en el sistema',
+  `restautantes_id` int(11) NOT NULL COMMENT 'identificador del restaurant asociado a la carta',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+#
+# Data for table "cartas"
+#
+
+INSERT INTO `cartas` VALUES (1,'Vinos',1,b'1','carta2.jpg','2020-09-22 23:03:07',NULL,NULL,1),(2,'Bebidas',2,b'1','carta2.jpg','2020-09-22 23:03:07',NULL,NULL,1),(3,'Entradas',3,b'1','carta3.jpg','2020-09-22 23:06:14',NULL,NULL,1),(4,'Principales',4,b'1','carta6.jpg','2020-09-22 23:06:14',NULL,NULL,1),(5,'Postres',5,b'1','carta6.jpg','2020-09-22 23:30:22',NULL,NULL,1),(6,'Helados',9,b'1','carta6.jpg','2020-09-23 04:55:51','1899-12-29 00:00:00',NUL
