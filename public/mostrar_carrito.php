@@ -18,7 +18,7 @@ if (!$datos_restorant) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,10 +28,9 @@ if (!$datos_restorant) {
   <meta name="csrf-token" content="<?php echo e(csrf_token());?>">
 	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
 
+  <!-- ES3: Bootstrap 5.3.8 y fuentes locales; sin themify-icons, Owl Carousel ni recursos de terceros. -->
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/fuentes.css">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -40,14 +39,14 @@ if (!$datos_restorant) {
     <div class="container contendor">
       <div class="row">
         <div class="col-lg-4">
-          <div style="text-align: center;">
-            <div class="media">
+          <div class="centrado">
+            <div class="d-flex justify-content-center">
               <img class="logosintituciones" src="img/logo.png" width="170px" alt="">
             </div><br><br>
           </div>  
         </div>
         <div class="col-lg-4">
-          <div style="text-align: center;">
+          <div class="centrado">
             
             <?php
               if($datos_restorant['foto']!="")
@@ -66,7 +65,7 @@ if (!$datos_restorant) {
         </div>
         <div class="col-lg-4">
           <div class="carro">
-            <div class="media float-right">
+            <div class="d-flex justify-content-end">
               <a class="volver" href="index.php?id=<?php echo $key;?>">
               Volver a la Carta
               </a>&nbsp;&nbsp;
@@ -82,7 +81,7 @@ if (!$datos_restorant) {
     <div class="container contendor">
       <div class="row">
         <div class="col-lg-12">
-         <h4 class="intro-title" style="text-align: center">Productos Agregados para Solicitar</h4>
+         <h4 class="intro-title centrado">Productos Agregados para Solicitar</h4>
         </div>
       </div>
     </div>
@@ -147,13 +146,8 @@ if (!$datos_restorant) {
 		</div>
 	</footer>
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
+  <!-- ES3: solo Bootstrap 5 y el script propio del carrito (se eliminaron jQuery y 5 complementos sin uso). -->
   <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/Magnific-Popup/jquery.magnific-popup.min.js"></script>
-  <script src="js/jquery.ajaxchimp.min.js"></script>
-  <script src="js/main.js"></script>
   <script src="js/controladorajax.js"></script>
 </body>
 </html>

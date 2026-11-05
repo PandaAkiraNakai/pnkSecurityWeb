@@ -23,7 +23,7 @@ $_SESSION['id']=$key;
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,46 +33,41 @@ $_SESSION['id']=$key;
   <meta name="csrf-token" content="<?php echo e(csrf_token());?>">
 	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
 
+  <!-- ES3: Bootstrap 5.3.8 y fuentes locales; sin themify-icons, Owl Carousel ni recursos de terceros. -->
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/fuentes.css">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light px-3">
    <?php
     if(isset($_GET['login']) && $_GET['login']==='invalido')
     {
-      echo '<span class="text-danger mr-3">Usuario o contraseña incorrectos.</span>';
+      echo '<span class="text-danger me-3">Usuario o contraseña incorrectos.</span>';
     }
     if(isset($_GET['login']) && $_GET['login']==='bloqueado')
     {
-      echo '<span class="text-danger mr-3">Demasiados intentos fallidos. Espere ' . VENTANA_MINUTOS . ' minutos e intente de nuevo.</span>';
+      echo '<span class="text-danger me-3">Demasiados intentos fallidos. Espere ' . VENTANA_MINUTOS . ' minutos e intente de nuevo.</span>';
     }
     if(!isset($_SESSION['nombre']))
     {
     ?>
-      <form class="form-inline" role="search" action="setup/procesalogin.php" method="post">
+      <form class="d-flex flex-wrap align-items-center gap-2" action="setup/procesalogin.php" method="post">
         <?php echo csrf_campo();?>
-        <div class="form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">@</span>
-          </div>
-            <input type="text" class="form-control" name="frmusuario" placeholder="Usuario">
+        <div class="input-group w-auto">
+          <span class="input-group-text" id="basic-addon1">@</span>
+          <input type="text" class="form-control" name="frmusuario" placeholder="Usuario" autocomplete="username">
         </div>
-        <div class="form-group">
-            <input type="password" class="form-control" name="frmpassword" placeholder="Contraseña">
-        </div>
-        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">Ingresar</button>
+        <input type="password" class="form-control w-auto" name="frmpassword" placeholder="Contraseña" autocomplete="current-password">
+        <button type="submit" class="btn btn-outline-primary">Ingresar</button>
       </form>
     <?php
     }else{
       // ES3: cerrar sesión es un formulario POST con token, ya no un enlace GET.
       echo '<span>Bienvenido: '.e($_SESSION['nombre']).' - </span>'
-         . '<form class="form-inline" action="setup/cerrar_sesion.php" method="post">'.csrf_campo()
-         . '<button type="submit" class="btn btn-link p-0">Cerrar sesión</button></form>';
+         . '<form class="d-inline" action="setup/cerrar_sesion.php" method="post">'.csrf_campo()
+         . '<button type="submit" class="btn btn-link p-0 align-baseline text-decoration-none">Cerrar sesión</button></form>';
     }
   ?>
 </nav>
@@ -80,15 +75,15 @@ $_SESSION['id']=$key;
     <div class="container contendor">
       <div class="row">
         <div class="col-lg-4">
-          <div style="text-align: center;">
-            <div class="media">
+          <div class="centrado">
+            <div class="d-flex justify-content-center">
               <img class="logosintituciones" src="img/logo.png" width="190px" alt="">
             </div>
           </div>  
         </div>
         <div class="col-lg-4">
-          <div style="text-align: center;">
-            <div class="media">
+          <div class="centrado">
+            <div class="d-flex justify-content-center">
               <?php
               if($datos_restorant['foto']!="")
               {  
@@ -106,7 +101,7 @@ $_SESSION['id']=$key;
         </div>
         <div class="col-lg-4">
           <div class="carro">
-            <div class="media float-right">
+            <div class="d-flex justify-content-end">
               <a class="button_carrito" href="mostrar_carrito.php?id=<?php echo $key;?>">
               <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
@@ -177,12 +172,14 @@ $_SESSION['id']=$key;
       <div class="section-intro">
         <h4 class="intro-title">Menús Destacados</h4>
       </div>
-      <div class="owl-carousel owl-theme featured-carousel">
+      <!-- ES3: cuadrícula de Bootstrap en lugar de Owl Carousel 2.3.4 (proyecto sin mantenimiento). -->
+      <div class="row">
       <?php
       while($destacados=mysqli_fetch_array($result))
       {
       ?>
-        <div class="featured-item">
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="featured-item h-100">
         <?php
               if($destacados['foto']!="")
               {  
@@ -218,7 +215,7 @@ $_SESSION['id']=$key;
                 for($i=1;$i<=$destacados['puntuacion'];$i++)
                 {
                   ?>
-                    <li><i class="ti-star"></i></li>
+                    <li><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg></li>
                 <?php
                 }
                 ?>
@@ -226,8 +223,9 @@ $_SESSION['id']=$key;
               <h3 class="price-tag"><?php             
               echo moneda_chilena($destacados['precio']);?></h3>
             </div>
-            <a class="button" href="#" id="<?php echo e($destacados['id']);?>" style="margin:0%">Seleccionar</a>
+            <a class="button sin-margen" href="#" id="<?php echo e($destacados['id']);?>">Seleccionar</a>
           </div>
+        </div>
         </div>
       <?php
       }
@@ -253,7 +251,7 @@ $_SESSION['id']=$key;
                             {
                               array_push($arraycartas,['nombre'=>e(quitarespacios($cartas['nombre'])),'id'=>$cartas['id']]);
                             ?>
-                              <a class="nav-item nav-link" id="nav-<?php echo quitarespacios(e($cartas['nombre']));?>-tab" data-toggle="tab" href="#<?php echo quitarespacios(e($cartas['nombre']));?>" role="tab" aria-controls="nav-profile" aria-selected="false"><?php echo e($cartas['nombre']);?></a>
+                              <a class="nav-item nav-link" id="nav-<?php echo quitarespacios(e($cartas['nombre']));?>-tab" data-bs-toggle="tab" href="#<?php echo quitarespacios(e($cartas['nombre']));?>" role="tab" aria-controls="nav-profile" aria-selected="false"><?php echo e($cartas['nombre']);?></a>
                             <?php
                             }
                         ?>
@@ -298,20 +296,20 @@ $_SESSION['id']=$key;
                                             {
                                             ?>
                                             <div class="<?php if($count_items>1){ ?>col-lg-6 <?php }else{ ?>col-lg-12<?php } ?>">
-                                              <div class="media align-items-center food-card">
+                                              <div class="d-flex align-items-center food-card">
                                                 <?php
                                                 if($datos_items['foto']=="")
                                                 {
                                                 ?>
-                                                <img class="mr-3 mr-sm-4" src="img/carta_comodin.png" alt="" width="120px">
+                                                <img class="me-3 me-sm-4" src="img/carta_comodin.png" alt="" width="120px">
                                                 <?php
                                                 }else{
                                                   ?>
-                                                <img class="mr-3 mr-sm-4" src="imagenes/cod<?php echo $key;?>/<?php echo e($datos_items['foto']);?>" alt="" width="120px">
+                                                <img class="me-3 me-sm-4" src="imagenes/cod<?php echo $key;?>/<?php echo e($datos_items['foto']);?>" alt="" width="120px">
                                                   <?php
                                                 }
                                                 ?>
-                                                <div class="media-body">
+                                                <div class="flex-grow-1">
                                                   <div class="d-flex justify-content-between food-card-title">
                                                     <h4><?php echo e($datos_items['nombre']);?></h4>
                                                     <h3 class="price-tag"><?php echo moneda_chilena($datos_items['precio']);?></h3>
@@ -335,13 +333,13 @@ $_SESSION['id']=$key;
                                                           for($k=1;$k<=$datos_items['puntuacion'];$k++)
                                                           {
                                                             ?>
-                                                              <li><i class="ti-star"></i></li>
+                                                              <li><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg></li>
                                                           <?php
                                                           }
                                                           ?>
-                                                        </u>
+                                                        </ul>
                                                       </p>
-                                                  <a class="button float-right" href="#" id="<?php echo e($datos_items['id']);?>">Seleccionar</a>
+                                                  <a class="button float-end" href="#" id="<?php echo e($datos_items['id']);?>">Seleccionar</a>
                                                 </div>
                                               </div>
                                             </div>
@@ -374,14 +372,12 @@ $_SESSION['id']=$key;
         </div>
     </div>
 </section>
-<div id="myModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-lg-center" id="exampleModalLabel">Selección de Producto</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
         El producto seleccionado, ha sido agregado sin problemas!!!
@@ -415,15 +411,15 @@ if(isset($key))
              ?>
              <form action="grcomentarios.php" method="post">
               <?php echo csrf_campo();?>
-              <div class="form-group">
+              <div class="mb-3">
                 <label>Nombre: <b><?php echo e($_SESSION['nombre']);?></b></label>
               </div>
-              <div class="form-group">
+              <div class="mb-3">
                 <label for="comentario">Comentario:</label>
                 <!-- maxlength y required solo complementan: la regla se aplica en grcomentarios.php -->
                 <textarea class="form-control" rows="5" id="comentario" name="comentario" maxlength="500" required></textarea>
               </div>
-              <button type="submit" class="btn btn-success fa-align-right">Comentar</button>
+              <button type="submit" class="btn btn-success">Comentar</button>
            </form>
            <?php
             }
@@ -470,13 +466,8 @@ if(isset($key))
 	</footer>
 
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
+  <!-- ES3: solo Bootstrap 5 y el script propio del carrito (se eliminaron jQuery y 5 complementos sin uso). -->
   <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/Magnific-Popup/jquery.magnific-popup.min.js"></script>
-  <script src="js/jquery.ajaxchimp.min.js"></script>
-  <script src="js/main.js"></script>
   <script src="js/controladorajax.js"></script>
 </body>
 </html>

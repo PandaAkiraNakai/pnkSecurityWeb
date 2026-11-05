@@ -1,5 +1,8 @@
-# Imagen de la aplicación PNKSecurity: PHP 8.3 con Apache y la extensión mysqli.
-FROM php:8.3-apache
+# Imagen de la aplicación PNKSecurity: PHP 8.5 con Apache y la extensión mysqli.
+# ES3: de php:8.3-apache (8.3 solo recibe parches de seguridad) a 8.5, con soporte activo hasta
+# el 31/12/2027 y de seguridad hasta el 31/12/2029 (php.net/supported-versions.php, 04/11/2026).
+# La versión queda fijada para que cada build sea reproducible; se actualiza a propósito.
+FROM php:8.5.12-apache
 RUN docker-php-ext-install mysqli
 # Configuración de producción de PHP más los ajustes del proyecto (P-01).
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
