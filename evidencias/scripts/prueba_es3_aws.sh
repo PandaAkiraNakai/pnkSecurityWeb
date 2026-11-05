@@ -20,7 +20,7 @@ curl -sS -o /dev/null --max-time 10 -w '%{http_code} %{ssl_verify_result}\n' "ht
 echo | openssl s_client -connect "$IP:443" -servername "$D" 2>/dev/null \
   | openssl x509 -noout -subject -issuer -dates > "$O/A02_certificado.txt"
 echo | openssl s_client -connect "$IP:443" -servername "$D" 2>/dev/null | grep -E 'Protocol|Cipher is' | sort -u >> "$O/A02_certificado.txt"
-fila A02 "Certificado aceptado por curl (verificación 0)" "$(cat "$O/A02_tls_curl.txt") · $(grep -m1 issuer "$O/A02_certificado.txt" | sed 's/.*O = //;s/,.*//')"
+fila A02 "Certificado aceptado por curl (verificación 0)" "$(cat "$O/A02_tls_curl.txt") · $(grep -m1 issuer "$O/A02_certificado.txt" | sed -E 's/.*O ?= ?//;s/,.*//')"
 for v in tls1 tls1_1; do
   if echo | openssl s_client -"$v" -connect "$IP:443" -servername "$D" >/dev/null 2>&1; then r="ACEPTADO"; else r="rechazado"; fi
   echo "$v: $r" >> "$O/A02_certificado.txt"

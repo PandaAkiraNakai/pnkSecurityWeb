@@ -11,10 +11,12 @@ printf '%-26s %-5s %-44s %-6s %s\n' "Caso" "HTTP" "Location" "Filas" "Último re
 caso() { # nombre esperado datos... (usa --data-urlencode)
   local n=$1 esp=$2; shift 2
   local antes; antes=$(filas)
+  # Opción y valor por separado: el curl de Ubuntu 24.04 no acepta "--data-urlencode=valor".
+  local datos=(); for d in "$@"; do datos+=(--data-urlencode "$d"); done
   local f="$OUT/$n.txt"
   { echo "\$ curl -s -i -b sesion -X POST $(printf -- "--data-urlencode '%s' " "$@")'$B/grcomentarios.php'"
-    curl -s -i -b "$J" -c "$J" -X POST "${@/#/--data-urlencode=}" --data-urlencode "csrf=${T:-}" "$B/grcomentarios.php" | sed 's/\r$//'; } > "$f"
-  local code loc desp; code=$(grep -m1 '^HTTP/' "$f" | awk '{print $2}'); loc=$(grep -m1 '^Location:' "$f" | cut -d' ' -f2-); desp=$(filas)
+    curl -s -i -b "$J" -c "$J" -X POST "${datos[@]}" --data-urlencode "csrf=${T:-}" "$B/grcomentarios.php" | sed 's/\r$//'; } > "$f"
+  local code loc desp; code=$(grep -m1 '^HTTP/' "$f" | awk '{print $2}'); loc=$(grep -i -m1 '^location:' "$f" | cut -d' ' -f2-); desp=$(filas)
   printf '%-26s %-5s %-44s %s->%-3s %s  [esperado: %s]\n' "$n" "$code" "${loc:--}" "$antes" "$desp" "$([ "$desp" != "$antes" ] && ultimo || echo 'sin cambios')" "$esp"
 }
 echo "== $(date '+%d/%m/%Y %H:%M') · filas iniciales: $(filas) =="

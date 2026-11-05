@@ -1,0 +1,7 @@
+22/tcp abierto
+80/tcp abierto
+443/tcp abierto
+3306/tcp cerrado/filtrado
+8080/tcp cerrado/filtrado
+8081/tcp cerrado/filtrado
+33060/tcp cerrado/filtrado

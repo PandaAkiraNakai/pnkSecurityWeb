@@ -1,0 +1,17 @@
+$ curl -s -i -b sesion -X POST --data 'op=2&pos=1' 'https://44-206-17-182.sslip.io/carrito.php'
+HTTP/2 200 
+alt-svc: h3=":443"; ma=2592000
+cache-control: no-store, no-cache, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+content-type: text/html; charset=UTF-8
+cross-origin-opener-policy: same-origin
+date: Thu, 05 Nov 2026 00:17:02 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+strict-transport-security: max-age=31536000
+x-content-type-options: nosniff
+x-frame-options: DENY
+content-length: 0
+

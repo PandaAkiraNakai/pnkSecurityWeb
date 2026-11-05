@@ -1,0 +1,120 @@
+$ curl -s -i 'https://44-206-17-182.sslip.io/mostrar_carrito.php?id=2'
+HTTP/2 200 
+alt-svc: h3=":443"; ma=2592000
+cache-control: no-store, no-cache, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+content-type: text/html; charset=UTF-8
+cross-origin-opener-policy: same-origin
+date: Thu, 05 Nov 2026 00:16:46 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+set-cookie: PHPSESSID=bb0121d23fbdb7d2395b8ebf4c0a7c85; path=/; secure; HttpOnly; SameSite=Lax
+strict-transport-security: max-age=31536000
+vary: Accept-Encoding
+x-content-type-options: nosniff
+x-frame-options: DENY
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Restaurant la Bahía</title>
+  <!-- ES3: token CSRF para las peticiones AJAX del carrito (js/controladorajax.js). -->
+  <meta name="csrf-token" content="1e6ef0e1d43d1d82b8582cffc8dca5acdf852bca9c5ba290855ab1a2a104db4f">
+	<!--<link rel="icon" href="img/Fevicon.png" type="image/png">-->
+
+  <!-- ES3: Bootstrap 5.3.8 y fuentes locales; sin themify-icons, Owl Carousel ni recursos de terceros. -->
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fuentes.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section>
+    <div class="container contendor">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="centrado">
+            <div class="d-flex justify-content-center">
+              <img class="logosintituciones" src="img/logo.png" width="170px" alt="">
+            </div><br><br>
+          </div>  
+        </div>
+        <div class="col-lg-4">
+          <div class="centrado">
+            
+                              <img class="logosintituciones" src="imagenes/cod2/resto2.png" width="170px" alt="">
+                          
+          </div>  
+        </div>
+        <div class="col-lg-4">
+          <div class="carro">
+            <div class="d-flex justify-content-end">
+              <a class="volver" href="index.php?id=2">
+              Volver a la Carta
+              </a>&nbsp;&nbsp;
+              <a class="limpiar" href="#">
+              Eliminar Todo
+              </a>
+            </div>
+          </div>  
+        </div>
+    </div>
+  </section>
+  <section>
+    <div class="container contendor">
+      <div class="row">
+        <div class="col-lg-12">
+         <h4 class="intro-title centrado">Productos Agregados para Solicitar</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container contendor">
+      <div class="row">
+        <div class="col-lg-12">
+               <table class="table table-hover table-lg">
+                  <thead>
+                     <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precios</th>
+                        <th scope="col">Acción</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                                       </tbody>
+                </table>
+              <div>
+                <hr><br>
+                <h3 class="price-tag text-center">¡¡¡Si estas listo con tu pedido, llama al garzón para solicitarlo!!!</h3>
+                <!--<h3 class="price-tag">Total : $ 0</h3>-->
+              </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container contendor"><br>
+    <hr>
+		<div class="container">
+			<div class="footer-bottom row align-items-center text-center">
+				<p class="footer-text m-0 col-md-12">
+        Copyright 2020, Todos los Derechos reservados PNK, <br>
+            Sitio desarrollado para la Explotación de Vulnerabilidades Web, Laboratorio de Programación Segura I<br><b>Área Tecnologías de Información y Ciberseguridad - Inacap Sede La Serena</b></br></br>
+            <br><br>
+        </p>
+			</div>
+		</div>
+	</footer>
+
+  <!-- ES3: solo Bootstrap 5 y el script propio del carrito (se eliminaron jQuery y 5 complementos sin uso). -->
+  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="js/controladorajax.js"></script>
+</body>
+</html>

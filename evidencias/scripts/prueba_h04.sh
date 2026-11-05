@@ -8,7 +8,7 @@ caso() { # nombre esperado datos
   t=$(curl -s -b "$J" -c "$J" "$B/?id=1" | grep -o 'name="csrf-token" content="[^"]*"' | sed 's/.*content="//;s/"$//')
   { echo "\$ curl -s -i -X POST --data-urlencode '...' '$B/setup/procesalogin.php'"
     curl -s -i -b "$J" -c "$J" -X POST --data-urlencode "csrf=$t" --data-urlencode "frmusuario=${d%%|*}" --data-urlencode "frmpassword=${d#*|}" "$B/setup/procesalogin.php" | sed 's/\r$//'; } > "$f"
-  local code loc ses; code=$(grep -m1 '^HTTP/' "$f" | awk '{print $2}'); loc=$(grep -m1 '^Location:' "$f" | cut -d' ' -f2-)
+  local code loc ses; code=$(grep -m1 '^HTTP/' "$f" | awk '{print $2}'); loc=$(grep -i -m1 '^location:' "$f" | cut -d' ' -f2-)
   ses=$(curl -s -b "$J" "$B/?id=1" | grep -o 'Bienvenido: [^<]*' | head -1)
   printf '%-22s HTTP %-4s %-38s sesión: %-22s [esperado %s]\n' "$n" "$code" "${loc:--}" "${ses:-sin sesión}" "$esp"; rm -f "$J"
 }

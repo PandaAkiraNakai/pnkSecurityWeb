@@ -1,0 +1,19 @@
+$ curl -s -i 'https://44-206-17-182.sslip.io/?id=1.5'
+HTTP/2 400 
+alt-svc: h3=":443"; ma=2592000
+cache-control: no-store, no-cache, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+content-type: text/html; charset=UTF-8
+cross-origin-opener-policy: same-origin
+date: Thu, 05 Nov 2026 00:16:49 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+set-cookie: PHPSESSID=45fe6c0616733ee21be1c93744029884; path=/; secure; HttpOnly; SameSite=Lax
+strict-transport-security: max-age=31536000
+x-content-type-options: nosniff
+x-frame-options: DENY
+content-length: 410
+
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>PNKSecurity</title><link rel="stylesheet" href="/vendors/bootstrap/bootstrap.min.css"></head><body><div class="container mt-5"><div class="alert alert-warning"><h4>Error 400</h4><p>Solicitud inválida: el identificador de restaurante falta o no es un número válido.</p><a href="/index.php?id=1">Volver a la carta</a></div></div></body></html>

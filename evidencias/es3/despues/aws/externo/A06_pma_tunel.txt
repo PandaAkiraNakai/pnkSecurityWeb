@@ -1,0 +1,3 @@
+<title>phpMyAdmin
+name="pma_username"
+name="pma_password"

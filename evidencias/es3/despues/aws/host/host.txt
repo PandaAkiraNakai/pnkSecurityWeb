@@ -1,0 +1,59 @@
+== 05/11/2026 00:13:51 UTC · entorno: AWS EC2 ==
+
+## H01 Sistema operativo y paquetes pendientes de actualizar
+Ubuntu 24.04.5 LTS · kernel 7.0.0-1014-aws
+Paquetes pendientes: 0
+Actualizaciones automáticas: APT::Periodic::Unattended-Upgrade 1
+
+## H02 Configuración efectiva de SSH (sshd -T)
+maxauthtries 3
+permitrootlogin no
+pubkeyauthentication yes
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+allowtcpforwarding local
+allowusers ubuntu
+authenticationmethods publickey
+
+## H03 fail2ban (cárcel sshd)
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed:	0
+|  |- Total failed:	0
+|  `- Journal matches:	_SYSTEMD_UNIT=sshd.service + _COMM=sshd
+`- Actions
+   |- Currently banned:	0
+   |- Total banned:	0
+   `- Banned IP list:	
+
+## H04 Puertos en escucha en el host (todas las interfaces)
+0.0.0.0:22 sshd
+0.0.0.0:443 docker-proxy
+0.0.0.0:80 docker-proxy
+127.0.0.1:8081 docker-proxy
+127.0.0.53%lo:53 systemd-resolve
+127.0.0.54:53 systemd-resolve
+[::]:22 sshd
+[::]:443 docker-proxy
+[::]:80 docker-proxy
+
+## H05 Permisos de la app y de los secretos
+drwxr-xr-x root:root /opt/pnksecurity
+-rw------- root:root /opt/pnksecurity/.env
+-rw-r--r-- root:root /opt/pnksecurity/compose.yaml
+-rw-r--r-- root:root /opt/pnksecurity/app/setup.php
+Archivos de /opt/pnksecurity con escritura para otros usuarios: 0
+Variables definidas en .env (sin valores): DB_NAME DB_USER DB_PASSWORD DB_ROOT_PASSWORD DB_ADMIN_USER DB_ADMIN_PASSWORD COMPOSE_FILE PNK_DOMINIO 
+Secretos en el historial de Git del servidor: 0
+
+## H06 Quién puede usar Docker sin sudo (grupo docker)
+(nadie)
+
+## H07 Metadatos de la instancia (IMDS) desde un contenedor
+Token IMDSv2 desde el contenedor web: rechazado (sin respuesta)
+IMDSv1 (sin token): rechazado
+Desde el propio host (control): token IMDSv2 obtenido; IMDSv1 sin token: código 401
+
+## H08 Commit desplegado
+13be642 fix: el despliegue ignora los bits de modo en el clon del servidor (04/11/2026 21:13)

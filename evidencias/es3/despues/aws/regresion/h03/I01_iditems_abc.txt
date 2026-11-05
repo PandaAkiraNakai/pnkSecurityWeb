@@ -1,0 +1,18 @@
+$ curl -s -i -b sesion -X POST --data 'op=1&iditems=abc' 'https://44-206-17-182.sslip.io/carrito.php'
+HTTP/2 400 
+alt-svc: h3=":443"; ma=2592000
+cache-control: no-store, no-cache, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+content-type: text/html; charset=UTF-8
+cross-origin-opener-policy: same-origin
+date: Thu, 05 Nov 2026 00:16:56 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+strict-transport-security: max-age=31536000
+x-content-type-options: nosniff
+x-frame-options: DENY
+content-length: 361
+
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>PNKSecurity</title><link rel="stylesheet" href="/vendors/bootstrap/bootstrap.min.css"></head><body><div class="container mt-5"><div class="alert alert-warning"><h4>Error 400</h4><p>Identificador de producto no válido.</p><a href="/index.php?id=1">Volver a la carta</a></div></div></body></html>
