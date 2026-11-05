@@ -8,6 +8,8 @@ test -f /var/lib/pnk-listo || { echo "El primer arranque (servidor_inicial.sh) a
 
 if [ ! -d "$DIR/.git" ]; then git clone --quiet "$REPO" "$DIR"; fi
 cd "$DIR"
+# Los permisos los fija este script (755/644), no Git: así el chmod no cuenta como cambio local.
+git config core.fileMode false
 git fetch --quiet --all --prune
 # Se resuelve primero a un commit: "deploy/aws" es a la vez una rama y una carpeta del repo.
 COMMIT="$(git rev-parse --verify --quiet "origin/$REF^{commit}" || git rev-parse --verify "$REF^{commit}")"
