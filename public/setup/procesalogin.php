@@ -1,6 +1,10 @@
 <?php
 
 require __DIR__ . "/../../app/setup.php";
+session_start();
+// ES3: el formulario de acceso también lleva token CSRF (evita el "login CSRF", en que otra
+// página inicia sesión en el navegador de la víctima con una cuenta del atacante).
+csrf_verificar();
 
 // H-04: las credenciales del formulario se validan antes de consultar la base y la
 // consulta usa parámetros. Regla: frmusuario debe ser un correo válido de hasta 255
@@ -14,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || $usuario === false || strlen($usuar
     exit;
 }
 
-session_start();
 $volver = '../index.php?id=' . (id_valido($_SESSION['id'] ?? null) ?? 1);
 
 // ES3: si el correo alcanzó el límite de intentos fallidos, ni siquiera se comprueba la clave.
@@ -42,7 +45,9 @@ if (password_needs_rehash($datos['password'], PASSWORD_DEFAULT, OPCIONES_HASH)) 
 }
 consulta("DELETE FROM intentos_login WHERE email=?", 's', [$usuario]);
 
+// Identificador de sesión y token CSRF nuevos al cambiar de privilegio (fijación de sesión).
 session_regenerate_id(true);
+unset($_SESSION['csrf']);
 $_SESSION['nombre'] = $datos['nombre'];
 header('Location: ' . $volver, true, 303);
 exit;

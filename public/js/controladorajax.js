@@ -1,5 +1,8 @@
 // JavaScript Document
 
+// ES3: toda petición AJAX lleva el token CSRF de la página en la cabecera X-CSRF-Token.
+$.ajaxSetup({ headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') } });
+
 $(document).ready(function(){
    $('.button').click(function(){
      agregaritems($(this).attr('id'));

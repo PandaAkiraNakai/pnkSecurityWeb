@@ -124,11 +124,52 @@ function responder_error(int $codigo, string $mensaje): void
     http_response_code($codigo);
     header('Content-Type: text/html; charset=UTF-8');
     echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>PNKSecurity</title>'
-       . '<link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css"></head><body>'
+       . '<link rel="stylesheet" href="/vendors/bootstrap/bootstrap.min.css"></head><body>'
        . '<div class="container mt-5"><div class="alert alert-warning"><h4>Error ' . $codigo . '</h4><p>'
        . htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8')
-       . '</p><a href="index.php?id=1">Volver a la carta</a></div></div></body></html>';
+       . '</p><a href="/index.php?id=1">Volver a la carta</a></div></div></body></html>';
     exit;
+}
+
+// Protección CSRF (ES3): cada sesión tiene un token aleatorio de 256 bits. Todo formulario y
+// toda petición AJAX que cambia algo (login, comentario, carrito, cierre de sesión) debe
+// devolverlo, en el campo oculto "csrf" o en la cabecera X-CSRF-Token. Una página de otro
+// sitio puede hacer que el navegador envíe el formulario con la cookie de sesión, pero no
+// puede leer el token, así que su petición se rechaza con 403. Requiere session_start().
+function csrf_token(): string
+{
+    if (empty($_SESSION['csrf']) || !is_string($_SESSION['csrf'])) {
+        $_SESSION['csrf'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf'];
+}
+
+function csrf_campo(): string
+{
+    return '<input type="hidden" name="csrf" value="' . e(csrf_token()) . '">';
+}
+
+function csrf_verificar(): void
+{
+    $enviado = $_POST['csrf'] ?? ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '');
+    $esperado = $_SESSION['csrf'] ?? '';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !is_string($enviado) || !is_string($esperado)
+        || $esperado === '' || !hash_equals($esperado, $enviado)) {
+        responder_error(403, 'La solicitud no es válida o la página expiró. Recargue la página e intente de nuevo.');
+    }
+}
+
+// Cierre de sesión completo: vacía los datos, borra la cookie del navegador y destruye la
+// sesión en el servidor (antes solo se llamaba a session_destroy()).
+function cerrar_sesion(): void
+{
+    $_SESSION = [];
+    $p = session_get_cookie_params();
+    setcookie(session_name(), '', [
+        'expires' => time() - 3600, 'path' => $p['path'], 'domain' => $p['domain'],
+        'secure' => $p['secure'], 'httponly' => $p['httponly'], 'samesite' => $p['samesite'],
+    ]);
+    session_destroy();
 }
 
 function quitarespacios($titulo)
