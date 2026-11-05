@@ -1,0 +1,10 @@
+== 04/11/2026 21:10:47 -03 · migración de la base a la ES3 ==
+1) Tabla intentos_login
+2) Privilegios mínimos de la app y cuenta de administración (mismo script que al crear la base)
+2026-11-05 00:10:47+00:00 [Note] [Entrypoint]: ES3: privilegios mínimos para 'pnk_app' y cuenta de administración 'pnk_admin'
+3) root solo desde dentro del contenedor (se elimina root@'%')
+4) Contraseñas en texto plano → hash bcrypt
+Migrada la clave de admin@gmail.com
+Migrada la clave de alondra@gmail.com
+Listo: 2 migradas, 0 ya estaban como hash.
+Migración terminada.
