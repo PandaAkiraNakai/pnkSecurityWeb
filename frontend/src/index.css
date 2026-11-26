@@ -429,3 +429,16 @@ textarea {
   color: var(--texto-suave);
   padding: 1rem 0 2rem;
 }
+
+.pie p {
+  margin: 0.2rem 0;
+}
+
+.pie-creditos {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.pie-creditos a {
+  color: inherit;
+}

@@ -67,7 +67,15 @@ export default function App() {
         )}
       </main>
 
-      <footer className="pie contenedor">PNKSecurity · Carta digital · Desarrollo Seguro CI3064</footer>
+      <footer className="pie contenedor">
+        <p>PNKSecurity · Carta digital · Desarrollo Seguro CI3064</p>
+        <p className="pie-creditos">
+          Fotos: «Spinatsuppe mit Croutons» de eat.de (
+          <a href="https://creativecommons.org/licenses/by-sa/2.0/" rel="noopener noreferrer" target="_blank">CC BY-SA 2.0</a>) y «Restaurant on Stromboli» de
+          kuhnmi (<a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener noreferrer" target="_blank">CC BY 2.0</a>), vía
+          Wikimedia Commons. Detalle en <a href="/imagenes/CREDITOS.md">CREDITOS.md</a>.
+        </p>
+      </footer>
     </>
   );
 }
