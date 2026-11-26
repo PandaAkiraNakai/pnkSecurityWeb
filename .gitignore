@@ -12,3 +12,6 @@ deploy/aws/estado.env*
 # Llaves y certificados
 *.pem
 *.key
+
+# Estado de la infraestructura de la versión nueva (ids de AWS)
+deploy/u3/estado.env*
