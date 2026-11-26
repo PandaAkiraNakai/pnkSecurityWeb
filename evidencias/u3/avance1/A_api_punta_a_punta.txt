@@ -1,0 +1,49 @@
+# Avance 1 · 26/11/2026 14:21:54 -0300 · http://127.0.0.1:3000
+
+## A01 Estado de la API
+GET /api/health                                            → HTTP 200  {"estado":"ok","version":"desarrollo"}
+
+## A02 Carta del restaurante 1 desde PostgreSQL
+Afríca Restobar · Avenida Argentina 951, La Serena
+  Bebidas / Con Alcohol / Pisco sour $3500
+  Entradas / Frías / Ensalada César $3500
+  Entradas / Calientes / Crema de espinacas $2000
+  Principales / Carnes / Lomo a lo pobre $12500
+
+## A03 Sin sesión no se puede comentar
+POST comentario sin sesión                                → HTTP 401  {"error":"Debes iniciar sesión"}
+
+## A04 Login
+POST /api/auth/login clave incorrecta                      → HTTP 401  {"error":"Correo o contraseña incorrectos"}
+POST /api/auth/login correo inexistente                    → HTTP 401  {"error":"Correo o contraseña incorrectos"}
+POST /api/auth/login Alondra (correcto)                    → HTTP 200  {"id":1,"nombre":"Alondra","email":"alondra@pnk.test"}
+POST /api/auth/login Bruno (correcto)                      → HTTP 200  {"id":2,"nombre":"Bruno","email":"bruno@pnk.test"}
+Atributos de la cookie: Set-Cookie: pnk_sesion=[oculta]; Max-Age=7200; Path=/; Expires=Thu, 26 Nov 2026 19:21:57 GMT; HttpOnly; SameSite=Strict
+
+## A05 Validación en el servidor (entrada inválida no se guarda)
+POST comentario vacío                                     → HTTP 400  {"error":"Escribe un comentario","detalles":[{"campo":"texto","mensaje":"Escribe un comentario"}]}
+POST comentario de 501 caracteres                          → HTTP 400  {"error":"Máximo 500 caracteres","detalles":[{"campo":"texto","mensaje":"Máximo 500 caracteres"}]}
+POST comentario como formulario (no JSON)                  → HTTP 415  {"error":"La API solo acepta JSON"}
+GET id con SQL (1 OR 1=1)                                  → HTTP 400  {"error":"Identificador inválido","detalles":[{"campo":null,"mensaje":"Identificador inválido"}]}
+
+## A06 Crear un comentario y volver a consultarlo (persistencia)
+POST comentario válido (Alondra)                          → HTTP 201  {"id":2,"autor":"Alondra","texto":"Comentario del avance 1 · 14:21:57","creado":"2026-11-26T17:21:57.176Z","propio":true}
+GET comentarios del restaurante 1                          → HTTP 200  [{"id":2,"autor":"Alondra","texto":"Comentario del avance 1 · 14:21:57","creado":"2026-11-26T17:21:57.176Z","propio":true},{"id":1,"autor":"Bruno","texto":"Muy buena atención y el lomo a lo pobre, excelente.","creado":
+
+## A07 Autorización: Bruno intenta modificar el comentario de Alondra
+PUT /api/comentarios/2 como Bruno                          → HTTP 403  {"error":"No puedes modificar comentarios de otra persona"}
+DELETE /api/comentarios/2 como Bruno                       → HTTP 403  {"error":"No puedes modificar comentarios de otra persona"}
+PUT /api/comentarios/2 como Alondra (dueña)               → HTTP 200  {"id":2,"autor":"Alondra","texto":"Comentario del avance 1 · 14:21:57 (editado)","creado":"2026-11-26T17:21:57.176Z","propio":true}
+## A08 En PostgreSQL (consulta directa)
+ id |  autor  |                        texto                        |            creado             |          actualizado          
+----+---------+-----------------------------------------------------+-------------------------------+-------------------------------
+  1 | Bruno   | Muy buena atención y el lomo a lo pobre, excelente. | 2026-11-26 14:20:07.448294-03 | 
+  2 | Alondra | Comentario del avance 1 · 14:21:57 (editado)        | 2026-11-26 14:21:57.176179-03 | 2026-11-26 14:21:57.298718-03
+(2 filas)
+
+         version         |           aplicada            
+-------------------------+-------------------------------
+ 001_esquema_inicial.sql | 2026-11-26 14:20:07.427488-03
+ 002_datos_prueba.sql    | 2026-11-26 14:20:07.448294-03
+(2 filas)
+

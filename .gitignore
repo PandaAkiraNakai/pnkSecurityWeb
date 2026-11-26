@@ -8,3 +8,7 @@ Thumbs.db
 
 # Estado de la infraestructura de AWS (ids de recursos, generado por crear_infra.sh)
 deploy/aws/estado.env*
+
+# Llaves y certificados
+*.pem
+*.key

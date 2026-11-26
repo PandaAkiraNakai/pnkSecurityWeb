@@ -1,0 +1,21 @@
+# PNKSecurity U3 · ambiente de desarrollo: solo PostgreSQL (la API y React corren con npm run dev).
+# Uso: docker compose -f compose.u3.yaml up -d
+# Las contraseñas de este archivo son solo de desarrollo local; en AWS se generan en el servidor.
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_PASSWORD: dev-solo-local-admin
+      PNK_OWNER_PASSWORD: dev-solo-local-owner
+      PNK_APP_PASSWORD: dev-solo-local-app
+    ports:
+      - "127.0.0.1:55432:5432"   # solo desde este equipo
+    volumes:
+      - ./db/dev:/docker-entrypoint-initdb.d:ro
+      - pnk-u3-datos:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pnk"]
+      interval: 3s
+      retries: 20
+volumes:
+  pnk-u3-datos:

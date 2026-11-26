@@ -163,3 +163,51 @@ evidencias/scripts/prueba_es3_aws.sh salida/        # desde afuera: TLS, puertos
 **AWS**: `deploy/aws/crear_infra.sh` (grupo de seguridad, EC2 con hardening, IP elástica) y luego
 `deploy/aws/desplegar.sh [rama]`. phpMyAdmin no tiene puerto público: se entra por túnel SSH
 (`ssh -N -L 8081:127.0.0.1:8081 ubuntu@<ip>` y luego http://127.0.0.1:8081).
+
+---
+
+## Unidad 3: React + Express + PostgreSQL
+
+La versión nueva convive con la de PHP en el mismo repositorio, en carpetas separadas:
+
+| Carpeta | Qué es |
+| --- | --- |
+| `frontend/` | Interfaz en React con TypeScript (Vite): carta, inicio de sesión y comentarios |
+| `backend/` | API en Express con TypeScript sobre Node.js 22: validación con zod, sesión en cookie HttpOnly, autorización por dueño |
+| `db/migraciones/` | Esquema PostgreSQL versionado (`001_…`, `002_…`); se aplican en orden con `npm run migrar` |
+| `db/dev/` | Creación de las cuentas `pnk_owner` (dueña del esquema) y `pnk_app` (la API, permisos mínimos) |
+| `compose.u3.yaml` | PostgreSQL 18 para desarrollo, publicado solo en `127.0.0.1:55432` |
+| `scripts/u3/` | Pruebas de punta a punta con `curl` |
+| `evidencias/u3/` | Salidas y capturas de cada avance |
+
+### Levantar en desarrollo
+
+```bash
+docker compose -f compose.u3.yaml up -d          # PostgreSQL con las dos cuentas
+cd backend && cp .env.example .env               # cambia JWT_SECRET: openssl rand -base64 48
+npm ci && npm run migrar:dev && npm run dev      # API en http://127.0.0.1:3000
+cd ../frontend && npm ci && npm run dev          # React en http://127.0.0.1:5173 (proxy de /api)
+```
+
+Pruebas: `npm test` en `backend/` (24 pruebas de validación, sesión y autorización, sin base de datos) y en
+`frontend/`. De punta a punta contra la base real: `scripts/u3/avance1.sh`.
+
+### Cuentas de prueba
+
+Ficticias, solo para desarrollo y la demostración: `alondra@pnk.test` y `bruno@pnk.test`, ambas con la
+contraseña `Pnk-Prueba-2026`. En la base solo se guarda su hash bcrypt.
+
+### API
+
+| Método y ruta | Sesión | Respuesta |
+| --- | --- | --- |
+| `GET /api/health` | No | Estado y versión desplegada |
+| `POST /api/auth/login` | No | 200 y cookie de sesión · 400 · 401 · 429 tras 5 intentos fallidos (15 min) |
+| `POST /api/auth/logout` · `GET /api/auth/yo` | Sí | 204 · datos de la sesión o 401 |
+| `GET /api/restaurantes/:id` | No | Restaurante con su carta (solo lo visible) |
+| `GET /api/restaurantes/:id/comentarios` | No | Comentarios, sin correos ni ids de usuario |
+| `POST /api/restaurantes/:id/comentarios` | Sí | 201 · 400 si el texto está vacío o pasa de 500 caracteres · 401 |
+| `PUT` · `DELETE /api/comentarios/:id` | Sí | Solo el autor: 200/204 · 403 para otra persona · 404 |
+
+Los cambios solo se aceptan como `application/json` (415 en otro caso), lo que junto con la cookie
+`SameSite=Strict` impide enviarlos desde un formulario de otro sitio.
