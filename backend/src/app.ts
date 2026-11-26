@@ -17,6 +17,7 @@ export interface Opciones {
   trustProxy?: number;
   version?: string;
   ahora?: () => Date;
+  maxRegistrosPorVentana?: number;
 }
 
 export const COOKIE = 'pnk_sesion';
@@ -25,6 +26,26 @@ export const MINUTOS_BLOQUEO = 15;
 const DURACION_SESION_S = 2 * 60 * 60;
 // Hash de relleno: si el correo no existe se compara igual, para no revelar qué cuentas existen por el tiempo de respuesta
 const HASH_RELLENO = bcrypt.hashSync(randomBytes(16).toString('hex'), 12);
+
+export const MAX_REGISTROS_POR_IP = 10;
+export const MINUTOS_VENTANA_REGISTRO = 60;
+
+// Límite simple en memoria (ventana fija por clave). Suficiente para una sola instancia de la API;
+// con varias instancias habría que llevarlo a la base o a un almacén compartido.
+class LimitePorClave {
+  private readonly cuentas = new Map<string, { n: number; desde: number }>();
+  constructor(private readonly max: number, private readonly ventanaMs: number) {}
+  permitir(clave: string, ahoraMs: number): boolean {
+    const c = this.cuentas.get(clave);
+    if (!c || ahoraMs - c.desde >= this.ventanaMs) {
+      if (this.cuentas.size > 10_000) this.cuentas.clear();
+      this.cuentas.set(clave, { n: 1, desde: ahoraMs });
+      return true;
+    }
+    c.n += 1;
+    return c.n <= this.max;
+  }
+}
 
 interface Sesion { id: number; nombre: string }
 type Req = Request & { usuario?: Sesion };
@@ -39,6 +60,22 @@ const esquemaLogin = z.object({
   email: z.string().trim().toLowerCase().max(254).pipe(z.email('Correo inválido')),
   password: z.string().min(1, 'Escribe tu contraseña').max(72, 'Contraseña demasiado larga'),
 }).strict();
+// Registro: nombre visible con letras (incluye tildes y ñ), espacios, apóstrofo y guion;
+// contraseña de 10 caracteres a 72 bytes (bcrypt ignora lo que pasa de 72 bytes)
+const esquemaRegistro = z.object({
+  nombre: z.string('Escribe tu nombre').trim()
+    .min(2, 'El nombre debe tener al menos 2 caracteres')
+    .max(60, 'El nombre puede tener hasta 60 caracteres')
+    .regex(/^\p{L}[\p{L}\p{M} '’-]*$/u, 'El nombre solo puede tener letras, espacios, apóstrofos y guiones'),
+  email: z.string('Escribe tu correo').trim().toLowerCase().max(254).pipe(z.email('Correo inválido')),
+  password: z.string('Escribe una contraseña')
+    .min(10, 'La contraseña debe tener al menos 10 caracteres')
+    .refine((v) => Buffer.byteLength(v, 'utf8') <= 72, 'La contraseña es demasiado larga (máximo 72 bytes)')
+    .refine((v) => v.trim().length > 0, 'La contraseña no puede ser solo espacios'),
+}).strict().refine((d) => {
+  const usuario = typeof d?.email === 'string' ? (d.email.split('@')[0] ?? '') : '';
+  return usuario.length < 4 || typeof d?.password !== 'string' || !d.password.toLowerCase().includes(usuario);
+}, { message: 'La contraseña no puede contener tu correo', path: ['password'] });
 const esquemaComentario = z.object({
   texto: z.string('Escribe un comentario').trim().min(1, 'Escribe un comentario').max(500, 'Máximo 500 caracteres'),
 }).strict();
@@ -107,6 +144,7 @@ export function crearApp(repo: Repo, op: Opciones) {
   };
 
   const opcionesCookie = { httpOnly: true, secure: op.cookieSecure, sameSite: 'strict' as const, path: '/' };
+  const limiteRegistro = new LimitePorClave(op.maxRegistrosPorVentana ?? MAX_REGISTROS_POR_IP, MINUTOS_VENTANA_REGISTRO * 60_000);
 
   const r = express.Router();
 
@@ -135,6 +173,23 @@ export function crearApp(repo: Repo, op: Opciones) {
     const token = jwt.sign({ nombre: u.nombre }, op.jwtSecret, { algorithm: 'HS256', subject: String(u.id), expiresIn: DURACION_SESION_S });
     res.cookie(COOKIE, token, { ...opcionesCookie, maxAge: DURACION_SESION_S * 1000 });
     res.json({ id: u.id, nombre: u.nombre, email: u.email });
+  });
+
+  // Registro: crea la cuenta (hash bcrypt) y deja la sesión iniciada. Límite por IP para
+  // frenar la creación masiva de cuentas.
+  r.post('/auth/registro', async (req, res) => {
+    // Primero se valida (un error de tipeo no consume intentos); el límite cuenta los intentos que
+    // llegan a la base, también los de correo repetido (frena el sondeo de qué correos existen)
+    const { nombre, email, password } = validar(esquemaRegistro, req.body);
+    if (!limiteRegistro.permitir(req.ip ?? 'desconocida', ahora().getTime())) {
+      throw new ErrorHttp(429, `Demasiados intentos de registro desde tu conexión. Intenta de nuevo en ${MINUTOS_VENTANA_REGISTRO} minutos.`);
+    }
+    const hash = await bcrypt.hash(password, 12);
+    const u = await repo.crearUsuario(nombre, email, hash);
+    if (!u) throw new ErrorHttp(409, 'Ya existe una cuenta con ese correo. Inicia sesión.');
+    const token = jwt.sign({ nombre: u.nombre }, op.jwtSecret, { algorithm: 'HS256', subject: String(u.id), expiresIn: DURACION_SESION_S });
+    res.cookie(COOKIE, token, { ...opcionesCookie, maxAge: DURACION_SESION_S * 1000 });
+    res.status(201).json({ id: u.id, nombre: u.nombre, email: u.email });
   });
 
   r.post('/auth/logout', (_req, res) => {

@@ -51,6 +51,8 @@ export interface Repo {
   buscarUsuarioPorEmail(email: string): Promise<UsuarioLogin | null>;
   registrarIntentoFallido(usuarioId: number, intentos: number, bloqueadoHasta: Date | null): Promise<void>;
   limpiarIntentos(usuarioId: number): Promise<void>;
+  /** Crea la cuenta; devuelve null si el correo ya está registrado. */
+  crearUsuario(nombre: string, email: string, passwordHash: string): Promise<{ id: number; nombre: string; email: string } | null>;
   listarComentarios(restauranteId: number): Promise<Comentario[]>;
   obtenerComentario(id: number): Promise<Comentario | null>;
   crearComentario(restauranteId: number, usuarioId: number, texto: string): Promise<Comentario>;

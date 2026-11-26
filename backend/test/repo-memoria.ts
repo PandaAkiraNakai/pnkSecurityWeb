@@ -28,6 +28,12 @@ export async function crearRepoMemoria() {
     async obtenerRestaurante(id) { return id === 1 ? restaurante : null; },
     async buscarUsuarioPorEmail(email) { const u = usuarios.find((x) => x.email === email); return u ? { ...u } : null; },
     async registrarIntentoFallido(id, intentos, hasta) { const u = usuarios.find((x) => x.id === id)!; u.intentosFallidos = intentos; u.bloqueadoHasta = hasta; },
+    async crearUsuario(nombre, email, passwordHash) {
+      if (usuarios.some((u) => u.email === email)) return null;
+      const u = { id: usuarios.length + 1, nombre, email, passwordHash, activo: true, intentosFallidos: 0, bloqueadoHasta: null };
+      usuarios.push(u);
+      return { id: u.id, nombre, email };
+    },
     async limpiarIntentos(id) { const u = usuarios.find((x) => x.id === id)!; u.intentosFallidos = 0; u.bloqueadoHasta = null; },
     async listarComentarios(rid) { return comentarios.filter((c) => c.restauranteId === rid).sort((a, b) => b.creado.getTime() - a.creado.getTime()); },
     async obtenerComentario(id) { return comentarios.find((c) => c.id === id) ?? null; },

@@ -67,6 +67,7 @@ const MENSAJES_POR_ESTADO: Record<number, string> = {
   401: 'Debes iniciar sesión',
   403: 'No tienes permiso para hacer esto',
   404: 'No se encontró lo que buscas',
+  409: 'Ese dato ya está registrado',
   415: 'Formato de la petición no permitido',
   429: 'Demasiados intentos; espera un momento',
   500: 'Error del servidor; inténtalo más tarde',
@@ -113,6 +114,7 @@ async function pedir<T>(metodo: string, ruta: string, cuerpo?: unknown): Promise
 export const api = {
   yo: () => pedir<Usuario>('GET', '/auth/yo'),
   login: (email: string, password: string) => pedir<Usuario>('POST', '/auth/login', { email, password }),
+  registro: (datos: { nombre: string; email: string; password: string }) => pedir<Usuario>('POST', '/auth/registro', datos),
   logout: () => pedir<void>('POST', '/auth/logout'),
   restaurante: (id: number) => pedir<Restaurante>('GET', `/restaurantes/${id}`),
   comentarios: (idRestaurante: number) => pedir<Comentario[]>('GET', `/restaurantes/${idRestaurante}/comentarios`),

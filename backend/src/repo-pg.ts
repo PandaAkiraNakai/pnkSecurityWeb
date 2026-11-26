@@ -83,6 +83,14 @@ export class RepoPg implements Repo {
     await this.pool.query('UPDATE usuarios SET intentos_fallidos = 0, bloqueado_hasta = NULL WHERE id = $1', [usuarioId]);
   }
 
+  async crearUsuario(nombre: string, email: string, passwordHash: string) {
+    // ON CONFLICT: dos registros simultáneos con el mismo correo no fallan con error 500
+    const r = await this.pool.query(
+      `INSERT INTO usuarios (nombre, email, password_hash) VALUES ($1, $2, $3)
+       ON CONFLICT (email) DO NOTHING RETURNING id, nombre, email`, [nombre, email, passwordHash]);
+    return r.rows[0] ?? null;
+  }
+
   async listarComentarios(restauranteId: number): Promise<Comentario[]> {
     const r = await this.pool.query(`${SQL_COMENTARIO} WHERE c.restaurante_id = $1 ORDER BY c.creado DESC, c.id DESC LIMIT 100`, [restauranteId]);
     return r.rows.map(aComentario);

@@ -442,3 +442,83 @@ textarea {
 .pie-creditos a {
   color: inherit;
 }
+
+/* Ventana de registro */
+.modal-fondo {
+  position: fixed;
+  inset: 0;
+  background: rgb(15 20 25 / 55%);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 50;
+}
+
+.modal {
+  background: var(--tarjeta);
+  border-radius: var(--radio);
+  border-top: 4px solid var(--rojo);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 25%);
+  width: min(440px, 100%);
+  padding: 1.5rem;
+}
+
+.modal-ayuda {
+  margin: 0 0 1rem;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+.registro-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.registro-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.registro-form input {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+}
+
+.registro-form input:focus {
+  outline: 2px solid var(--rojo);
+  outline-offset: 1px;
+}
+
+.registro-form small {
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.modal-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Restaurante inexistente */
+.no-encontrado {
+  max-width: 520px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.no-encontrado p {
+  color: var(--texto-suave);
+  margin: 0 0 1.25rem;
+}
+
+a.boton {
+  display: inline-block;
+  text-decoration: none;
+}

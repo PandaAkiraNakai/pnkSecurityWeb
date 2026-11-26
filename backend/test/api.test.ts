@@ -168,3 +168,71 @@ describe('carta', () => {
     expect(r.body.cartas[0].categorias[0].items[0]).toMatchObject({ nombre: 'Lomo a lo pobre', precio: 12500 });
   });
 });
+
+describe('registro de cuentas', () => {
+  const nueva = { nombre: 'Camila Pérez', email: 'Camila@Pnk.test', password: 'Una-clave-larga-1' };
+
+  it('crea la cuenta (201), guarda solo el hash y deja la sesión iniciada', async () => {
+    const r = await request(app).post('/api/auth/registro').send(nueva);
+    expect(r.status).toBe(201);
+    expect(r.body).toEqual({ id: 4, nombre: 'Camila Pérez', email: 'camila@pnk.test' });
+    const guardada = ctx.usuarios.find((u) => u.email === 'camila@pnk.test')!;
+    expect(guardada.passwordHash).toMatch(/^\$2[aby]\$12\$/);
+    expect(guardada.passwordHash).not.toContain(nueva.password);
+    const cookie = ([] as string[]).concat(r.headers['set-cookie'] ?? [])[0]!;
+    expect(cookie).toMatch(/HttpOnly/i);
+    expect(cookie).toMatch(/SameSite=Strict/i);
+    const yo = await request(app).get('/api/auth/yo').set('Cookie', cookie.split(';')[0]!);
+    expect(yo.body).toMatchObject({ id: 4, nombre: 'Camila Pérez' });
+  });
+  it('la cuenta nueva puede iniciar sesión y comentar', async () => {
+    await request(app).post('/api/auth/registro').send(nueva);
+    const login = await request(app).post('/api/auth/login').send({ email: 'camila@pnk.test', password: nueva.password });
+    expect(login.status).toBe(200);
+    const cookie = ([] as string[]).concat(login.headers['set-cookie'] ?? [])[0]!.split(';')[0]!;
+    const c = await request(app).post('/api/restaurantes/1/comentarios').set('Cookie', cookie).send({ texto: 'Primera visita' });
+    expect(c.status).toBe(201);
+    expect(c.body.autor).toBe('Camila Pérez');
+  });
+  it('un correo ya registrado responde 409 y no crea otra cuenta', async () => {
+    const r = await request(app).post('/api/auth/registro').send({ ...nueva, email: 'alondra@pnk.test' });
+    expect(r.status).toBe(409);
+    expect(r.headers['set-cookie']).toBeUndefined();
+    expect(ctx.usuarios.filter((u) => u.email === 'alondra@pnk.test')).toHaveLength(1);
+  });
+  it.each([
+    ['contraseña corta', { password: 'corta-1' }],
+    ['contraseña de más de 72 bytes', { password: 'ñ'.repeat(37) }],
+    ['contraseña con el correo', { email: 'camila@pnk.test', password: 'camila-2026-segura' }],
+    ['nombre con HTML', { nombre: '<script>alert(1)</script>' }],
+    ['nombre de una letra', { nombre: 'C' }],
+    ['correo inválido', { email: 'camila' }],
+    ['campo extra para activarse o ser admin', { admin: true }],
+  ])('rechaza %s (400) y no crea la cuenta', async (_n, cambio) => {
+    const antes = ctx.usuarios.length;
+    const r = await request(app).post('/api/auth/registro').send({ ...nueva, ...cambio });
+    expect(r.status).toBe(400);
+    expect(ctx.usuarios.length).toBe(antes);
+  });
+  it('limita los registros por IP (429)', async () => {
+    const limitada = crearApp(ctx.repo, { ...OPCIONES, maxRegistrosPorVentana: 2 });
+    for (let i = 0; i < 2; i++) {
+      const r = await request(limitada).post('/api/auth/registro').send({ ...nueva, email: `c${i}@pnk.test` });
+      expect(r.status).toBe(201);
+    }
+    const r = await request(limitada).post('/api/auth/registro').send({ ...nueva, email: 'c9@pnk.test' });
+    expect(r.status).toBe(429);
+    expect(ctx.usuarios.some((u) => u.email === 'c9@pnk.test')).toBe(false);
+  });
+  it('los datos inválidos (400) no consumen intentos del límite', async () => {
+    const limitada = crearApp(ctx.repo, { ...OPCIONES, maxRegistrosPorVentana: 1 });
+    for (let i = 0; i < 3; i++) {
+      expect((await request(limitada).post('/api/auth/registro').send({ ...nueva, password: 'corta' })).status).toBe(400);
+    }
+    expect((await request(limitada).post('/api/auth/registro').send(nueva)).status).toBe(201);
+  });
+  it('rechaza el registro enviado como formulario (415)', async () => {
+    const r = await request(app).post('/api/auth/registro').type('form').send('nombre=x&email=x@x.cl&password=1234567890');
+    expect(r.status).toBe(415);
+  });
+});
