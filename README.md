@@ -16,6 +16,16 @@ La aplicación se reescribió con otra tecnología:
 
 El código PHP anterior (`public/`, `app/`, `Script_BD/`) queda en el repositorio solo como referencia.
 
+## Usuarios de prueba
+
+| Usuario | Correo | Contraseña |
+| --- | --- | --- |
+| Alondra | `alondra@pnk.test` | `Pnk-Prueba-2026` |
+| Bruno | `bruno@pnk.test` | `Pnk-Prueba-2026` |
+
+Son cuentas ficticias, solo para desarrollo y demostración (en la base solo se guarda su hash bcrypt).
+Con dos cuentas se prueba la autorización: Bruno no puede editar ni borrar los comentarios de Alondra.
+
 ## Estructura
 
 | Carpeta | Qué es |
@@ -55,11 +65,6 @@ Para reiniciar la base desde cero: `docker compose -f compose.u3.yaml down -v`.
 | `cd backend && npm test` | 24 pruebas de la API sin base de datos: validación, login, bloqueo por intentos, cookie, autorización por dueño y datos que no se exponen |
 | `cd frontend && npm test` | Validación del comentario y formato de precios |
 | `scripts/u3/avance1.sh [URL]` | Recorrido completo contra la API y PostgreSQL reales: rechazos 400, 401, 403 y 415, y persistencia de un comentario |
-
-### Cuentas de prueba
-
-Ficticias, solo para desarrollo y demostración: `alondra@pnk.test` y `bruno@pnk.test`, ambas con la
-contraseña `Pnk-Prueba-2026`. En la base solo se guarda su hash bcrypt.
 
 ## API
 
