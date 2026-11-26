@@ -17,6 +17,7 @@ export default function App() {
   const [restaurante, setRestaurante] = useState<Restaurante | null>(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [noEncontrado, setNoEncontrado] = useState(false);
 
   useEffect(() => {
     api
@@ -36,7 +37,10 @@ export default function App() {
         setRestaurante(r);
         document.title = `${r.nombre} · PNKSecurity`;
       })
-      .catch((e: unknown) => setError(mensajeDeError(e)))
+      .catch((e: unknown) => {
+        if (e instanceof ErrorApi && e.status === 404) setNoEncontrado(true);
+        else setError(mensajeDeError(e));
+      })
       .finally(() => setCargando(false));
   }, [idRestaurante]);
 
@@ -44,7 +48,8 @@ export default function App() {
     <>
       <header className="cabecera">
         <div className="contenedor cabecera-contenido">
-          <a className="marca" href={`/?id=${idRestaurante}`}>
+          {/* El logo siempre lleva a la página principal, aunque el restaurante actual no exista */}
+          <a className="marca" href="/">
             <img src="/img/logo.png" alt="" className="marca-logo" />
             <span>{restaurante?.nombre ?? 'PNKSecurity'}</span>
           </a>
@@ -59,6 +64,15 @@ export default function App() {
           </Aviso>
         )}
         {cargando && <p className="vacio">Cargando la carta…</p>}
+        {noEncontrado && (
+          <section className="tarjeta no-encontrado">
+            <h2>Restaurante no encontrado</h2>
+            <p>La carta que buscas no existe o ya no está disponible.</p>
+            <a className="boton" href="/">
+              Ir a la página principal
+            </a>
+          </section>
+        )}
         {restaurante && (
           <div className="columnas">
             <CartaRestaurante restaurante={restaurante} />

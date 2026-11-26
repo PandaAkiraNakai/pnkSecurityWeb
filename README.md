@@ -25,6 +25,7 @@ El código PHP anterior (`public/`, `app/`, `Script_BD/`) queda en el repositori
 
 Son cuentas ficticias, solo para desarrollo y demostración (en la base solo se guarda su hash bcrypt).
 Con dos cuentas se prueba la autorización: Bruno no puede editar ni borrar los comentarios de Alondra.
+También puedes crear tu propia cuenta con el botón **Crear cuenta** de la cabecera.
 
 ## Estructura
 
@@ -62,15 +63,22 @@ Para reiniciar la base desde cero: `docker compose -f compose.u3.yaml down -v`.
 
 | Comando | Qué prueba |
 | --- | --- |
-| `cd backend && npm test` | 24 pruebas de la API sin base de datos: validación, login, bloqueo por intentos, cookie, autorización por dueño y datos que no se exponen |
-| `cd frontend && npm test` | Validación del comentario y formato de precios |
+| `cd backend && npm test` | 37 pruebas de la API sin base de datos: validación, registro, login, bloqueo por intentos, cookie, autorización por dueño y datos que no se exponen |
+| `cd frontend && npm test` | Validación del comentario y del registro, y formato de precios |
 | `scripts/u3/avance1.sh [URL]` | Recorrido completo contra la API y PostgreSQL reales: rechazos 400, 401, 403 y 415, y persistencia de un comentario |
+
+### Ver la base de datos
+
+`scripts/u3/ver_bd.sh` abre [pgweb](https://github.com/sosedoff/pgweb) en http://127.0.0.1:8081: una página
+para revisar tablas y hacer consultas, en **solo lectura** y accesible solo desde el mismo equipo
+(necesita el binario de pgweb en `~/.local/share/pgweb/pgweb`).
 
 ## API
 
 | Método y ruta | Sesión | Respuesta |
 | --- | --- | --- |
 | `GET /api/health` | No | Estado y versión desplegada |
+| `POST /api/auth/registro` | No | 201 y sesión iniciada · 400 si los datos no cumplen las reglas · 409 si el correo ya existe · 429 tras 10 intentos por hora desde la misma IP |
 | `POST /api/auth/login` | No | 200 y cookie de sesión · 400 · 401 · 429 tras 5 intentos fallidos (15 min) |
 | `POST /api/auth/logout` · `GET /api/auth/yo` | Sí | 204 · datos de la sesión o 401 |
 | `GET /api/restaurantes/:id` | No | Restaurante con su carta (solo lo visible) |
@@ -88,11 +96,12 @@ Los errores siempre llegan como `{"error": "mensaje"}`, sin detalles internos de
 | Consultas SQL parametrizadas; ningún dato del usuario se concatena al SQL | `backend/src/repo-pg.ts` |
 | Contraseñas con bcrypt (costo 12) y mismo mensaje y tiempo de respuesta si el correo no existe | `backend/src/app.ts` |
 | Bloqueo de la cuenta 15 minutos tras 5 intentos fallidos | `backend/src/app.ts` |
+| Registro: nombre solo con letras, contraseña de 10 caracteres a 72 bytes que no contenga el correo, campos extra rechazados (nadie puede crearse como administrador o activarse solo) y límite de intentos por IP | `backend/src/app.ts` |
 | Sesión firmada (HS256, 2 h) en cookie `HttpOnly`, `SameSite=Strict` y `Secure` detrás de HTTPS | `backend/src/app.ts`, `.env` |
 | Los cambios solo se aceptan como JSON (415): un formulario de otro sitio no puede enviarlos | `backend/src/app.ts` |
 | Autorización por dueño: editar o borrar un comentario ajeno responde 403, comprobado también en el `WHERE` | `backend/src/app.ts`, `backend/src/repo-pg.ts` |
 | Cabeceras de seguridad (CSP, nosniff, frame-ancestors) y `Cache-Control: no-store` | `backend/src/app.ts` (helmet) |
-| Cuenta de aplicación con permisos mínimos: solo lectura de la carta y permisos por columna en usuarios y comentarios | `db/migraciones/001_esquema_inicial.sql` |
+| Cuenta de aplicación con permisos mínimos: solo lectura de la carta y permisos por columna en usuarios (crear con nombre, correo y hash; nada más) y comentarios | `db/migraciones/001_esquema_inicial.sql`, `004_registro_de_usuarios.sql` |
 | Migraciones con una cuenta aparte, dueña del esquema; la API no puede crear ni borrar tablas | `backend/src/migrar.ts` |
 | Restricciones en la base: claves foráneas, `CHECK` de largos, precios y puntuación, correos en minúscula | `db/migraciones/001_esquema_inicial.sql` |
 | React muestra los comentarios como texto (nunca HTML) y no guarda tokens: la sesión la maneja la cookie | `frontend/src/` |
